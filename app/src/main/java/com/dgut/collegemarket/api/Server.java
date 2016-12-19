@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.api.entity;
+package com.dgut.collegemarket.api;
 
 import java.io.Serializable;
 import java.net.CookieManager;
