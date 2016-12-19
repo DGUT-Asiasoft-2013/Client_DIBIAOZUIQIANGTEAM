@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <fragment
+                android:id="@+id/fragment_account"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                ></fragment>
+
+            <fragment
+                android:id="@+id/fragment_password"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                ></fragment>
+
+            <fragment
+                android:id="@+id/fragment_password2"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                ></fragment>
+
+            <fragment
+                android:id="@+id/fragment_email"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                ></fragment>
+            <fragment
+                android:id="@+id/fragment_name"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                ></fragment>
+            <fragment
+                android:id="@+id/fragment_pictrue"
+                class="com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></fragment>
+
+            <Button
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#1da1f9"
+                android:text="注册"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
