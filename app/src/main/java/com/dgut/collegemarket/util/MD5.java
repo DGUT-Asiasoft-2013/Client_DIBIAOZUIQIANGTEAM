@@ -8,7 +8,7 @@ public class MD5 {
 	public static String getMD5(String val){  
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			md5.update(val.getBytes());  
+			md5.update(val.getBytes());
 			byte[] m = md5.digest();//����  
 			return getString(m);  
 		} catch (NoSuchAlgorithmException e) {

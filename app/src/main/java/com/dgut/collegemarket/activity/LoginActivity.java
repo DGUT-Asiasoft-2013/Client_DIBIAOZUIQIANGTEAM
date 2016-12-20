@@ -90,6 +90,7 @@ public class LoginActivity extends FragmentActivity {
                 .addFormDataPart("account", account.getText())
                 .addFormDataPart("passwordHash", MD5.getMD5(password.getText()));//密码加密
 
+
         Request request = Server.requestBuilderWithApi("login")
                 .post(multipartBuilder.build())
                 .build();
@@ -110,7 +111,14 @@ public class LoginActivity extends FragmentActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 progressDialog.dismiss();
                 final String result = response.body().string();
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

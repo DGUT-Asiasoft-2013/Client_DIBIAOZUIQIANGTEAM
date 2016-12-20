@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
@@ -62,6 +63,9 @@ public class RegisterActivity extends Activity {
 
     private void submit() {
 
+        if(!isInputCorrect()){
+            return;
+        }
         String accountS = account.getText();
         String passwordS = password.getText();
         String passwordRepeatS = passwordRepeat.getText();
@@ -73,13 +77,6 @@ public class RegisterActivity extends Activity {
             return;
         }
         passwordS= MD5.getMD5(passwordS);
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("注册中");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
 
         OkHttpClient client = new OkHttpClient();
 
@@ -96,10 +93,15 @@ public class RegisterActivity extends Activity {
                                     MediaType.parse("image/png")
                                     , pictrue.getPngData()));
 
-        final Request request = new Request.Builder()
-                .url("http://172.27.0.35:8080/membercenter/api/register")
+        final Request request = Server.requestBuilderWithApi("register")
                 .post(multipartBuilder.build())
                 .build();
+
+        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.setMessage("注册中");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -127,8 +129,6 @@ public class RegisterActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
-
                             new AlertDialog.Builder(RegisterActivity.this)
                                     .setTitle("注册成功")
                                     .setMessage("注册信息：" + result)
@@ -140,14 +140,34 @@ public class RegisterActivity extends Activity {
                                         }
                                     })
                                     .show();
-
-
                         }
                     });
 
                 }
             }
         });
+
+    }
+
+    private boolean isInputCorrect() {
+        if (account.getText().equals("")) {
+            account.setLayoutError("用户名不能为空");
+            password.getText();//清除上一次密码为空的提示
+            return false;
+        } else if (password.getText().equals("")) {
+            password.setLayoutError("密码不能为空");
+            return false;
+        } else if(passwordRepeat.getText().equals("")){
+            passwordRepeat.setLayoutError("重复密码不能为空");
+            return false;
+        } else if(email.getText().equals("")){
+            email.setLayoutError("邮箱地址不能为空");
+            return false;
+        } else if(name.getText().equals("")){
+            name.setLayoutError("昵称不能为空");
+            return false;
+        }
+        return true;
 
     }
 
