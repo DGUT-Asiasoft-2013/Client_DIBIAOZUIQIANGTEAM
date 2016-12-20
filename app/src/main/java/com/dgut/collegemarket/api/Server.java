@@ -31,7 +31,7 @@ public class Server {
 		return client;
 	}
 	
-	public static String serverAddress = "http://172.27.0.51:8080/CollegeMarket/";
+	public static String serverAddress = "http://172.27.0.22:8080/CollegeMarket/";
 	
 	public static Request.Builder requestBuilderWithApi(String api){
 		return new Request.Builder()

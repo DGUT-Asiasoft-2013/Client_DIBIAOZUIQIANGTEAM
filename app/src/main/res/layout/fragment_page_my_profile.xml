@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
- >
-
+    android:layout_height="match_parent">
 
 
     <RelativeLayout
@@ -24,12 +23,11 @@
             android:padding="10dp">
 
 
-
             <TextView
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="吴泽恩"
+                android:text=""
                 android:textColor="#3f8acf" />
 
 
@@ -48,9 +46,9 @@
         android:id="@+id/item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/linear_me"
-        android:layout_alignParentStart="true">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -72,34 +70,101 @@
                 android:id="@+id/passwordRecover"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="修改密码"
-                android:textColor="#000000"
                 android:layout_alignBaseline="@+id/myComment"
                 android:layout_alignBottom="@+id/myComment"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:text="修改密码"
+                android:textColor="#000000" />
 
             <Button
                 android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="退出"
-                android:textColor="#000000"
-                android:layout_marginStart="25dp"
                 android:layout_alignBaseline="@+id/passwordRecover"
                 android:layout_alignBottom="@+id/passwordRecover"
-                android:layout_toEndOf="@+id/passwordRecover" />
+                android:layout_marginStart="25dp"
+                android:layout_toEndOf="@+id/passwordRecover"
+                android:text="退出"
+                android:textColor="#000000" />
 
             <Button
                 android:id="@+id/myComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="评价"
-                android:textColor="#000000"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="25dp"
                 android:layout_toStartOf="@+id/passwordRecover"
-                android:layout_marginEnd="25dp" />
+                android:text="评价"
+                android:textColor="#000000" />
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/progressBar"
+            android:layout_below="@+id/item"
+           >
+
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/imageView2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/post_pressed" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查询消费和收入记录"
+                android:textColor="#000"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageView2"
+                android:layout_marginStart="10dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/progressBar"
+            android:layout_below="@+id/item"
+            >
+
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/imageView3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/order_pressed" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查询订阅和私信记录"
+                android:textColor="#000"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageView3"
+                android:layout_marginStart="10dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray" />
+
     </LinearLayout>
 
     <ProgressBar
