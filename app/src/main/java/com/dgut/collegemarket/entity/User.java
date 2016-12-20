@@ -1,12 +1,14 @@
 package com.dgut.collegemarket.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2016/12/20.
  */
 
 public class User implements Serializable{
+    int id;
     String account;
     String passwordHash;
     String name;//昵称
@@ -14,6 +16,8 @@ public class User implements Serializable{
     String email;//邮箱地址
     int xp;//经验值
     double coin;//金币
+    Date createDate;
+    Date editDate;
 
     public String getAccount() {
         return account;
@@ -69,5 +73,29 @@ public class User implements Serializable{
 
     public void setCoin(double coin) {
         this.coin = coin;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(Date editDate) {
+        this.editDate = editDate;
     }
 }

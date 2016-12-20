@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     PostListFragment contentNoteList;
     OrderListFragment contentSearchPage;
     MyProfileFragment contentMyProfile;
-
+    int currentId = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        tabbarFragment.setSelectTab(0);
+        if(currentId < 0) {
+            tabbarFragment.setSelectTab(0);
+        }
 
     }
 
@@ -51,6 +53,7 @@ public class MainActivity extends Activity {
         Fragment newFrag = null;
         switch (index) {
             case 0:
+                currentId = 0;
                 if (contentFeedList == null) {
                     contentFeedList = new GoodsListFragment();
                     transition.add(R.id.page_content, contentFeedList);
