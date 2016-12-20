@@ -9,8 +9,8 @@
     <!--<item android:drawable="@android:color/transparent">-->
     <!--</item>-->
 
-    <item android:drawable="@drawable/goods_pressed"
+    <item android:drawable="@drawable/order_pressed"
         android:state_selected="true"></item>
-    <item android:drawable="@drawable/goods"></item>
+    <item android:drawable="@drawable/order"></item>
 
 </selector>

@@ -30,7 +30,6 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
 
 
     TextView lable;
-    TextView hint;
     ImageView imageView;
 
 
@@ -39,7 +38,6 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
         View view = inflater.inflate(R.layout.fragment_inputcell_pictrue, container, false);
 
         lable = (TextView) view.findViewById(R.id.labletext);
-        hint = (TextView) view.findViewById(R.id.hinttext);
         imageView = (ImageView) view.findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +91,7 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
 
     @Override
     public void setHintText(String hinttext) {
-        hint.setText(hinttext);
+
     }
 
     @Override
