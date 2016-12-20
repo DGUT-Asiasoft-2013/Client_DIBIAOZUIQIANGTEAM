@@ -1,181 +1,176 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+ >
+
 
 
     <RelativeLayout
         android:id="@+id/linear_me"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimary"
         android:layout_alignParentTop="true"
-        android:background="#ababab">
+        android:layout_alignParentStart="true">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <com.dgut.collegemarket.fragment.widgets.AvatarView
+            android:id="@+id/av_user"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#3f8acf" />
-
-
-        </LinearLayout>
-
+            android:text="用户名"
+            android:textColor="@color/colorAccent"
+            android:layout_alignTop="@+id/av_user"
+            android:layout_toRightOf="@+id/av_user"
+            android:layout_marginLeft="20dp"
+            />
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_user_name"
+            android:text="Lv:1"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:layout_alignLeft="@+id/tv_user_name"
+            android:layout_marginTop="10dp"/>
+        <ProgressBar
+            android:id="@+id/progressBar5"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:max="100"
+            android:progress="50"
+            android:layout_marginLeft="5dp"
+            android:layout_alignBottom="@+id/tv_level"
+            android:layout_toEndOf="@+id/tv_level" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50/100"
+            android:layout_marginLeft="5dp"
+            android:layout_alignBottom="@+id/progressBar5"
+            android:layout_toEndOf="@+id/progressBar5" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_gravity="bottom"
-            android:background="@android:color/background_dark"></View>
+            android:background="@android:color/background_dark">
+        </View>
+
     </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_height="100dp"
+        android:background="@android:color/white"
         android:layout_below="@+id/linear_me"
-        android:orientation="vertical">
-
+        android:orientation="horizontal">
         <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/item">
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="bottom"
-                android:background="@android:color/background_dark"></View>
-
-            <Button
-                android:id="@+id/passwordRecover"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/myComment"
-                android:layout_alignBottom="@+id/myComment"
                 android:layout_centerHorizontal="true"
-                android:text="修改密码"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/passwordRecover"
-                android:layout_alignBottom="@+id/passwordRecover"
-                android:layout_marginStart="25dp"
-                android:layout_toEndOf="@+id/passwordRecover"
-                android:text="退出"
-                android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/myComment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="25dp"
-                android:layout_toStartOf="@+id/passwordRecover"
-                android:text="评价"
-                android:textColor="#000000" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignEnd="@+id/progressBar"
-            android:layout_below="@+id/item"
-           >
-
-            <ImageView
-                android:layout_margin="10dp"
-                android:id="@+id/imageView2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/post_pressed" />
-
+                android:text="12.13"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:layout_marginTop="30dp"/>
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="查询消费和收入记录"
-                android:textColor="#000"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/imageView2"
-                android:layout_marginStart="10dp" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="@android:color/darker_gray" />
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignEnd="@+id/progressBar"
-            android:layout_below="@+id/item"
-            >
-
-            <ImageView
-                android:layout_margin="10dp"
-                android:id="@+id/imageView3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/order_pressed" />
-
+                android:text="元"
+                android:textSize="12sp"
+                android:textColor="@color/colorAccent"
+                android:layout_toRightOf="@+id/tv_money"
+                android:layout_alignBottom="@+id/tv_money"/>
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="查询订阅和私信记录"
-                android:textColor="#000"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/imageView3"
-                android:layout_marginStart="10dp" />
+                android:text="余额"
+                android:textSize="12sp"
+                android:layout_below="@+id/tv_money"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                />
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="@android:color/darker_gray" />
-
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp">
+            <TextView
+                android:id="@+id/tv_money1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="12.13"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
+                android:textSize="12sp"
+                android:textColor="@color/colorAccent"
+                android:layout_toRightOf="@+id/tv_money1"
+                android:layout_alignBottom="@+id/tv_money1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额"
+                android:textSize="12sp"
+                android:layout_below="@+id/tv_money1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_money2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="12.13"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
+                android:textSize="12sp"
+                android:textColor="@color/colorAccent"
+                android:layout_toRightOf="@+id/tv_money2"
+                android:layout_alignBottom="@+id/tv_money2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额"
+                android:textSize="12sp"
+                android:layout_below="@+id/tv_money2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                />
+        </RelativeLayout>
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="87dp" />
+
+
 
 
 </RelativeLayout>

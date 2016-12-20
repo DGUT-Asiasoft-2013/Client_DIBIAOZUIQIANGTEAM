@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.entity.User;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -111,11 +112,13 @@ public class LoginActivity extends FragmentActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 progressDialog.dismiss();
                 final String result = response.body().string();
+                final User user = new ObjectMapper().readValue(result,User.class);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("user",user);
                         startActivity(intent);
                         finish();
                     }

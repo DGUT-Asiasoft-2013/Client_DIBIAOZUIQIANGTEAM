@@ -20,9 +20,9 @@
         </activity>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity" />
-        <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity" />
-        <activity android:name=".activity.ContentRecordsActivity"></activity>
+        <activity android:name=".activity.GoodsAddActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.GoodsAddActivity;
+import com.dgut.collegemarket.util.AnimationEffec;
 
 
 /**
@@ -18,7 +21,7 @@ public class MainTabbarFragment extends Fragment {
 
     View btnNew, tabFeeds, tabNotes, tabSearch, tabMe;
     View[] tabs;
-
+    ImageView image;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class MainTabbarFragment extends Fragment {
         tabNotes = view.findViewById(R.id.tab_notes);
         tabSearch = view.findViewById(R.id.tab_search);
         tabMe = view.findViewById(R.id.tab_me);
-
+        image = (ImageView) view.findViewById(R.id.img_add);
 
         tabs = new View[]{
                 tabFeeds, tabNotes, tabSearch, tabMe
@@ -45,12 +48,7 @@ public class MainTabbarFragment extends Fragment {
             });
         }
 
-        btnNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         return view;
     }
@@ -65,23 +63,47 @@ public class MainTabbarFragment extends Fragment {
 
     OnTabSelectedListener onTabSelectedListener;
 
-    public void setSelectTab(int index){
+    public void setSelectTab(int index) {
         onTabClicked(tabs[index]);
     }
 
+    View currentTab;
+
     void onTabClicked(View tab) {
         int selectedIndex = -1;
+        if (currentTab == tab)
+            return;
+        currentTab = tab;
         for (int i = 0; i < tabs.length; i++) {
             View otherTab = tabs[i];
             if (otherTab == tab) {
                 otherTab.setSelected(true);
                 selectedIndex = i;
 
-            } else
+            } else {
                 otherTab.setSelected(false);
+            }
         }
         if (onTabSelectedListener != null && selectedIndex >= 0) {
             onTabSelectedListener.onTabSelected(selectedIndex);
+        }
+        if (selectedIndex == 0) {
+            AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
+            image.setImageResource(R.drawable.sale_pressed);
+            btnNew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(), GoodsAddActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
+                }
+            });
+
+        } else if (selectedIndex == 1) {
+            AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
+            image.setImageResource(R.drawable.post_blue);
+        } else {
+            AnimationEffec.AddAlphaAniFade(image);
         }
 
     }
