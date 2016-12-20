@@ -36,8 +36,8 @@ public class LoginActivity extends FragmentActivity {
 
     SimpleTextInputCellFragment account;
     SimpleTextInputCellFragment password;
-    Button login, register;
-    TextView recover;
+    Button login;
+    TextView recover,register;
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class LoginActivity extends FragmentActivity {
         login = (Button) findViewById(R.id.username_sign_in_button);
         recover = (TextView) findViewById(R.id.password_recover);
 
-        register = (Button) findViewById(R.id.register);
+        register = (TextView) findViewById(R.id.register);
         login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

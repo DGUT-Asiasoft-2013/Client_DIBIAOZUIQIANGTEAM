@@ -6,11 +6,19 @@
     android:layout_height="match_parent">
 
 
+    <fragment
+        android:id="@+id/fragment_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        class="com.dgut.collegemarket.fragment.widgets.TitleBarFragment"
+        tools:layout="@layout/fragment_titlebar" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+
+        android:layout_below="@+id/fragment_titlebar">
 
 
         <LinearLayout
@@ -25,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                ></fragment>
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
             <fragment
                 android:id="@+id/fragment_password"
@@ -33,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                ></fragment>
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
             <fragment
                 android:id="@+id/fragment_password2"
@@ -41,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                ></fragment>
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
             <fragment
                 android:id="@+id/fragment_email"
@@ -49,26 +57,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                ></fragment>
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
             <fragment
                 android:id="@+id/fragment_name"
                 class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                ></fragment>
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
             <fragment
                 android:id="@+id/fragment_pictrue"
                 class="com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></fragment>
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_inputcell_pictrue"></fragment>
 
             <Button
                 android:id="@+id/register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="#1da1f9"
+                android:background="@drawable/btn_login"
                 android:text="注册"
                 android:textColor="@android:color/white" />
 

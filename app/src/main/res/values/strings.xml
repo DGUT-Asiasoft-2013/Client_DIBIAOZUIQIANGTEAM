@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">大超</string>
-    
+    <string name="collegemarket">大学生超市</string>
+    <string name="regist">注册</string>
+    <string name="forgetpassword">忘记密码？</string>
+    <string name="login">登录</string>
 
 </resources>

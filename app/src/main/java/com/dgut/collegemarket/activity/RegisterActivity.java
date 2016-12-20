@@ -12,6 +12,7 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
+import com.dgut.collegemarket.fragment.widgets.TitleBarFragment;
 import com.dgut.collegemarket.util.MD5;
 
 
@@ -36,7 +37,7 @@ public class RegisterActivity extends Activity {
 
     PictrueInputCellFragment pictrue;
     Button register;
-
+    TitleBarFragment titleBarFragment =new TitleBarFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class RegisterActivity extends Activity {
         pictrue = (PictrueInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
         name = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_name);
         email = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_email);
+        titleBarFragment = (TitleBarFragment) getFragmentManager().findFragmentById(R.id.fragment_titlebar);
 
         register = (Button) findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +60,8 @@ public class RegisterActivity extends Activity {
 
             }
         });
+        titleBarFragment.hideTitleBtn();
+        titleBarFragment.setTitleText("注册");
     }
 
 
