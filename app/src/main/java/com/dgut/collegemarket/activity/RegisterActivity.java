@@ -131,7 +131,6 @@ public class RegisterActivity extends Activity {
                         public void run() {
                             new AlertDialog.Builder(RegisterActivity.this)
                                     .setTitle("注册成功")
-                                    .setMessage("注册信息：" + result)
                                     .setCancelable(true)
                                     .setNegativeButton("马上登陆", new DialogInterface.OnClickListener() {
                                         @Override
