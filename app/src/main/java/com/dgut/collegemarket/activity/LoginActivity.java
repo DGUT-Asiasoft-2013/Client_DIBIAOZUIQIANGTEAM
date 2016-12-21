@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.entity.User;
+import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
 import com.fasterxml.jackson.databind.ObjectMapper;

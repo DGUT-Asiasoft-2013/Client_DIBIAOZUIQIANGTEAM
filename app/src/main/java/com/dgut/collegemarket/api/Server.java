@@ -32,7 +32,8 @@ public class Server {
 	}
 	
 //	public static String serverAddress = "http://172.27.0.51:8080/CollegeMarket/";
-	public static String serverAddress_wuzeen = "http://172.27.0.22:8080/CollegeMarket/";
+	public static String serverAddress_wuzeen = "http://172.27.0.23:8080/CollegeMarket/";
+	public static String serverAddress_zhongweiyuan = "http://172.27.0.22:8080/CollegeMarket/";
 	public static Request.Builder requestBuilderWithApi(String api){
 		return new Request.Builder()
 		.url(serverAddress_wuzeen+"api/"+api);

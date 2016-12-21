@@ -1,6 +1,7 @@
 package com.dgut.collegemarket.api.entity;
 
 import java.io.Serializable;
+import java.net.UnknownServiceException;
 import java.util.Date;
 
 /**
@@ -16,6 +17,16 @@ public class Goods  implements Serializable{
     Date createDate;
     Date editDate;
     String albums;
+    User publishers;//发布者
+
+
+    public User getPublishers() {
+        return publishers;
+    }
+
+    public void setPublishers(User publishers) {
+        this.publishers = publishers;
+    }
 
     public int getId() {
         return id;

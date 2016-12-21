@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.ContentRecordsActivity;
-import com.dgut.collegemarket.api.Page;
-import com.dgut.collegemarket.api.Records;
+import com.dgut.collegemarket.api.entity.Page;
+import com.dgut.collegemarket.api.entity.Records;
 import com.dgut.collegemarket.api.Server;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.api;
+package com.dgut.collegemarket.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
