@@ -17,7 +17,8 @@ import android.widget.TextView;
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.CheckConsumptionAndSalesRecordsActivity;
 import com.dgut.collegemarket.activity.CheckSubscriptionAndMessagesRecordsActivity;
-import com.dgut.collegemarket.entity.User;
+
+import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -52,7 +53,7 @@ public class MyProfileFragment extends Fragment {
             tvName.setText(user.getName());
 //            tvEmail.setText(user.getXp());
 
-            linearLayout = (LinearLayout) view.findViewById(R.id.LinearLayout1);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout1);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -60,7 +61,7 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
-            linearLayout = (LinearLayout) view.findViewById(R.id.LinearLayout2);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout2);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.api;
+package com.dgut.collegemarket.api.entity;
 
 import java.io.Serializable;
 import java.util.Date;

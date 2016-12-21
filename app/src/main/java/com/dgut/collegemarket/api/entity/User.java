@@ -1,13 +1,14 @@
-package com.dgut.collegemarket.entity;
+package com.dgut.collegemarket.api.entity;
+
+import java.util.Date;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by Administrator on 2016/12/20.
  */
 
-public class User implements Serializable{
+public class User implements Serializable {
     int id;
     String account;
     String passwordHash;
