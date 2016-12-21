@@ -60,7 +60,7 @@ public class TitleBarFragment extends Fragment{
     public void hideTitleBtn(){
         btnTitle.setVisibility(View.GONE);
     }
-    interface OnTitleBtnClickListener{
+    public interface OnTitleBtnClickListener{
         void onclick();
     }
 
