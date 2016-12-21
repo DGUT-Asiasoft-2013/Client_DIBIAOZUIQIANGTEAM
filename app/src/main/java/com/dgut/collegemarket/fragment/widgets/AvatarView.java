@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.entity.User;
+import com.dgut.collegemarket.api.entity.User;
 
 import okhttp3.Call;
 import okhttp3.Callback;

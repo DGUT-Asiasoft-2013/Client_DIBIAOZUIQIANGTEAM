@@ -77,7 +77,7 @@ public class GoodsAddActivity extends Activity {
                                     MediaType.parse("image/png")
                                     , pictrueFrag.getPngData()));
 
-        final Request request = Server.requestBuilderWithApi("register")
+        final Request request = Server.requestBuilderWithApi("goods/add")
                 .post(multipartBuilder.build())
                 .build();
 
@@ -96,6 +96,7 @@ public class GoodsAddActivity extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
                 final String result = response.body().string();
                 ObjectMapper mapper = new ObjectMapper();
                 final Goods goods = mapper.readValue(result, Goods.class);
@@ -135,5 +136,6 @@ public class GoodsAddActivity extends Activity {
         contentFrag.setHintText("描述");
         quantityFrag.setHintText("数量");
         priceFrag.setHintText("价格");
+        contentFrag.setLinesAndLength(5,200);
     }
 }
