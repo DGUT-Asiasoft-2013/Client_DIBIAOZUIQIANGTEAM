@@ -10,7 +10,7 @@
         android:layout_height="50dp">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/money"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="$Money"
@@ -27,7 +27,7 @@
             android:textColor="#aaa" />
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/cause"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

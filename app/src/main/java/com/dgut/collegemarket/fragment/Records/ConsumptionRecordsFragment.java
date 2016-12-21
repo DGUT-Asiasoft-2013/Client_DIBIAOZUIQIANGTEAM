@@ -104,8 +104,8 @@ public class ConsumptionRecordsFragment extends Fragment {
                 view = convertView;
             }
 
-            TextView textCoin = (TextView) view.findViewById(R.id.text);
-            TextView textCause = (TextView) view.findViewById(R.id.title);
+            TextView textCoin = (TextView) view.findViewById(R.id.money);
+            TextView textCause = (TextView) view.findViewById(R.id.cause);
             TextView textDate = (TextView) view.findViewById(R.id.date);
 
             Records records = data.get(position);
@@ -186,15 +186,15 @@ public class ConsumptionRecordsFragment extends Fragment {
                 });
 
                 try {
-                    Page<Records> feeds = new ObjectMapper().readValue(arg1.body().string(), new TypeReference<Page<Records>>() {
+                    Page<Records> records = new ObjectMapper().readValue(arg1.body().string(), new TypeReference<Page<Records>>() {
                     });
-                    if (feeds.getNumber() > page) {
+                    if (records.getNumber() > page) {
                         if (data == null) {
-                            data = feeds.getContent();
+                            data = records.getContent();
                         } else {
-                            data.addAll(feeds.getContent());
+                            data.addAll(records.getContent());
                         }
-                        page = feeds.getNumber();
+                        page = records.getNumber();
 
                         activity.runOnUiThread(new Runnable() {
                             public void run() {

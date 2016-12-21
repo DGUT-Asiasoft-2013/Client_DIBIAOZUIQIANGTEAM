@@ -5,21 +5,19 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-
     <LinearLayout
-        android:id="@+id/sales_records"
+        android:id="@+id/consumption_check"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/tab_goods_background"
-            />
+            android:src="@drawable/tab_goods_background" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,28 +25,5 @@
             android:text="消费记录"
             android:textColor="@android:color/black" />
     </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/income_records"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/tab_order_background"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="收入记录"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
 
 </LinearLayout>
