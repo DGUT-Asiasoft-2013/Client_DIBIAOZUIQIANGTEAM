@@ -112,6 +112,7 @@ public class LoginActivity extends FragmentActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 progressDialog.dismiss();
                 final String result = response.body().string();
+                System.out.println(result);
                 final User user = new ObjectMapper().readValue(result,User.class);
                 runOnUiThread(new Runnable() {
                     @Override
