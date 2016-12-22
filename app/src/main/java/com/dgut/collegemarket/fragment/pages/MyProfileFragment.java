@@ -137,8 +137,8 @@ public class MyProfileFragment extends Fragment {
                         tvName.setText(user.getName());
                         tvLevel.setText("Lv:"+ JudgeLevel.judege(user.getXp()));
                         tvXp.setText(user.getXp()+"/"+JudgeLevel.juderMax(user.getXp()));
-                        pbXp.setProgress(user.getXp());
                         pbXp.setMax(JudgeLevel.juderMax(user.getXp()));
+                        pbXp.setProgress(user.getXp());
                     }
                 });
             }

@@ -53,7 +53,7 @@ public class SimpleTextInputCellFragment extends BaseInputCelllFragment {
 
     @Override
     public void setLableText(String labletext) {
-        return;
+        edit.setText(labletext);
     }
 
     public void setHintText(String hintText) {

@@ -12,8 +12,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
@@ -25,7 +23,6 @@ import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.fragment.widgets.InfoListFragment;
-import com.dgut.collegemarket.fragment.widgets.TitleBarFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -68,9 +65,7 @@ public class UserInfoActivity extends Activity{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_userinfo);
-
         user = (User) getIntent().getSerializableExtra("user");
-
         tvTitle = (TextView) findViewById(R.id.tv_user_title);
         tvExit = (TextView) findViewById(R.id.tv_exit);
         userAvatar = (AvatarView) findViewById(R.id.av_user_avatar);
@@ -89,7 +84,7 @@ public class UserInfoActivity extends Activity{
                 finish();
             }
         });
-        userAvatar.load(user);
+
         rlAvatar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 onImageViewClicked();
@@ -101,6 +96,7 @@ public class UserInfoActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
+        userAvatar.load(user);
         fragmentUserName.setTvUserAttribute("昵称");
         fragmentUserName.setTvUserContent(user.getName());
         fragmentUserEmail.setTvUserAttribute("邮箱");
@@ -138,8 +134,8 @@ public class UserInfoActivity extends Activity{
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        uri = Uri.fromFile(getNewFile());
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//        uri = Uri.fromFile(getNewFile());
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, REQUESTCODE_CAMERA);
     }
 
@@ -157,9 +153,9 @@ public class UserInfoActivity extends Activity{
             return;
         }
         if (requestCode == REQUESTCODE_CAMERA) {
-//            bitmap = (Bitmap) data.getExtras().get("data");
-//            updateAvatar();
-            startPhotoZoom(data.getData());
+            bitmap = (Bitmap) data.getExtras().get("data");
+            updateAvatar();
+//            startPhotoZoom(data.getData());
 //            startPhotoZoom(uri);
         } else if (requestCode == REQUESTCODE_ALBUM) {
 //            startPhotoZoom(data.getData());
@@ -282,6 +278,7 @@ public class UserInfoActivity extends Activity{
                         @Override
                         public void run() {
                             Toast.makeText(UserInfoActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                            userAvatar.load(user);
                         }
                     });
                 }

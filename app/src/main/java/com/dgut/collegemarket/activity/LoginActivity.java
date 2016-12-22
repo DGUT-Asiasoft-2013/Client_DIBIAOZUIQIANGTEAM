@@ -1,8 +1,6 @@
 package com.dgut.collegemarket.activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
@@ -72,6 +70,9 @@ public class LoginActivity extends FragmentActivity {
 
             }
         });
+
+        account.setLableText("1");
+        password.setLableText("1");
     }
 
     private void loginHttpRequest() {
@@ -119,7 +120,6 @@ public class LoginActivity extends FragmentActivity {
                     public void run() {
                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                        intent.putExtra("user",user);
                         startActivity(intent);
                         finish();
                     }
