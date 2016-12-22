@@ -116,7 +116,7 @@ public class AvatarView extends View {
 			float dstWidth = getWidth();
 			float dstHeight = getHeight();
 
-			float scaleX = srcWidth / dstHeight;
+			float scaleX = srcWidth / dstWidth;
 			float scaleY = srcHeight / dstHeight;
 
 			canvas.scale(1 / scaleX, 1 / scaleY);
