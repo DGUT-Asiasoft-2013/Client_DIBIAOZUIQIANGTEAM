@@ -67,13 +67,13 @@ public class GoodsListAdapter extends BaseAdapter {
 
         titleText.setText(goods.getTitle());
         nameText.setText(goods.getPublishers().getName());
-        levelText.setText(goods.getPublishers().getXp());
+        levelText.setText("LV "+goods.getPublishers().getXp());
 //        saleText.setText();
         contentText.setText(goods.getContent());
-        quantityText.setText("价格 "+goods.getQuantity());
-        priceText.setText("数量 "+goods.getPrice());
+        quantityText.setText("数量 "+goods.getQuantity());
+        priceText.setText("价格 "+goods.getPrice());
         timeText.setText(DateToString.getStringDate(goods.getCreateDate()));
-
+System.out.println("item:"+i);
         return view;
     }
 
