@@ -22,6 +22,7 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.CheckConsumptionAndSalesRecordsActivity;
 import com.dgut.collegemarket.activity.CheckSubscriptionAndMessagesRecordsActivity;
 
+import com.dgut.collegemarket.activity.RechargeActivity;
 import com.dgut.collegemarket.activity.UserInfoActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
@@ -101,7 +102,7 @@ public class MyProfileFragment extends Fragment {
 
     //充值
     void goRecharge() {
-
+        startActivity(new Intent(getActivity(), RechargeActivity.class));
     }
 
     @Override
