@@ -41,7 +41,7 @@ public class GoodsListFragment extends Fragment {
     Activity activity;
     View view;
     private List<ImageView> mViews;
-    private List<Goods> mGoods;
+    private List<Goods> mGoods=new ArrayList<Goods>();
     private ListView mListView;
     protected VRefreshLayout mRefreshLayout;
     private View mJDHeaderView;
@@ -117,8 +117,9 @@ public class GoodsListFragment extends Fragment {
                 }
             });
         }
-        mRefreshLayout.setHeaderView(mRefreshLayout.getDefaultHeaderView());
-        mRefreshLayout.setBackgroundColor(Color.DKGRAY);
+
+        mRefreshLayout.setHeaderView(mJDHeaderView);
+        mRefreshLayout.setBackgroundColor(Color.WHITE);
 //        mRefreshLayout.autoRefresh();
     }
 
@@ -149,15 +150,19 @@ public class GoodsListFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         mRefreshLayout.refreshComplete();
 
                         try {
+
                             ObjectMapper mapper = new ObjectMapper();
                             goodsPage = mapper.readValue(result,
                                     new TypeReference<Page<Goods>>() {
                                     });
-                            mGoods = goodsPage.getContent();
-                            adpter.notifyDataSetInvalidated();
+                            List<Goods> datas = goodsPage.getContent();
+                            mGoods.addAll(datas);
+
+                            adpter.notifyDataSetChanged();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

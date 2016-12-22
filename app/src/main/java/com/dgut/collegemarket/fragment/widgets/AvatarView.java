@@ -72,7 +72,7 @@ public class AvatarView extends View {
 
 	public void load(String url) {
 		OkHttpClient client = Server.getSharedClient();
-		Request request = new Request.Builder().url(Server.serverAddress_wuzeen + url).method("get", null).build();
+		Request request = new Request.Builder().url(Server.serverAddress_zhongweiyuan + url).method("get", null).build();
 		client.newCall(request).enqueue(new Callback() {
 
 			@Override

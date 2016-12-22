@@ -24,6 +24,15 @@
         <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity"/>
         <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity"/>
         <activity android:name=".activity.ContentRecordsActivity"/>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.GoodsAddActivity"></activity>
+        <activity android:name=".activity.VRefreshBase"></activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.GoodsAddActivity"></activity>
+        <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity" />
+        <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity" />
+        <activity android:name=".activity.ContentRecordsActivity" />
+        <activity android:name=".activity.RechargeActivity"></activity>
         <activity android:name="com.dgut.collegemarket.activity.UserInfoActivity"/>
     </application>
 

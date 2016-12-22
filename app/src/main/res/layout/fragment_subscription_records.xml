@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="订阅记录"
+            android:text="我的偶像"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
