@@ -107,6 +107,15 @@ public class GoodsListFragment extends Fragment {
         textLoadMore = (TextView) btnLoadMore.findViewById(R.id.loadmore);
         mListView.addFooterView(btnLoadMore);
         mListView.setAdapter(adpter);
+        btnLoadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (page!=NOT_MORE_PAGE) {
+
+                    refreshGoodsList();
+                }
+            }
+        });
     }
 
     private void initHeaderView() {
@@ -120,6 +129,7 @@ public class GoodsListFragment extends Fragment {
             mRefreshLayout.addOnRefreshListener(new VRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
+                    page=0;
                     refreshGoodsList();
                 }
             });
@@ -132,9 +142,10 @@ public class GoodsListFragment extends Fragment {
     }
 
     private void refreshGoodsList() {
+        textLoadMore.setEnabled(false);
+        textLoadMore.setText("加载中");
 
-
-        final Request request = Server.requestBuilderWithApi("goods/all/" + page)
+        final Request request = Server.requestBuilderWithApi("goods/all/" +  page++)
                 .get()
                 .build();
 
@@ -147,7 +158,8 @@ public class GoodsListFragment extends Fragment {
                     @Override
                     public void run() {
                         mRefreshLayout.refreshComplete();
-                        new AlertDialog.Builder(activity).setMessage("服务器异常").show();
+                        textLoadMore.setEnabled(true);
+                        textLoadMore.setText("网络异常");
                     }
                 });
             }
@@ -161,6 +173,8 @@ public class GoodsListFragment extends Fragment {
 
                         mRefreshLayout.refreshComplete();
 
+                        textLoadMore.setEnabled(true);
+                        textLoadMore.setText("数据解析中");
                         try {
 
                             ObjectMapper mapper = new ObjectMapper();
@@ -168,11 +182,28 @@ public class GoodsListFragment extends Fragment {
                                     new TypeReference<Page<Goods>>() {
                                     });
                             List<Goods> datas = goodsPage.getContent();
-                            mGoods.addAll(datas);
 
-                            adpter.notifyDataSetChanged();
+
+                            if (datas.size()<=pageSize&&page==1)
+                            {   textLoadMore.setText("加载更多");
+                                datas = goodsPage.getContent();
+                                mGoods.addAll(datas);
+                                adpter.notifyDataSetInvalidated();
+                            }
+                            else if(goodsPage.getTotalPages()!=page){
+                                textLoadMore.setText("加载更多");
+                                datas.addAll(goodsPage.getContent());
+                                adpter.notifyDataSetChanged();
+                            }
+                            else {
+                                page=NOT_MORE_PAGE;
+                                textLoadMore.setText("没有新内容");
+                                datas.addAll(goodsPage.getContent());
+                                adpter.notifyDataSetChanged();
+                            }
+
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            textLoadMore.setText("数据解析失败"+e.getLocalizedMessage());
                         }
                     }
                 });
