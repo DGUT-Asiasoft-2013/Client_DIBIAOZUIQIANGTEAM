@@ -26,4 +26,5 @@ public class PostListFragment extends Fragment {
         return view;
     }
 
+
 }

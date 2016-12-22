@@ -51,6 +51,7 @@ public class PostListAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
             view = inflater.inflate(R.layout.list_post_item, null);
+
         } else {
             view = convertView;
         }
