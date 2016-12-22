@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.util.DateToString;
+import com.dgut.collegemarket.util.JudgeLevel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -63,17 +66,26 @@ public class GoodsListAdapter extends BaseAdapter {
         TextView quantityText = (TextView) view.findViewById(R.id.quantity);
         TextView priceText = (TextView) view.findViewById(R.id.price);
         TextView timeText = (TextView) view.findViewById(R.id.createtime);
-
-
+        ImageView avatarImg = (ImageView) view.findViewById(R.id.image_avatar);
+        ImageView albumsImg = (ImageView) view.findViewById(R.id.image_albums);
         titleText.setText(goods.getTitle());
         nameText.setText(goods.getPublishers().getName());
-        levelText.setText("LV "+goods.getPublishers().getXp());
+        levelText.setText("LV " + JudgeLevel.judege(goods.getPublishers().getXp()));
 //        saleText.setText();
         contentText.setText(goods.getContent());
-        quantityText.setText("数量 "+goods.getQuantity());
-        priceText.setText("价格 "+goods.getPrice());
+        quantityText.setText("数量 " + goods.getQuantity());
+        priceText.setText("价格 " + goods.getPrice());
         timeText.setText(DateToString.getStringDate(goods.getCreateDate()));
-System.out.println("item:"+i);
+
+        String avatarUrl = Server.serverAddress_wuzeen + goods.getPublishers().getAvatar();
+        String albumsUrl = Server.serverAddress_wuzeen + goods.getAlbums();
+
+
+        Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar) .into(avatarImg)   ;
+
+
+        Picasso.with(context).load(albumsUrl).resize(300,200).centerCrop().into(albumsImg);
+
         return view;
     }
 
