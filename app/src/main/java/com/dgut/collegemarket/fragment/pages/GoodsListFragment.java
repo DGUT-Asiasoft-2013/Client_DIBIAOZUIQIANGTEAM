@@ -18,6 +18,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,31 +39,35 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class GoodsListFragment extends Fragment {
-
+    private VRefreshLayout mRefreshLayout;
+    int pageSize = 10;
+    int NOT_MORE_PAGE = -1;
     Activity activity;
     View view;
     private List<ImageView> mViews;
-    private List<Goods> mGoods=new ArrayList<Goods>();
+    private List<Goods> mGoods = new ArrayList<Goods>();
     private ListView mListView;
-    protected VRefreshLayout mRefreshLayout;
     private View mJDHeaderView;
     GoodsListAdapter adpter;
     int page = 0;
     Page<Goods> goodsPage;
 
-
+    View btnLoadMore;
+    TextView textLoadMore;
+   boolean firstBuilt=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             activity = getActivity();
             view = inflater.inflate(R.layout.fragment_page_goods_list, null);
-            initImageView();
+            initImageView(inflater);
             initHeaderView();
+
         }
         return view;
     }
 
-    private void initImageView() {
+    private void initImageView(LayoutInflater inflater) {
         ViewPager viewPager = new ViewPager(activity);
         viewPager.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, dp2px(200)));
         mViews = new ArrayList<>();
@@ -97,7 +103,19 @@ public class GoodsListFragment extends Fragment {
         adpter = new GoodsListAdapter(activity, mGoods);
         mListView = (ListView) view.findViewById(R.id.listView);
         mListView.addHeaderView(viewPager);
+        btnLoadMore = inflater.inflate(R.layout.list_foot, null);
+        textLoadMore = (TextView) btnLoadMore.findViewById(R.id.loadmore);
+        mListView.addFooterView(btnLoadMore);
         mListView.setAdapter(adpter);
+        btnLoadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (page!=NOT_MORE_PAGE) {
+
+                    refreshGoodsList();
+                }
+            }
+        });
     }
 
     private void initHeaderView() {
@@ -111,22 +129,23 @@ public class GoodsListFragment extends Fragment {
             mRefreshLayout.addOnRefreshListener(new VRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-
+                    page=0;
                     refreshGoodsList();
-
                 }
             });
         }
 
         mRefreshLayout.setHeaderView(mJDHeaderView);
         mRefreshLayout.setBackgroundColor(Color.WHITE);
-//        mRefreshLayout.autoRefresh();
+
+
     }
 
     private void refreshGoodsList() {
+        textLoadMore.setEnabled(false);
+        textLoadMore.setText("加载中");
 
-
-        final Request request = Server.requestBuilderWithApi("goods/all/" + page)
+        final Request request = Server.requestBuilderWithApi("goods/all/" +  page++)
                 .get()
                 .build();
 
@@ -139,7 +158,8 @@ public class GoodsListFragment extends Fragment {
                     @Override
                     public void run() {
                         mRefreshLayout.refreshComplete();
-                        new AlertDialog.Builder(activity).setMessage("服务器异常").show();
+                        textLoadMore.setEnabled(true);
+                        textLoadMore.setText("网络异常");
                     }
                 });
             }
@@ -153,6 +173,8 @@ public class GoodsListFragment extends Fragment {
 
                         mRefreshLayout.refreshComplete();
 
+                        textLoadMore.setEnabled(true);
+                        textLoadMore.setText("数据解析中");
                         try {
 
                             ObjectMapper mapper = new ObjectMapper();
@@ -160,11 +182,28 @@ public class GoodsListFragment extends Fragment {
                                     new TypeReference<Page<Goods>>() {
                                     });
                             List<Goods> datas = goodsPage.getContent();
-                            mGoods.addAll(datas);
 
-                            adpter.notifyDataSetChanged();
+
+                            if (datas.size()<=pageSize&&page==1)
+                            {   textLoadMore.setText("加载更多");
+                                datas = goodsPage.getContent();
+                                mGoods.addAll(datas);
+                                adpter.notifyDataSetInvalidated();
+                            }
+                            else if(goodsPage.getTotalPages()!=page){
+                                textLoadMore.setText("加载更多");
+                                datas.addAll(goodsPage.getContent());
+                                adpter.notifyDataSetChanged();
+                            }
+                            else {
+                                page=NOT_MORE_PAGE;
+                                textLoadMore.setText("没有新内容");
+                                datas.addAll(goodsPage.getContent());
+                                adpter.notifyDataSetChanged();
+                            }
+
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            textLoadMore.setText("数据解析失败"+e.getLocalizedMessage());
                         }
                     }
                 });
@@ -175,10 +214,29 @@ public class GoodsListFragment extends Fragment {
 
     }
 
+
+    private Handler scaleHandler = new Handler();
+    private Runnable scaleRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            if (firstBuilt) {
+                mRefreshLayout.autoRefresh();
+            firstBuilt=false;
+            }
+        }
+    };
+
     @Override
     public void onResume() {
         super.onResume();
+        activity.getWindow().getDecorView().post(new Runnable() {
 
+            @Override
+            public void run() {
+                scaleHandler.post(scaleRunnable);
+            }
+        });
     }
 
     protected int dp2px(float dp) {

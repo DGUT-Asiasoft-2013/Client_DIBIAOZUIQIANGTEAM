@@ -13,12 +13,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/truck"
-
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp" />
-
-
+            android:layout_marginBottom="10dp" />
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/truck"
+    android:layout_alignParentStart="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_above="@+id/truck">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -55,8 +62,7 @@
         class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_inputcell_simpletext"
-        android:layout_marginTop="40dp"></fragment>
+        tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
     <fragment
         android:id="@+id/fragment_content"
@@ -67,34 +73,45 @@
         android:layout_below="@+id/fragment_title"
         tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <fragment
+            android:id="@+id/fragment_price"
+            class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/fragment_pictrue"
+            android:layout_below="@+id/fragment_quantity"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+
+        <fragment
+            android:id="@+id/fragment_quantity"
+            class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/fragment_content"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+    </LinearLayout>
+
     <fragment
         android:id="@+id/fragment_pictrue"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment"
+        class="com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment"
         tools:layout="@layout/fragment_inputcell_pictrue"
-        android:layout_below="@+id/fragment_content"
-        android:layout_alignParentEnd="true"></fragment>
+        android:layout_below="@+id/fragment_price"
+        android:layout_alignParentStart="true"></fragment>
 
 
 
-    <fragment
-        android:id="@+id/fragment_quantity"
-        class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_inputcell_simpletext"
-        android:layout_below="@+id/fragment_content"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/fragment_pictrue"></fragment>
-    <fragment
-        android:id="@+id/fragment_price"
-        class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_inputcell_simpletext"
-        android:layout_below="@id/fragment_quantity"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/fragment_pictrue"></fragment>
 
+</LinearLayout>
+</ScrollView>
 </RelativeLayout>

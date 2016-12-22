@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
+import com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.AnimationEffec;
@@ -34,7 +35,7 @@ public class GoodsAddActivity extends Activity {
     SimpleTextInputCellFragment contentFrag;
     SimpleTextInputCellFragment priceFrag;
     SimpleTextInputCellFragment quantityFrag;
-    PictrueInputCellFragment pictrueFrag;
+    PictrueHDInputCellFragment pictrueFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class GoodsAddActivity extends Activity {
         contentFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
         priceFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_price);
         quantityFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_quantity);
-        pictrueFrag = (PictrueInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
+        pictrueFrag = (PictrueHDInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
 
 
         truckImg.setOnClickListener(new View.OnClickListener() {

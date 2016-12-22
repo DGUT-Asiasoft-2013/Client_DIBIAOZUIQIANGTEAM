@@ -37,7 +37,7 @@ public class RegisterActivity extends Activity {
 
     PictrueInputCellFragment pictrue;
     Button register;
-    TitleBarFragment titleBarFragment =new TitleBarFragment();
+    TitleBarFragment titleBarFragment = new TitleBarFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class RegisterActivity extends Activity {
 
     private void submit() {
 
-        if(!isInputCorrect()){
+        if (!isInputCorrect()) {
             return;
         }
         String accountS = account.getText();
@@ -80,7 +80,7 @@ public class RegisterActivity extends Activity {
             password.setEidtError("密码不一致");
             return;
         }
-        passwordS= MD5.getMD5(passwordS);
+        passwordS = MD5.getMD5(passwordS);
 
         OkHttpClient client = new OkHttpClient();
 
@@ -130,19 +130,28 @@ public class RegisterActivity extends Activity {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     final String result = response.body().string();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new AlertDialog.Builder(RegisterActivity.this)
-                                    .setTitle("注册成功")
-                                    .setCancelable(true)
-                                    .setNegativeButton("马上登陆", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            finish();
-                                        }
-                                    })
-                                    .show();
+                            if (!request.equals(""))
+                                new AlertDialog.Builder(RegisterActivity.this)
+                                        .setTitle("注册成功")
+                                        .setCancelable(true)
+                                        .setNegativeButton("马上登陆", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                finish();
+                                            }
+                                        })
+                                        .show();
+                            else
+                                new AlertDialog.Builder(RegisterActivity.this)
+                                        .setTitle("注册失败")
+                                        .setMessage("用户名已存在")
+                                        .setCancelable(true)
+                                        .setNegativeButton("重新注册", null)
+                                        .show();
                         }
                     });
 
@@ -160,13 +169,13 @@ public class RegisterActivity extends Activity {
         } else if (password.getText().equals("")) {
             password.setLayoutError("密码不能为空");
             return false;
-        } else if(passwordRepeat.getText().equals("")){
+        } else if (passwordRepeat.getText().equals("")) {
             passwordRepeat.setLayoutError("重复密码不能为空");
             return false;
-        } else if(email.getText().equals("")){
+        } else if (email.getText().equals("")) {
             email.setLayoutError("邮箱地址不能为空");
             return false;
-        } else if(name.getText().equals("")){
+        } else if (name.getText().equals("")) {
             name.setLayoutError("昵称不能为空");
             return false;
         }

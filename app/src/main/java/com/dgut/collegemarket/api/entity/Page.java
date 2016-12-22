@@ -8,6 +8,16 @@ import java.util.List;
 public class Page<T> {
     List<T> content;
     Integer number;
+    Integer totalPages;
+
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
+    }
 
     public List<T> getContent() {
         return content;

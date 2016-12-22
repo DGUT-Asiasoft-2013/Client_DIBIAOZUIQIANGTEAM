@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.fragment.pages.GoodsListFragment;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity {
     }
 
 
+
     private void changeContentPageFragment(int index) {
         FragmentTransaction transition = getFragmentManager().beginTransaction();
         Fragment newFrag = null;
@@ -57,6 +59,7 @@ public class MainActivity extends Activity {
                 if (contentFeedList == null) {
                     contentFeedList = new GoodsListFragment();
                     transition.add(R.id.page_content, contentFeedList);
+
                 }
                 newFrag = contentFeedList;
                 break;
