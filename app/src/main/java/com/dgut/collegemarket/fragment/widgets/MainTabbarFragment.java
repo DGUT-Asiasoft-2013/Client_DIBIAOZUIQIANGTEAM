@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.GoodsAddActivity;
+import com.dgut.collegemarket.activity.PostAddActivity;
 import com.dgut.collegemarket.util.AnimationEffec;
 
 
@@ -102,6 +103,15 @@ public class MainTabbarFragment extends Fragment {
         } else if (selectedIndex == 1) {
             AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
             image.setImageResource(R.drawable.post_blue);
+            btnNew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(), PostAddActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
+                }
+            });
+
         } else {
             AnimationEffec.AddAlphaAniFade(image);
         }
