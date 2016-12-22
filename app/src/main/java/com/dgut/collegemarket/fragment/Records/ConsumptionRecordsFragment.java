@@ -79,7 +79,7 @@ public class ConsumptionRecordsFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 0;
+            return data == null ? 0 : data.size();
         }
 
         @Override
@@ -107,7 +107,6 @@ public class ConsumptionRecordsFragment extends Fragment {
             TextView textCoin = (TextView) view.findViewById(R.id.money);
             TextView textCause = (TextView) view.findViewById(R.id.cause);
             TextView textDate = (TextView) view.findViewById(R.id.date);
-
             Records records = data.get(position);
 
             textCoin.setText(records.getCoin() + "");
@@ -115,7 +114,6 @@ public class ConsumptionRecordsFragment extends Fragment {
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();
             textDate.setText(dateStr);
-
             return view;
         }
     };
@@ -127,7 +125,7 @@ public class ConsumptionRecordsFragment extends Fragment {
     }
 
     void reload() {
-        Request request = Server.requestBuilderWithApi("records")
+        Request request = Server.requestBuilderWithApi("record/records")
                 .get()
                 .build();
 
@@ -139,7 +137,6 @@ public class ConsumptionRecordsFragment extends Fragment {
                             .readValue(arg1.body().string(),
                                     new TypeReference<Page<Records>>() {
                                     });
-
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             ConsumptionRecordsFragment.this.page = data.getNumber();
@@ -163,7 +160,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
                         new AlertDialog.Builder(activity)
-                                .setMessage(e.getMessage())
+                                .setMessage("服务器异常")
                                 .show();
                     }
                 });
@@ -174,7 +171,9 @@ public class ConsumptionRecordsFragment extends Fragment {
     void LoadMore() {
         LoadMore.setEnabled(false);
         textLoadMore.setText("加载更多");
-        Request request = Server.requestBuilderWithApi("records/" + (page + 1)).get().build();
+        Request request = Server.requestBuilderWithApi("record/records/" + (page+1))
+                .get()
+                .build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call arg0, Response arg1) throws IOException {
@@ -189,6 +188,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                     Page<Records> records = new ObjectMapper().readValue(arg1.body().string(), new TypeReference<Page<Records>>() {
                     });
                     if (records.getNumber() > page) {
+
                         if (data == null) {
                             data = records.getContent();
                         } else {
