@@ -3,9 +3,7 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="C:\安装程序\android-studio-ide-162.3573574-windows32\android-studio\gradle\gradle-3.2" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />

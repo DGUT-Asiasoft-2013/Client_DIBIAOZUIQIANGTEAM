@@ -33,7 +33,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class ConsumptionRecordsFragment extends Fragment {
+public class DirectMessagesFragment extends Fragment {
     View view;
     ListView listView;
     View LoadMore;
@@ -47,11 +47,11 @@ public class ConsumptionRecordsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             activity = getActivity();
-            view = inflater.inflate(R.layout.fragment_consumption_records, null);
+            view = inflater.inflate(R.layout.fragment_direct_messages, null);
             LoadMore = inflater.inflate(R.layout.widget_load_more_button, null);
             textLoadMore = (TextView) LoadMore.findViewById(R.id.load_more_text);
 
-            listView = (ListView) view.findViewById(R.id.consumption_list);
+            listView = (ListView) view.findViewById(R.id.direct_messages_list);
             listView.addFooterView(LoadMore);
             listView.setAdapter(listAdapter);
 
@@ -139,8 +139,8 @@ public class ConsumptionRecordsFragment extends Fragment {
                                     });
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            ConsumptionRecordsFragment.this.page = data.getNumber();
-                            ConsumptionRecordsFragment.this.data = data.getContent();
+                            DirectMessagesFragment.this.page = data.getNumber();
+                            DirectMessagesFragment.this.data = data.getContent();
                             listAdapter.notifyDataSetInvalidated();
                         }
                     });

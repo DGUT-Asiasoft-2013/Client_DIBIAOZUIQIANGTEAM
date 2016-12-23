@@ -279,7 +279,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout6"
+                    android:id="@+id/linearLayout_messages"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
@@ -302,7 +302,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout5"
+                    android:id="@+id/linearLayout_search"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
@@ -319,7 +319,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="找人"
+                        android:text="找粑粑"
                         android:textSize="16dp" />
 
                 </LinearLayout>

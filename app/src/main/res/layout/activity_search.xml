@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="4"
+    android:orientation="vertical"
+    tools:context="com.dgut.collegemarket.activity.SearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_alignBottom="@+id/imageButton2"
+            android:layout_weight="2.5"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="我要找粑粑" />
+
+        <ImageButton
+            android:id="@+id/image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_toEndOf="@+id/edit_search"
+            android:layout_weight="1.2"
+            android:src="@drawable/sale_pressed" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/holo_blue_dark"></View>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+</LinearLayout>

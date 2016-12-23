@@ -22,7 +22,9 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.CheckConsumptionAndSalesRecordsActivity;
 import com.dgut.collegemarket.activity.CheckSubscriptionAndMessagesRecordsActivity;
 
+import com.dgut.collegemarket.activity.DirectMessagesActivity;
 import com.dgut.collegemarket.activity.RechargeActivity;
+import com.dgut.collegemarket.activity.SearchActivity;
 import com.dgut.collegemarket.activity.UserInfoActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
@@ -84,6 +86,22 @@ public class MyProfileFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     goRecharge();
+                }
+            });
+
+            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_search);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), SearchActivity.class));
+                }
+            });
+
+            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_messages);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), DirectMessagesActivity.class));
                 }
             });
 
