@@ -13,8 +13,8 @@ public class Post implements Serializable{
     private String title;//标题
     private String content;//内容
     private String albums;//帖子图集
-    private int quantity;//商品数量
     private double reward;//报酬
+    private int browseVolume;//浏览量
     private boolean issolve;//是否解决
     private Date createDate;
     private Date editDate;
@@ -59,14 +59,6 @@ public class Post implements Serializable{
         this.albums = albums;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public double getReward() {
         return reward;
     }
@@ -97,5 +89,13 @@ public class Post implements Serializable{
 
     public void setEditDate(Date editDate) {
         this.editDate = editDate;
+    }
+
+    public int getBrowseVolume() {
+        return browseVolume;
+    }
+
+    public void setBrowseVolume(int browseVolume) {
+        this.browseVolume = browseVolume;
     }
 }

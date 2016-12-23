@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Client_DIBIAOZUIQIANGTEAM.iml" filepath="$PROJECT_DIR$/Client_DIBIAOZUIQIANGTEAM.iml" />
       <module fileurl="file://$PROJECT_DIR$/CollegeMarket.iml" filepath="$PROJECT_DIR$/CollegeMarket.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
