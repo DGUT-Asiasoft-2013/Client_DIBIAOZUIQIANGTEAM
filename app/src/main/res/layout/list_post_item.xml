@@ -90,7 +90,8 @@
             android:src="@mipmap/ic_launcher_round"
             android:layout_below="@+id/text_post_title"
             android:layout_alignLeft="@+id/text_post_title"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:scaleType="centerInside"/>
 
     </RelativeLayout>
 

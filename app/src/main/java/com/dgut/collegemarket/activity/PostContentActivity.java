@@ -105,10 +105,12 @@ public class PostContentActivity extends Activity {
         OkHttpClient client = Server.getSharedClient();
 
         MultipartBody requestBody = new MultipartBody.Builder()
-                .addFormDataPart("content", etContent.getText().toString()).build();
+                .addFormDataPart("content", etContent.getText().toString())
+                .build();
 
-        Request request = Server.requestBuilderWithApi("article/"  + "/comments")
-                .method("post", null).post(requestBody).build();
+        Request request = Server.requestBuilderWithApi("post/"+post.getId()+ "/publish/postcomment")
+                .post(requestBody)
+                .build();
 
         final ProgressDialog dlg = new ProgressDialog(this);
         dlg.setCancelable(false);
@@ -119,9 +121,11 @@ public class PostContentActivity extends Activity {
         client.newCall(request).enqueue(new Callback() {
             public void onResponse(Call arg0, Response arg1) throws IOException {
                 dlg.dismiss();
+                final String result = arg1.body().string();
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(PostContentActivity.this, "发表成功", Toast.LENGTH_LONG).show();
+                        etContent.setText("");
                     }
                 });
 
@@ -145,6 +149,7 @@ public class PostContentActivity extends Activity {
      */
     public void lookComments() {
         Intent itnt = new Intent(PostContentActivity.this, CommentActivity.class);
+        itnt.putExtra("post",post);
         startActivity(itnt);
     }
 

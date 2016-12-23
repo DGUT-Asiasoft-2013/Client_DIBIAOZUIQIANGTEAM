@@ -36,14 +36,11 @@ public class GoodsContentActivity extends AppCompatActivity {
 
         albumsImg= (ImageView) findViewById(R.id.image_albums);
         avatarImg= (ImageView) findViewById(R.id.img_avatar);
-        Picasso.with(this).load(Server.serverAddress_wuzeen+goods.getAlbums()).resize(500,300).centerInside().into(albumsImg);
-        Picasso.with(this).load(Server.serverAddress_wuzeen+goods.getPublishers().getAvatar()).resize(50,50).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
+        Picasso.with(this).load(Server.serverAddress_shenjingrong+goods.getAlbums()).resize(500,300).centerInside().into(albumsImg);
+        Picasso.with(this).load(Server.serverAddress_shenjingrong+goods.getPublishers().getAvatar()).resize(50,50).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
 
-        System.out.println(Server.serverAddress_wuzeen+goods.getAlbums());
+        System.out.println(Server.serverAddress_shenjingrong +goods.getAlbums());
         initView();
-
-
-
     }
 
     TextView titleText;
