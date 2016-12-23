@@ -3,6 +3,7 @@ package com.dgut.collegemarket.fragment.pages;
 
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.GoodsContentActivity;
 import com.dgut.collegemarket.adapter.GoodsListAdapter;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.Server;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -116,6 +119,14 @@ public class GoodsListFragment extends Fragment {
                 }
             }
         });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(activity,GoodsContentActivity.class);
+                startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
+            }
+        });
     }
 
     private void initHeaderView() {
@@ -187,18 +198,19 @@ public class GoodsListFragment extends Fragment {
                             if (datas.size()<=pageSize&&page==1)
                             {   textLoadMore.setText("加载更多");
                                 datas = goodsPage.getContent();
+                                mGoods.clear();
                                 mGoods.addAll(datas);
                                 adpter.notifyDataSetInvalidated();
                             }
                             else if(goodsPage.getTotalPages()!=page){
                                 textLoadMore.setText("加载更多");
-                                datas.addAll(goodsPage.getContent());
+                                mGoods.addAll(goodsPage.getContent());
                                 adpter.notifyDataSetChanged();
                             }
                             else {
                                 page=NOT_MORE_PAGE;
                                 textLoadMore.setText("没有新内容");
-                                datas.addAll(goodsPage.getContent());
+                                mGoods.addAll(goodsPage.getContent());
                                 adpter.notifyDataSetChanged();
                             }
 
