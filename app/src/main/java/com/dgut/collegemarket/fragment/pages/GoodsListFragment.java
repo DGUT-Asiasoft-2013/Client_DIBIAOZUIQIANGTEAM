@@ -123,6 +123,7 @@ public class GoodsListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent=new Intent(activity,GoodsContentActivity.class);
+                intent.putExtra("goods",mGoods.get(i-1));
                 startActivity(intent);
                 activity.overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
             }
