@@ -33,7 +33,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 app:layout_collapseMode="pin"
-                app:titleTextAppearance="@style/Toolbar.TitleText"
                 android:layout_height="?attr/actionBarSize">
 
                 <ImageView
@@ -43,6 +42,7 @@
                     android:src="@drawable/unknow_avatar" />
 
                 <TextView
+                    android:layout_marginLeft="30dp"
                     android:id="@+id/text_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,6 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
+        android:id="@+id/fab_buy"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
         app:fabSize="mini"
