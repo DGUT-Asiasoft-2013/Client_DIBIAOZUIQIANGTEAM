@@ -71,6 +71,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 dialog.dismiss();
+
                                 Toast.makeText(ForgetPasswordActivity.this,"修改密码失败，请检查网络",Toast.LENGTH_SHORT).show();
                             }
                         });
