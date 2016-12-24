@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#fff"
+    android:background="#dfdfdf"
     android:layout_height="200dp">
 
 
@@ -21,34 +20,36 @@
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:elevation="3dp"
+        android:background="#fff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="49dp">
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/text_quantity_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView16"
+            android:layout_marginStart="11dp"
+
+            android:layout_toEndOf="@+id/textView16"
             android:text="10"
             android:textColor="@color/colorAccent"
-
-            android:textSize="20dp"
-            android:layout_marginStart="11dp"
-            android:layout_alignBottom="@+id/textView16"
-            android:layout_toEndOf="@+id/textView16" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button"
-            android:layout_alignBottom="@+id/button"
+            android:layout_alignBaseline="@+id/button_settlement"
+            android:layout_alignBottom="@+id/button_settlement"
             android:layout_alignParentStart="true"
             android:layout_marginStart="25dp"
+            android:textColor="#000"
             android:text="购买数量" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_settlement"
             android:background="@drawable/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +69,7 @@
         android:text="数量" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/text_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
@@ -80,14 +81,14 @@
         android:layout_toEndOf="@+id/textView15" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/text_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_alignStart="@+id/text_price"
         android:text="50"
         android:textColor="@color/colorAccent"
-        android:textSize="20dp"
-        android:layout_alignBottom="@+id/textView17"
-        android:layout_alignStart="@+id/textView18" />
+        android:textSize="20dp" />
 
 
 
@@ -103,7 +104,7 @@
         android:layout_alignParentEnd="true">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/bt_delete"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/bg_circle_white"
@@ -111,23 +112,23 @@
             android:text="-" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/text_quantity_buy_pre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="20dp"
-            android:text="1" />
+            android:text="0"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/bt_add"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/bg_circle"
             android:gravity="center"
-            android:textColor="#fff"
-            android:text="+" />
+            android:text="+"
+            android:textColor="#fff" />
 
     </LinearLayout>
 

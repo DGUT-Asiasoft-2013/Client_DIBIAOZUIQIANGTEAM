@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
+import com.dgut.collegemarket.api.entity.User;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -35,17 +37,18 @@ import org.w3c.dom.Text;
 public class GoodsContentActivity extends AppCompatActivity {
     ImageView albumsImg;
     ImageView avatarImg;
-    Goods goods;
+     Goods goods;
     Toolbar toolbar;
-
+    public  static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        setContentView(R.layout.activity_goods_content);
         goods = (Goods) getIntent().getSerializableExtra("goods");
-
+        user=goods.getPublishers();
+        setContentView(R.layout.activity_goods_content);
+    
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         albumsImg = (ImageView) findViewById(R.id.image_albums);
@@ -74,6 +77,7 @@ public class GoodsContentActivity extends AppCompatActivity {
     TextView titleText;
     TextView contentText;
 
+
     private void initView() {
 
         titleText = (TextView) findViewById(R.id.text_title);
@@ -82,11 +86,21 @@ public class GoodsContentActivity extends AppCompatActivity {
 
         contentText.setText(goods.getContent());
     }
+
+
+    TextView quantityText;
+    TextView priceText;
+    TextView preQuantityText;
+    TextView buyQuantityText;
     PopupWindow mPopupWindow;
+    Button settlementBt;
+    TextView addBt;
+    TextView deleteBt;
+
     private void setPopupView() {
         View popupView = getLayoutInflater().inflate(R.layout.layout_popupwindow, null);
 
-         mPopupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setAnimationStyle(R.style.mystyle);
@@ -106,7 +120,48 @@ public class GoodsContentActivity extends AppCompatActivity {
             }
         });
 
+        quantityText = (TextView) popupView.findViewById(R.id.text_quantity);
+        priceText = (TextView) popupView.findViewById(R.id.text_price);
+        preQuantityText = (TextView) popupView.findViewById(R.id.text_quantity_buy_pre);
+        buyQuantityText = (TextView) popupView.findViewById(R.id.text_quantity_buy);
+        settlementBt = (Button) popupView.findViewById(R.id.button_settlement);
+        addBt = (TextView) popupView.findViewById(R.id.bt_add);
+        deleteBt = (TextView) popupView.findViewById(R.id.bt_delete);
 
+        quantityText.setText(goods.getQuantity()+"");
+        priceText.setText(goods.getPrice() + "");
+
+        addBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int num = Integer.valueOf(preQuantityText.getText().toString());
+                if (num < goods.getQuantity())
+                    num++;
+                preQuantityText.setText(num + "");
+                buyQuantityText.setText(num + "");
+                settlementBt.setText("结算（" + num * goods.getPrice() + "元）");
+            }
+        });
+
+        deleteBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int num = Integer.valueOf(preQuantityText.getText().toString());
+                if (num > 0)
+                    num--;
+                preQuantityText.setText(num + "");
+                buyQuantityText.setText(num + "");
+                settlementBt.setText("结算（" + num * goods.getPrice() + "元）");
+            }
+        });
+        settlementBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(GoodsContentActivity.this)
+                        .setTitle("敬请期待")
+                        .setMessage("后续功能将在下个版本添加").show();
+            }
+        });
     }
 
     @Override
