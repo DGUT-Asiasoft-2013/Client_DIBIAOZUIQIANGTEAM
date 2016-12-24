@@ -1,0 +1,79 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dgut.collegemarket.fragment.widgets.UserInfoInGoodsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_corners_blue"
+        android:layout_margin="20dp"
+        android:elevation="1dp"
+        android:layout_height="200dp">
+
+        <Button
+            android:id="@+id/button_comment_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/btn_login"
+            android:text="评价列表"
+            android:textColor="#fff"
+            android:layout_alignBaseline="@+id/button_follow"
+            android:layout_alignBottom="@+id/button_follow"
+            android:layout_toStartOf="@+id/button_follow" />
+
+        <Button
+            android:id="@+id/button_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_login"
+            android:text="+关注"
+            android:textColor="#fff"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/button_private_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/btn_login"
+            android:text="私信"
+            android:textColor="#fff"
+            android:layout_alignBaseline="@+id/button_follow"
+            android:layout_alignBottom="@+id/button_follow"
+            android:layout_toEndOf="@+id/button_follow"
+            android:layout_marginStart="15dp" />
+
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            app:srcCompat="@drawable/unknow_avatar" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_avatar"
+            android:layout_centerHorizontal="true"
+            android:text="LV5" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_level"
+            android:layout_centerHorizontal="true"
+            android:text="吴泽恩" />
+    </RelativeLayout>
+</FrameLayout>

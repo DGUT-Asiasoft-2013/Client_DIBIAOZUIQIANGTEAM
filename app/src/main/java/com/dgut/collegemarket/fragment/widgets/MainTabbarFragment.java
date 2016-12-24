@@ -89,6 +89,7 @@ public class MainTabbarFragment extends Fragment {
             onTabSelectedListener.onTabSelected(selectedIndex);
         }
         if (selectedIndex == 0) {
+            btnNew.setEnabled(true);
             AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
             image.setImageResource(R.drawable.sale_pressed);
             btnNew.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +102,7 @@ public class MainTabbarFragment extends Fragment {
             });
 
         } else if (selectedIndex == 1) {
+            btnNew.setEnabled(true);
             AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
             image.setImageResource(R.drawable.post_blue);
             btnNew.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +115,9 @@ public class MainTabbarFragment extends Fragment {
             });
 
         } else {
-            AnimationEffec.AddAlphaAniFade(image);
+            AnimationEffec.setLightExpendAni(image);
+            image.setImageResource(R.drawable.question);
+            btnNew.setEnabled(false);
         }
 
     }

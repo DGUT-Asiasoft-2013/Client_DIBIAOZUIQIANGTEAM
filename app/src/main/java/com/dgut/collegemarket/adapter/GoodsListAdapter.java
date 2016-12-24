@@ -77,10 +77,8 @@ public class GoodsListAdapter extends BaseAdapter {
         priceText.setText("价格 " + goods.getPrice());
         timeText.setText(DateToString.getStringDate(goods.getCreateDate()));
 
-        String avatarUrl = Server.serverAddress_zhongweiyuan + goods.getPublishers().getAvatar();
-        String albumsUrl = Server.serverAddress_zhongweiyuan + goods.getAlbums();
-//        String avatarUrl = Server.serverAddress_wuzeen + goods.getPublishers().getAvatar();
-//        String albumsUrl = Server.serverAddress_wuzeen + goods.getAlbums();
+        String avatarUrl = Server.serverAddress_wuzeen + goods.getPublishers().getAvatar();
+        String albumsUrl = Server.serverAddress_wuzeen + goods.getAlbums();
 //        String avatarUrl = Server.serverAddress_shenjingrong + goods.getPublishers().getAvatar();
 //        String albumsUrl = Server.serverAddress_shenjingrong + goods.getAlbums();
 

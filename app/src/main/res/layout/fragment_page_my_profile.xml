@@ -321,7 +321,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="我的订阅"
+                        android:text="我的订阅    (敬请期待)"
                         android:textSize="16dp" />
 
                 </LinearLayout>
@@ -358,7 +358,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="我的私信"
+                        android:text="我的私信    (敬请期待)"
                         android:textSize="16dp" />
 
                 </LinearLayout>
