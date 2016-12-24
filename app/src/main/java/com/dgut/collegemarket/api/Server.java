@@ -30,6 +30,7 @@ public class Server {
 	public static OkHttpClient getSharedClient(){
 		return client;
 	}
+
 	public static String serverAddress_wuzeen = "http://172.27.15.26:8080/CollegeMarket/";
 	public static String serverAddress_zhongweiyuan = "http://172.27.0.22:8080/CollegeMarket/";
 	public static Request.Builder requestBuilderWithApi(String api){
