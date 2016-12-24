@@ -17,6 +17,7 @@ import com.dgut.collegemarket.util.CommonUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -50,6 +51,11 @@ public class RechargeActivity extends Activity {
                 }
             }
         });
+    }
+
+    public static boolean isNumeric(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(str).matches();
     }
 
     void recharge() {

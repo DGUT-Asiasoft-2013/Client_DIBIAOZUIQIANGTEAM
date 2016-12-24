@@ -30,39 +30,19 @@
         <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity" />
         <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity" />
         <activity android:name=".activity.ContentConsumptionActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.GoodsAddActivity" />
-        <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity" />
-        <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity" />
-        <activity android:name=".activity.ContentRecordsActivity" />
         <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.PostAddActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.GoodsAddActivity" />
-        <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity" />
-        <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity" />
-        <activity android:name=".activity.ContentRecordsActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.GoodsAddActivity" />
-        <activity android:name=".activity.VRefreshBase" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.GoodsAddActivity" />
-        <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity" />
-        <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity" />
-        <activity android:name=".activity.ContentConsumptionActivity" />
         <activity android:name=".activity.PostAddActivity" />
         <activity android:name=".activity.RechargeActivity" />
-        <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.DirectMessagesActivity" />
         <activity android:name=".activity.ContentSearchActivity" />
         <activity android:name=".activity.SubscribeMessageActivity"></activity>
-        <activity android:name=".activity.DirectMessagesActivity" />
         <activity android:name=".activity.GoodsContentActivity" />
-        <activity android:name=".activity.PostAddActivity" />
         <activity android:name=".activity.PostContentActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.PostCommentActivity"></activity>
+        <activity android:name=".activity.AboutCollegeMarketActivity"/>
+        <activity android:name=".activity.AboutVersionActivity"/>
     </application>
 
 </manifest>
