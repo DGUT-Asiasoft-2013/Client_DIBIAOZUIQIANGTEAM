@@ -43,7 +43,6 @@
         <activity android:name=".activity.PostCommentActivity"></activity>
         <activity android:name=".activity.AboutCollegeMarketActivity"/>
         <activity android:name=".activity.AboutVersionActivity"/>
-        <activity android:name=".activity.PostCommentActivity" />
         <activity android:name=".activity.UpdatePasswordActivity" />
         <activity android:name=".activity.ForgetPasswordActivity"></activity>
     </application>
