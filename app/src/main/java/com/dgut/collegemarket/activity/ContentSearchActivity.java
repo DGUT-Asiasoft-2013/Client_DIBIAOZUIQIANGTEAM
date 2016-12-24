@@ -162,7 +162,7 @@ public class ContentSearchActivity extends Activity {
         if(count>0){
             subscribeButton.setText("订阅("+count+")");
         }else{
-            subscribeButton.setText("订阅0");
+            subscribeButton.setText("订阅(0)");
         }
     }
 
