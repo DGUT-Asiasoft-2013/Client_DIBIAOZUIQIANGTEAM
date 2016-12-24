@@ -72,17 +72,17 @@ public class PostListAdapter extends BaseAdapter {
 
         Post post = mPost.get(i);
 
-        tvLevel.setText(JudgeLevel.judege(post.getPublishers().getXp())+"");
+        tvLevel.setText("Lv"+JudgeLevel.judege(post.getPublishers().getXp()));
         tvName.setText(post.getPublishers().getName());
         textTitle.setText(post.getTitle());
-        tvBrowseVolume.setText(post.getBrowseVolume()+"");
+        tvBrowseVolume.setText("浏览量"+post.getBrowseVolume()+"");
         textContent.setText(post.getContent());
         tvCreateTime.setText(DateToString.getStringDate(post.getCreateDate()));
-        tvPrice.setText(post.getReward()+"");
+        tvPrice.setText("悬赏："+post.getReward()+"");
         String avatarUrl = Server.serverAddress_shenjingrong + post.getPublishers().getAvatar();
         String albumsUrl = Server.serverAddress_shenjingrong + post.getAlbums();
         Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar) .into(imageAvatar)   ;
-        Picasso.with(context).load(albumsUrl).fit().error(R.drawable.unknow_avatar).into(ivContentImg);
+        Picasso.with(context).load(albumsUrl).resize(200,100).centerCrop().into(ivContentImg);
         return view;
     }
 

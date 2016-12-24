@@ -60,7 +60,7 @@ public class PostContentActivity extends Activity {
         tvLike = (TextView) findViewById(R.id.tv_likes);
 
         String albumsUrl = Server.serverAddress_shenjingrong + post.getAlbums();
-        Picasso.with(PostContentActivity.this).load(albumsUrl).fit().error(R.drawable.unknow_avatar) .into(ivContentImg);
+        Picasso.with(PostContentActivity.this).load(albumsUrl).resize(500,300).centerInside().into(ivContentImg);
 
         ivBack.setOnClickListener(new OnClickListener() {
             @Override
