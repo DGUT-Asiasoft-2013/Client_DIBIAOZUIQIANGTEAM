@@ -66,7 +66,7 @@ public class PostAddActivity extends Activity {
     }
 
     /**
-     * 提交帖子
+     * 发布帖子
      */
     public void submit(){
         OkHttpClient client = Server.getSharedClient();
