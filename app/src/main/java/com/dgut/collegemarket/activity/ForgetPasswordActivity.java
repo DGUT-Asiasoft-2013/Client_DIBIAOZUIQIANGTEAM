@@ -60,7 +60,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                         .post(requestBody)
                         .build();
                 final ProgressDialog dialog = new ProgressDialog(ForgetPasswordActivity.this);
-                dialog.setMessage("正在提交");
+                dialog.setMessage("正在提交请求");
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
