@@ -36,10 +36,11 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.DirectMessagesActivity" />
         <activity android:name=".activity.GoodsContentActivity" />
-        <activity android:name=".activity.PostAddActivity" />
         <activity android:name=".activity.PostContentActivity" />
         <activity android:name=".activity.CommentActivity" />
-        <activity android:name=".activity.PostCommentActivity"></activity>
+        <activity android:name=".activity.PostCommentActivity" />
+        <activity android:name=".activity.UpdatePasswordActivity" />
+        <activity android:name=".activity.ForgetPasswordActivity"></activity>
     </application>
 
 </manifest>
