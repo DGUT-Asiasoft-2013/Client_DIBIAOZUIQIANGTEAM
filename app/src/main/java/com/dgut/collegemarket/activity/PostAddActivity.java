@@ -26,7 +26,7 @@ import okhttp3.Response;
 
 public class PostAddActivity extends Activity {
 
-    ImageView truckImg;
+    ImageView truckImg,back;
     SimpleTextInputCellFragment fragmentTitle = new SimpleTextInputCellFragment();
     SimpleTextInputCellFragment fragmentContent = new SimpleTextInputCellFragment();
     PictrueInputCellFragment fragmentPictrue = new PictrueInputCellFragment();
@@ -41,6 +41,7 @@ public class PostAddActivity extends Activity {
         fragmentContent = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
         fragmentPictrue = (PictrueInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
         fragmentPrice = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_price);
+        back = (ImageView) findViewById(R.id.iv_back);
 
         fragmentTitle.setHintText("标题");
         fragmentContent.setHintText("内容");
@@ -54,6 +55,12 @@ public class PostAddActivity extends Activity {
             public void onClick(View view) {
                 AnimationEffec.setTransAniToRight(truckImg, 0, 700, 0, 0, 1500);
                 submit();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
