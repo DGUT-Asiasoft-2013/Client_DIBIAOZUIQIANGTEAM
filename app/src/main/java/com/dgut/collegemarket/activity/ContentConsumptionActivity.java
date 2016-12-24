@@ -14,7 +14,6 @@ public class ContentConsumptionActivity extends Activity {
 
     private Records records;
     List<Records> data;
-    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
