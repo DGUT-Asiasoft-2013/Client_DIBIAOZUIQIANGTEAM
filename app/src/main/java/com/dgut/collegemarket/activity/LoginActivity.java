@@ -66,8 +66,7 @@ public class LoginActivity extends FragmentActivity {
         recover.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(LoginActivity.this, PasswordRecoverActivity.class));
-
+                startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
             }
         });
 

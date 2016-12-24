@@ -46,7 +46,7 @@ public class UserInfoActivity extends Activity{
     User user;
     TextView tvTitle,tvExit;
     AvatarView userAvatar ;
-    RelativeLayout rlAvatar;
+    RelativeLayout rlAvatar,rlUpdatePassword;
 
     InfoListFragment fragmentUserName = new InfoListFragment();
     InfoListFragment fragmentUserEmail = new InfoListFragment();
@@ -68,6 +68,7 @@ public class UserInfoActivity extends Activity{
         user = (User) getIntent().getSerializableExtra("user");
         tvTitle = (TextView) findViewById(R.id.tv_user_title);
         tvExit = (TextView) findViewById(R.id.tv_exit);
+        rlUpdatePassword = (RelativeLayout) findViewById(R.id.rl_change_password);
         userAvatar = (AvatarView) findViewById(R.id.av_user_avatar);
         rlAvatar = (RelativeLayout) findViewById(R.id.fragment_avatar);
         fragmentUserName = (InfoListFragment) getFragmentManager().findFragmentById(R.id.fragment_user_name);
@@ -91,6 +92,13 @@ public class UserInfoActivity extends Activity{
             }
         });
 
+        rlUpdatePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itnt = new Intent(UserInfoActivity.this,UpdatePasswordActivity.class);
+                startActivity(itnt);
+            }
+        });
     }
 
     @Override
