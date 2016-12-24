@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
 
-
+//偶像列表
 public class SubscriptionRecordsFragment extends Fragment {
 
     View view;

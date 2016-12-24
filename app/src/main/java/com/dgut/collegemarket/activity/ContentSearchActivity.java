@@ -28,7 +28,7 @@ import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
-
+//查找人界面点击事件—实现他人主页—实现点击私信—订阅功能
 public class ContentSearchActivity extends Activity {
     Subscriber subscriber;
     User user;

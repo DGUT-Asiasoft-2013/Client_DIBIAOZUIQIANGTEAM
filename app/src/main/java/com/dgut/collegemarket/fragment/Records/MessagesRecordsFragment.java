@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
 
-
+//粉丝列表
 public class MessagesRecordsFragment extends Fragment {
 
     View view;
