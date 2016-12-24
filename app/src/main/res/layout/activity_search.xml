@@ -30,7 +30,7 @@
             android:layout_weight="2.5"
             android:ems="10"
             android:gravity="center"
-            android:hint="我要找粑粑" />
+            android:hint="你找谁？" />
 
         <ImageButton
             android:id="@+id/image_button"

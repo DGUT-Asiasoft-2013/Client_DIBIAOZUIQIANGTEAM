@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.AboutVersionActivity;
 import com.dgut.collegemarket.activity.CheckConsumptionAndSalesRecordsActivity;
 import com.dgut.collegemarket.activity.CheckSubscriptionAndMessagesRecordsActivity;
 
@@ -28,6 +28,7 @@ import com.dgut.collegemarket.activity.SearchActivity;
 import com.dgut.collegemarket.activity.UserInfoActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
+import com.dgut.collegemarket.activity.AboutCollegeMarketActivity;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.JudgeLevel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -102,6 +103,22 @@ public class MyProfileFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(getActivity(), DirectMessagesActivity.class));
+                }
+            });
+
+            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_about);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), AboutCollegeMarketActivity.class));
+                }
+            });
+
+            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_version);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), AboutVersionActivity.class));
                 }
             });
 

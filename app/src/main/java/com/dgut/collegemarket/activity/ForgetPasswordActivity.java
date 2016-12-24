@@ -60,7 +60,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                         .post(requestBody)
                         .build();
                 final ProgressDialog dialog = new ProgressDialog(ForgetPasswordActivity.this);
-                dialog.setMessage("正在提交");
+                dialog.setMessage("正在提交请求");
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
@@ -71,6 +71,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 dialog.dismiss();
+
                                 Toast.makeText(ForgetPasswordActivity.this,"修改密码失败，请检查网络",Toast.LENGTH_SHORT).show();
                             }
                         });
