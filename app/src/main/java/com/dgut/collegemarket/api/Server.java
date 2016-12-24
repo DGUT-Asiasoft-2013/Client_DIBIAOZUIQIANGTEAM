@@ -31,14 +31,18 @@ public class Server {
 		return client;
 	}
 	
+//	public static String serverAddress = "http://172.27.15.26:8080/CollegeMarket/";
+//	public static String serverAddress_wuzeen = "http://172.25.15.21:8080/CollegeMarket/";
+//	public static String serverAddress_wuzeen = "http://172.27.0.23:8080/CollegeMarket/";
+	public static String serverAddress_zhongweiyuan = "http://172.27.15.26:8080/CollegeMarket/";
 	public static String serverAddress_shenjingrong = "http://172.27.15.27:8080/CollegeMarket/";
 //	public static String serverAddress_wuzeen = "http://172.25.141.13:8080/CollegeMarket/";
 //	public static String serverAddress_yemaozhao = "http://172.27.0.23:8080/CollegeMarket/";
 //	public static String serverAddress_zhongweiyuan = "http://172.27.0.22:8080/CollegeMarket/";
 	public static Request.Builder requestBuilderWithApi(String api){
 
-		System.out.println("访问了："+serverAddress_shenjingrong+"api/"+api);
+		System.out.println("访问了："+serverAddress_zhongweiyuan+"api/"+api);
 		return new Request.Builder()
-		.url(serverAddress_shenjingrong+"api/"+api);
+		.url(serverAddress_zhongweiyuan+"api/"+api);
 	}
 }

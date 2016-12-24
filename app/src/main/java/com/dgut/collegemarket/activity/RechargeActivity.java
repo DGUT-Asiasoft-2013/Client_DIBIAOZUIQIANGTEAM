@@ -1,8 +1,8 @@
 package com.dgut.collegemarket.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,11 +12,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.api.entity.Records;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.util.CommonUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -25,7 +24,7 @@ import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class RechargeActivity extends AppCompatActivity {
+public class RechargeActivity extends Activity {
 
     private Spinner spinner;
     private List<String> data_list;
@@ -44,25 +43,13 @@ public class RechargeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recharge();
+                if (CommonUtils.isFastDoubleClick()) {
+                    return;
+                } else {
+                    recharge();
+                }
             }
         });
-
-        spinner = (Spinner) findViewById(R.id.spinner);
-
-        //数据
-        data_list = new ArrayList<String>();
-        data_list.add("100");
-        data_list.add("200");
-        data_list.add("500");
-        data_list.add("1000");
-
-        //适配器
-        arr_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data_list);
-        //设置样式
-        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //加载适配器
-        spinner.setAdapter(arr_adapter);
     }
 
     void recharge() {

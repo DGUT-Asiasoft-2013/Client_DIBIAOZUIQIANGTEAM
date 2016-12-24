@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/app_back_1">
+    android:layout_height="match_parent">
 
 
     <RelativeLayout
@@ -18,7 +17,7 @@
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@android:color/background_dark"></View>
+            android:background="@color/colorAccent"></View>
 
         <com.dgut.collegemarket.fragment.widgets.AvatarView
             android:id="@+id/av_user"
@@ -68,12 +67,12 @@
             android:layout_toEndOf="@+id/pb_xp"
             android:text="50/100" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:background="@android:color/holo_blue_dark"></View>
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:background="@color/colorAccent"></View>-->
 
     </RelativeLayout>
 
@@ -81,30 +80,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/linear_me"
+        android:background="@android:color/white"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_below="@+id/linear_me"
-            android:background="@android:color/white"
-            android:orientation="horizontal">
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_goods_item_head_corners"
+            android:elevation="2dip"
+            android:orientation="horizontal"
+            android:padding="1dp">
 
             <RelativeLayout
                 android:id="@+id/chong_money"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_weight="0.90">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.90"
+                android:padding="5dp">
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:background="@drawable/bg_goods_item_head_corners"-->
+                <!--android:elevation="5dip"-->
+
 
                 <TextView
                     android:id="@+id/tv_money1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-                    android:text="某某宝"
+                    android:layout_marginTop="10dp"
+                    android:text="某宝"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp" />
 
@@ -127,23 +142,32 @@
                     android:textSize="10sp" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:background="@android:color/holo_blue_dark"></View>
+            <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:background="@color/colorAccent"></View>-->
 
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.2">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1.2"
+                android:background="@drawable/bg_goods_item_corners"
+                android:elevation="5dip"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/tv_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="26dp"
+                    android:layout_marginTop="10dp"
                     android:text="888.88"
                     android:textColor="@color/colorAccent"
                     android:textSize="30sp" />
@@ -167,24 +191,33 @@
                     android:textSize="12sp" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:background="@android:color/holo_blue_dark"></View>
+            <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:background="@color/colorAccent"></View>-->
 
             <RelativeLayout
-                android:id="@+id/relative"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.9">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.9"
+                android:padding="5dp">
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:background="@drawable/bg_goods_item_head_corners"-->
+                <!--android:elevation="5dip"-->
+                <!---->
 
                 <TextView
                     android:id="@+id/tv_money2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="10dp"
                     android:text="6666"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp" />
@@ -216,11 +249,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
 
-        <View
-            android:id="@+id/view1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/holo_blue_dark"></View>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -241,9 +269,13 @@
 
                     <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_posts_background" />
 
                     <TextView
@@ -251,9 +283,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="我的消费"
                         android:textSize="16dp" />
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#F2F2F2"></View>
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
@@ -263,9 +305,13 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_myprofile_background" />
 
                     <TextView
@@ -273,10 +319,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="我的订阅"
                         android:textSize="16dp" />
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#F2F2F2"></View>
 
                 <LinearLayout
                     android:id="@+id/linearLayout_messages"
@@ -286,9 +342,13 @@
 
                     <ImageView
                         android:id="@+id/imageView6"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_order_background" />
 
                     <TextView
@@ -296,10 +356,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="我的私信"
                         android:textSize="16dp" />
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#F2F2F2"></View>
 
                 <LinearLayout
                     android:id="@+id/linearLayout_search"
@@ -309,9 +379,13 @@
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_myprofile_background" />
 
                     <TextView
@@ -319,10 +393,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="找粑粑"
                         android:textSize="16dp" />
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#F2F2F2"></View>
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
@@ -332,9 +416,13 @@
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_goods_background" />
 
                     <TextView
@@ -342,10 +430,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="关于大超"
                         android:textSize="16dp" />
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#F2F2F2"></View>
 
                 <LinearLayout
                     android:id="@+id/linearLayout4"
@@ -355,9 +453,13 @@
 
                     <ImageView
                         android:id="@+id/imageView4"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_order_background" />
 
                     <TextView
@@ -365,10 +467,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="版本"
                         android:textSize="16dp" />
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/view7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#F2F2F2"></View>
 
                 <LinearLayout
                     android:id="@+id/linearLayout7"
@@ -378,9 +490,13 @@
 
                     <ImageView
                         android:id="@+id/imageView7"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_order_background" />
 
                     <TextView
@@ -393,6 +509,14 @@
 
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/view8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#F2F2F2"></View>
+
                 <LinearLayout
                     android:id="@+id/linearLayout8"
                     android:layout_width="match_parent"
@@ -401,9 +525,13 @@
 
                     <ImageView
                         android:id="@+id/imageView8"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/tab_order_background" />
 
                     <TextView
@@ -411,6 +539,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="版本"
                         android:textSize="16dp" />
 

@@ -11,18 +11,30 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_goods_item_corners"
+        android:elevation="5dip"
+        android:padding="10dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/tab_goods_background" />
+            android:src="@drawable/post_pressed" />
 
         <TextView
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="消费记录"
+            android:textSize="20dp"
+            android:layout_gravity="center"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
