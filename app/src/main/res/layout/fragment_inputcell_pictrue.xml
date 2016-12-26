@@ -27,11 +27,11 @@
             android:src="@drawable/camera" />
 
     </RelativeLayout>
-    <TextView
-        android:layout_marginTop="10dp"
-        android:id="@+id/labletext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="添加照片"
-        android:textColor="#3f8acf" />
+    <!--<TextView-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:id="@+id/labletext"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="添加照片"-->
+        <!--android:textColor="#3f8acf" />-->
 </LinearLayout>

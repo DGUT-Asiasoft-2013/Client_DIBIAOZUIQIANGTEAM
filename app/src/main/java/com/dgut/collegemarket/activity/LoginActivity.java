@@ -92,7 +92,7 @@ public class LoginActivity extends FragmentActivity {
                 .addFormDataPart("passwordHash", MD5.getMD5(password.getText()));//密码加密
 
 
-        Request request = Server.requestBuilderWithApi("login")
+        Request request = Server.requestBuilderWithApi("user/login")
                 .post(multipartBuilder.build())
                 .build();
 

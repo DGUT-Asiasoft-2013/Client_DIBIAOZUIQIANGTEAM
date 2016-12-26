@@ -36,34 +36,53 @@
 
 
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         android:layout_below="@+id/relativeLayout">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <fragment
-                android:id="@+id/fragment_account"
-                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+            android:orientation="vertical"
+            >
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <fragment
+                        android:id="@+id/fragment_account"
+                        class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        tools:layout="@layout/fragment_inputcell_simpletext"
+                        ></fragment>
 
-                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+                    <fragment
+                        android:id="@+id/fragment_password"
+                        class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+                </LinearLayout>
 
-            <fragment
-                android:id="@+id/fragment_password"
-                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+                <fragment
+                    android:id="@+id/fragment_pictrue"
+                    class="com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    tools:layout="@layout/fragment_inputcell_pictrue"></fragment>
+            </LinearLayout>
 
             <fragment
                 android:id="@+id/fragment_password2"
@@ -87,12 +106,6 @@
                 android:layout_height="wrap_content"
 
                 tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
-            <fragment
-                android:id="@+id/fragment_pictrue"
-                class="com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_inputcell_pictrue"></fragment>
 
             <Button
                 android:id="@+id/register"

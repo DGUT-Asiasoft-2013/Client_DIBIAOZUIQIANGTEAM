@@ -49,6 +49,12 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
         return view;
     }
 
+    /**
+     * 设置初始化头像
+     */
+    public void setInitPitcure(){
+
+    }
     void onImageViewClicked() {
         String[] items = {
                 "拍照",
