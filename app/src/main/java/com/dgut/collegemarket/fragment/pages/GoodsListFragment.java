@@ -3,7 +3,7 @@ package com.dgut.collegemarket.fragment.pages;
 
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.GoodsContentActivity;
+import com.dgut.collegemarket.activity.goods.GoodsContentActivity;
 import com.dgut.collegemarket.adapter.GoodsListAdapter;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.Server;
@@ -15,7 +15,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;

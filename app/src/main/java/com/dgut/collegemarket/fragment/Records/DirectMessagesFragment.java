@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.ContentConsumptionActivity;
+import com.dgut.collegemarket.activity.myprofile.ContentConsumptionActivity;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Records;
 import com.dgut.collegemarket.api.Server;

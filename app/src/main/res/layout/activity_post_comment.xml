@@ -5,6 +5,6 @@
     android:id="@+id/activity_post_comment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dgut.collegemarket.activity.PostCommentActivity">
+    tools:context="com.dgut.collegemarket.activity.posts.PostCommentActivity">
 
 </android.support.constraint.ConstraintLayout>

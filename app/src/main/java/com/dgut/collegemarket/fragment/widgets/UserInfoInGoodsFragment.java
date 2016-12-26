@@ -2,8 +2,6 @@ package com.dgut.collegemarket.fragment.widgets;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -14,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.GoodsContentActivity;
+import com.dgut.collegemarket.activity.goods.GoodsContentActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.util.JudgeLevel;

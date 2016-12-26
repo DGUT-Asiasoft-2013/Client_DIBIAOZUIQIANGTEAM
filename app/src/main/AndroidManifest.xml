@@ -26,25 +26,25 @@
         </activity>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.GoodsAddActivity" />
-        <activity android:name=".activity.CheckConsumptionAndSalesRecordsActivity" />
-        <activity android:name=".activity.CheckSubscriptionAndMessagesRecordsActivity" />
-        <activity android:name=".activity.ContentConsumptionActivity" />
-        <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.PostAddActivity" />
-        <activity android:name=".activity.RechargeActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.DirectMessagesActivity" />
-        <activity android:name=".activity.ContentSearchActivity" />
-        <activity android:name=".activity.SubscribeMessageActivity"></activity>
-        <activity android:name=".activity.GoodsContentActivity" />
-        <activity android:name=".activity.PostContentActivity" />
-        <activity android:name=".activity.CommentActivity" />
-        <activity android:name=".activity.PostCommentActivity"></activity>
-        <activity android:name=".activity.AboutCollegeMarketActivity"/>
-        <activity android:name=".activity.AboutVersionActivity"/>
-        <activity android:name=".activity.UpdatePasswordActivity" />
-        <activity android:name=".activity.ForgetPasswordActivity"></activity>
+        <activity android:name=".activity.goods.GoodsAddActivity" />
+        <activity android:name=".activity.myprofile.CheckConsumptionAndSalesRecordsActivity" />
+        <activity android:name=".activity.myprofile.CheckSubscriptionAndMessagesRecordsActivity" />
+        <activity android:name=".activity.myprofile.ContentConsumptionActivity" />
+        <activity android:name=".activity.myprofile.userInfo.UserInfoActivity" />
+        <activity android:name=".activity.posts.PostAddActivity" />
+        <activity android:name=".activity.myprofile.RechargeActivity" />
+        <activity android:name=".activity.myprofile.SearchActivity" />
+        <activity android:name=".activity.myprofile.DirectMessagesActivity" />
+        <activity android:name=".activity.myprofile.ContentSearchActivity" />
+        <activity android:name=".activity.common.SubscribeMessageActivity"></activity>
+        <activity android:name=".activity.goods.GoodsContentActivity" />
+        <activity android:name=".activity.posts.PostContentActivity" />
+        <activity android:name=".activity.posts.CommentActivity" />
+        <activity android:name=".activity.posts.PostCommentActivity"></activity>
+        <activity android:name=".activity.myprofile.AboutCollegeMarketActivity"/>
+        <activity android:name=".activity.myprofile.AboutVersionActivity"/>
+        <activity android:name=".activity.myprofile.userInfo.UpdatePasswordActivity" />
+        <activity android:name=".activity.myprofile.userInfo.ForgetPasswordActivity"></activity>
     </application>
 
 </manifest>

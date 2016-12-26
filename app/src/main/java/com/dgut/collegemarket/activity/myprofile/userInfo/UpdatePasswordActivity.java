@@ -1,8 +1,7 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.myprofile.userInfo;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;

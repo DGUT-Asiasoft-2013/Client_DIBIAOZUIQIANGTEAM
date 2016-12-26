@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.myprofile;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,9 +21,7 @@ import android.widget.Toast;
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Page;
-import com.dgut.collegemarket.api.entity.Records;
 import com.dgut.collegemarket.api.entity.User;
-import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.CommonUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

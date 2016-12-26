@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.PostContentActivity;
+import com.dgut.collegemarket.activity.posts.PostContentActivity;
 import com.dgut.collegemarket.adapter.PostListAdapter;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Page;
@@ -27,7 +27,6 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
