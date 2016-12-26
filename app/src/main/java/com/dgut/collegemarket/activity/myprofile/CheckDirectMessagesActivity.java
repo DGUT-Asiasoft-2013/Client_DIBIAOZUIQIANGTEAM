@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.myprofile;
 
 import android.app.Activity;
 import android.app.Fragment;

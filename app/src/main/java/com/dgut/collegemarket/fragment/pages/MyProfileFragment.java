@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.CheckConsumptionRecordsActivity;
-import com.dgut.collegemarket.activity.CheckIdolsAndFansRecordsActivity;
+import com.dgut.collegemarket.activity.myprofile.CheckConsumptionRecordsActivity;
+import com.dgut.collegemarket.activity.myprofile.CheckIdolsAndFansRecordsActivity;
 import com.dgut.collegemarket.activity.myprofile.AboutVersionActivity;
 
-import com.dgut.collegemarket.activity.CheckDirectMessagesActivity;
+import com.dgut.collegemarket.activity.myprofile.CheckDirectMessagesActivity;
 import com.dgut.collegemarket.activity.myprofile.RechargeActivity;
 import com.dgut.collegemarket.activity.myprofile.SearchActivity;
 import com.dgut.collegemarket.activity.myprofile.userInfo.UserInfoActivity;
