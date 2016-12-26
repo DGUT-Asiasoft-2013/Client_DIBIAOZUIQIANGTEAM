@@ -16,7 +16,7 @@ public class CheckConsumptionRecordsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_check_records_1, null);
+        View view = inflater.inflate(R.layout.fragment_check_consumption_records, null);
 
         consumptionRecords = view.findViewById(R.id.consumption_check);
 

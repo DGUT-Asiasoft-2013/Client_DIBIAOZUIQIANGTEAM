@@ -93,7 +93,7 @@ public class RegisterActivity extends Activity {
                                     MediaType.parse("image/png")
                                     , pictrue.getPngData()));
 
-        final Request request = Server.requestBuilderWithApi("register")
+        final Request request = Server.requestBuilderWithApi("user/register")
                 .post(multipartBuilder.build())
                 .build();
 

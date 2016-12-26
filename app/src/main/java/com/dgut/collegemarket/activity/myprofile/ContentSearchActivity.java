@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.common.SubscribeMessageActivity;
+import com.dgut.collegemarket.activity.common.SendMessageActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Subscriber;
 import com.dgut.collegemarket.api.entity.User;
@@ -54,7 +54,7 @@ public class ContentSearchActivity extends Activity {
                 if (CommonUtils.isFastDoubleClick()) {
                     return;
                 } else {
-                    startActivity(new Intent(ContentSearchActivity.this, SubscribeMessageActivity.class));
+                    startActivity(new Intent(ContentSearchActivity.this, SendMessageActivity.class));
                 }
             }
         });
