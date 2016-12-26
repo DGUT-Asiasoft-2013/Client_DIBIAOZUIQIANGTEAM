@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.fragment.pages.GoodsListFragment;
 import com.dgut.collegemarket.fragment.pages.MyProfileFragment;
 import com.dgut.collegemarket.fragment.pages.PostListFragment;
@@ -42,10 +43,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(!CurrentUserInfo.online){
+            finish();
+        }
         if(currentId < 0) {
             tabbarFragment.setSelectTab(0);
         }
-
     }
 
     private void changeContentPageFragment(int index) {

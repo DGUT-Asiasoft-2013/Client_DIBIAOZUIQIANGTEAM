@@ -21,6 +21,7 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordStep1Activity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
+import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -188,6 +189,7 @@ public class LoginActivity extends FragmentActivity {
                         @Override
                         public void run() {
                             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            CurrentUserInfo.online = true;
                             if(cbRememberPassword.isChecked()){
                                 if(cbAutoLogin.isChecked()){
                                     setUser(account.getText(),password.getText(),true,true);
