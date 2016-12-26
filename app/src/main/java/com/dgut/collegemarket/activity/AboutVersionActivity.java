@@ -5,7 +5,9 @@ import android.os.Bundle;
 import com.dgut.collegemarket.R;
 
 
+//个人页面—版本—点击事件
 public class AboutVersionActivity extends Activity {
+
 
 
     @Override

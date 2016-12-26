@@ -5,7 +5,10 @@ import android.os.Bundle;
 
 import com.dgut.collegemarket.R;
 
+
+//个人页面—关于大超—点击事件
 public class AboutCollegeMarketActivity extends Activity {
+
 
 
     @Override

@@ -10,6 +10,8 @@ import com.dgut.collegemarket.api.entity.Records;
 
 import java.util.List;
 
+
+//我的消费界面—显示数据库记录
 public class ContentConsumptionActivity extends Activity {
 
     private Records records;

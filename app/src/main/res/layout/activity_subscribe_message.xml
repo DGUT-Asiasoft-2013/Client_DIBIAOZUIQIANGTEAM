@@ -47,7 +47,7 @@
         android:ems="10"
         android:gravity="top|left"
         android:inputType="textMultiLine"
-        android:padding="8dp"
+        android:padding="5dp"
         android:textColor="@android:color/holo_blue_dark" />
 
 </LinearLayout>

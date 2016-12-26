@@ -25,6 +25,7 @@ import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
+//充值界面—实现充值功能
 public class RechargeActivity extends Activity {
 
     private Spinner spinner;

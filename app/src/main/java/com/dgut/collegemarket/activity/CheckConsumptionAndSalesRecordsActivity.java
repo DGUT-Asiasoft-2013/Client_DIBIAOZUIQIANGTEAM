@@ -10,6 +10,8 @@ import com.dgut.collegemarket.fragment.widgets.CheckConsumptionRecordsFragment;
 import com.dgut.collegemarket.fragment.widgets.CheckConsumptionRecordsFragment.OnTabSelectedListener;
 import com.dgut.collegemarket.fragment.widgets.CheckConsumptionRecordsFragment.OnNewClickedListener;
 
+
+//个人页面—我的消费—点击事件
 public class CheckConsumptionAndSalesRecordsActivity extends Activity {
 
     ConsumptionRecordsFragment contentConsumptionRecords = new ConsumptionRecordsFragment();

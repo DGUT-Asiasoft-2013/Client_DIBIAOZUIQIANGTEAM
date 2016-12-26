@@ -11,6 +11,8 @@ import com.dgut.collegemarket.fragment.widgets.CheckSubscriptionAndMessagesRecor
 import com.dgut.collegemarket.fragment.widgets.CheckSubscriptionAndMessagesRecordsFragment.OnTabSelectedListener;
 import com.dgut.collegemarket.fragment.widgets.CheckSubscriptionAndMessagesRecordsFragment.OnNewClickedListener;
 
+
+//个人页面—我的订阅—点击事件
 public class CheckSubscriptionAndMessagesRecordsActivity extends Activity {
 
     SubscriptionRecordsFragment contentSubscriptionRecords = new SubscriptionRecordsFragment();

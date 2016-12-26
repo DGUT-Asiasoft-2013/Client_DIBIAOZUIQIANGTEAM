@@ -10,6 +10,8 @@ import com.dgut.collegemarket.fragment.widgets.CheckDirectMessagesFragment;
 import com.dgut.collegemarket.fragment.widgets.CheckDirectMessagesFragment.OnNewClickedListener;
 import com.dgut.collegemarket.fragment.widgets.CheckDirectMessagesFragment.OnTabSelectedListener;
 
+
+//我的私信界面—显示数据库记录—私信记录
 public class DirectMessagesActivity extends Activity {
 
     DirectMessagesFragment contentDirectMessages = new DirectMessagesFragment();

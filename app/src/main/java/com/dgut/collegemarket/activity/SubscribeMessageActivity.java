@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.dgut.collegemarket.R;
 
+//私信界面—发送私信
 public class SubscribeMessageActivity extends Activity {
 
     @Override

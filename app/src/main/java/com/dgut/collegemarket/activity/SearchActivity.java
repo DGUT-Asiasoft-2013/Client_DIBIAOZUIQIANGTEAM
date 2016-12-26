@@ -37,6 +37,8 @@ import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
+//查找界面—实现查找人功能
 public class SearchActivity extends Activity {
 
     View view;
