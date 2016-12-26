@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.myprofile;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,16 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.common.SubscribeMessageActivity;
 import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Subscriber;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.util.CommonUtils;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;

@@ -18,17 +18,17 @@ import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.AboutVersionActivity;
-import com.dgut.collegemarket.activity.CheckConsumptionAndSalesRecordsActivity;
-import com.dgut.collegemarket.activity.CheckSubscriptionAndMessagesRecordsActivity;
+import com.dgut.collegemarket.activity.myprofile.AboutVersionActivity;
+import com.dgut.collegemarket.activity.myprofile.CheckConsumptionAndSalesRecordsActivity;
+import com.dgut.collegemarket.activity.myprofile.CheckSubscriptionAndMessagesRecordsActivity;
 
-import com.dgut.collegemarket.activity.DirectMessagesActivity;
-import com.dgut.collegemarket.activity.RechargeActivity;
-import com.dgut.collegemarket.activity.SearchActivity;
-import com.dgut.collegemarket.activity.UserInfoActivity;
+import com.dgut.collegemarket.activity.myprofile.DirectMessagesActivity;
+import com.dgut.collegemarket.activity.myprofile.RechargeActivity;
+import com.dgut.collegemarket.activity.myprofile.SearchActivity;
+import com.dgut.collegemarket.activity.myprofile.userInfo.UserInfoActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
-import com.dgut.collegemarket.activity.AboutCollegeMarketActivity;
+import com.dgut.collegemarket.activity.myprofile.AboutCollegeMarketActivity;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.JudgeLevel;
 import com.fasterxml.jackson.databind.ObjectMapper;

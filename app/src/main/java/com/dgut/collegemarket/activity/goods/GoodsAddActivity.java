@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.goods;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,13 +7,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment;
-import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.AnimationEffec;
 import com.fasterxml.jackson.databind.ObjectMapper;

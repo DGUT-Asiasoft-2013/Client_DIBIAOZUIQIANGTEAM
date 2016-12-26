@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.posts;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -5,6 +5,6 @@
     android:id="@+id/activity_update_avatar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dgut.collegemarket.activity.UpdateAvatarActivity">
+    tools:context="com.dgut.collegemarket.activity.myprofile.userInfo.UpdateAvatarActivity">
 
 </android.support.constraint.ConstraintLayout>

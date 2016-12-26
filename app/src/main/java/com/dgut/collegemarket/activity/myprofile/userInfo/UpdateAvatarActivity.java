@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.myprofile.userInfo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

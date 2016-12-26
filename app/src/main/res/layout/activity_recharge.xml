@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.dgut.collegemarket.activity.RechargeActivity">
+    tools:context="com.dgut.collegemarket.activity.myprofile.RechargeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

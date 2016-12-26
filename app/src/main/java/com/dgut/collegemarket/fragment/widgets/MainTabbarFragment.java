@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.GoodsAddActivity;
-import com.dgut.collegemarket.activity.PostAddActivity;
+import com.dgut.collegemarket.activity.goods.GoodsAddActivity;
+import com.dgut.collegemarket.activity.posts.PostAddActivity;
 import com.dgut.collegemarket.util.AnimationEffec;
 
 
