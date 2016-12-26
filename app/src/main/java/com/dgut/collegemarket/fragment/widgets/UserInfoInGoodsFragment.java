@@ -51,7 +51,7 @@ public class UserInfoInGoodsFragment extends Fragment {
     void initView() {
 
         levelText.setText("LV " + JudgeLevel.judege(user.getXp()));
-        Picasso.with(activity).load(Server.serverAddress_wuzeen + user.getAvatar()).resize(50, 50).centerInside().error(R.drawable.unknow_avatar).into(avatar);
+        Picasso.with(activity).load(Server.serverAddress + user.getAvatar()).resize(50, 50).centerInside().error(R.drawable.unknow_avatar).into(avatar);
 
         nameText.setText(user.getName());
         commentBt.setOnClickListener(new View.OnClickListener() {
