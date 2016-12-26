@@ -58,7 +58,7 @@ public class PostContentActivity extends Activity {
         tvLookComment = (TextView) findViewById(R.id.tv_lookcomments);
         tvLike = (TextView) findViewById(R.id.tv_likes);
 
-        String albumsUrl = Server.serverAddress_wuzeen + post.getAlbums();
+        String albumsUrl = Server.serverAddress + post.getAlbums();
         Picasso.with(PostContentActivity.this).load(albumsUrl).resize(500,300).centerInside().into(ivContentImg);
 
         ivBack.setOnClickListener(new OnClickListener() {

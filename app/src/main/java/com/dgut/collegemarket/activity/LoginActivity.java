@@ -71,8 +71,8 @@ public class LoginActivity extends FragmentActivity {
             }
         });
 
-        account.setLableText("1");
-        password.setLableText("1");
+        account.setLableText("3");
+        password.setLableText("3");
     }
 
     private void loginHttpRequest() {
@@ -155,3 +155,4 @@ public class LoginActivity extends FragmentActivity {
     }
 }
 
+//
