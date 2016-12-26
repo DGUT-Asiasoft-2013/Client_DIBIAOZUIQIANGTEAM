@@ -34,7 +34,7 @@ public class UserInfoInGoodsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_user_info_in_goods, null);
         activity = getActivity();
-        user = GoodsContentActivity.user;
+        user = GoodsContentActivity.publisher;
 
         levelText = (TextView) view.findViewById(R.id.tv_level);
         nameText = (TextView) view.findViewById(R.id.tv_name);

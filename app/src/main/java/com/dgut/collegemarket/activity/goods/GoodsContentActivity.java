@@ -1,7 +1,7 @@
 package com.dgut.collegemarket.activity.goods;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.orders.OrdresCreateActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.api.entity.User;
@@ -23,18 +24,18 @@ import com.squareup.picasso.Picasso;
 public class GoodsContentActivity extends AppCompatActivity {
     ImageView albumsImg;
     ImageView avatarImg;
-     Goods goods;
+    Goods goods;
     Toolbar toolbar;
-    public  static User user;
+    public static User publisher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         goods = (Goods) getIntent().getSerializableExtra("goods");
-        user=goods.getPublishers();
+        publisher = goods.getPublishers();
         setContentView(R.layout.activity_goods_content);
-    
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         albumsImg = (ImageView) findViewById(R.id.image_albums);
@@ -50,8 +51,8 @@ public class GoodsContentActivity extends AppCompatActivity {
             }
         });
 
-        Picasso.with(this).load(Server.serverAddress+ goods.getAlbums()).resize(500, 300).centerInside().into(albumsImg);
-        Picasso.with(this).load(Server.serverAddress+ goods.getPublishers().getAvatar()).resize(50, 50).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
+        Picasso.with(this).load(Server.serverAddress + goods.getAlbums()).resize(500, 300).centerInside().into(albumsImg);
+        Picasso.with(this).load(Server.serverAddress + goods.getPublishers().getAvatar()).resize(50, 50).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
 
         System.out.println(Server.serverAddress + goods.getAlbums());
         initView();
@@ -110,11 +111,11 @@ public class GoodsContentActivity extends AppCompatActivity {
         priceText = (TextView) popupView.findViewById(R.id.text_price);
         preQuantityText = (TextView) popupView.findViewById(R.id.text_quantity_buy_pre);
         buyQuantityText = (TextView) popupView.findViewById(R.id.text_quantity_buy);
-        settlementBt = (Button) popupView.findViewById(R.id.button_settlement);
+        settlementBt = (Button) popupView.findViewById(R.id.btn_orders_create);
         addBt = (TextView) popupView.findViewById(R.id.bt_add);
         deleteBt = (TextView) popupView.findViewById(R.id.bt_delete);
 
-        quantityText.setText(goods.getQuantity()+"");
+        quantityText.setText(goods.getQuantity() + "");
         priceText.setText(goods.getPrice() + "");
 
         addBt.setOnClickListener(new View.OnClickListener() {
@@ -143,9 +144,13 @@ public class GoodsContentActivity extends AppCompatActivity {
         settlementBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(GoodsContentActivity.this)
-                        .setTitle("敬请期待")
-                        .setMessage("后续功能将在下个版本添加").show();
+                int num = Integer.valueOf(preQuantityText.getText().toString());
+                if (num > 0) {
+                    Intent intent = new Intent(GoodsContentActivity.this, OrdresCreateActivity.class);
+                    intent.putExtra("goods", goods);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
+                }
             }
         });
     }
