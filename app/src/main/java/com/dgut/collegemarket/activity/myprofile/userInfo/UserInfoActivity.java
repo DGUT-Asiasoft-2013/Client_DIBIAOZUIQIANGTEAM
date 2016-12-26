@@ -65,7 +65,7 @@ public class UserInfoActivity extends Activity{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_userinfo);
-        user = (User) getIntent().getSerializableExtra("user");
+
         tvTitle = (TextView) findViewById(R.id.tv_user_title);
         tvExit = (TextView) findViewById(R.id.tv_exit);
         rlUpdatePassword = (RelativeLayout) findViewById(R.id.rl_change_password);
@@ -104,17 +104,22 @@ public class UserInfoActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
-        userAvatar.load(user);
-        fragmentUserName.setTvUserAttribute("昵称");
-        fragmentUserName.setTvUserContent(user.getName());
-        fragmentUserEmail.setTvUserAttribute("邮箱");
-        fragmentUserEmail.setTvUserContent(user.getEmail());
-        fragmentUserXp.setTvUserAttribute("总经验");
-        fragmentUserXp.setTvUserContent(user.getXp()+"");
-        fragmentUsercoins.setTvUserAttribute("金币");
-        fragmentUsercoins.setTvUserContent(user.getCoin()+"");
-        fragmentUserCreatedate.setTvUserAttribute("创建时间");
-        fragmentUserCreatedate.setTvUserContent(DateFormat.format("yyyy-MM-dd hh:ss",user.getCreateDate()).toString());
+        try {
+            user = (User) getIntent().getSerializableExtra("user");
+            userAvatar.load(user);
+            fragmentUserName.setTvUserAttribute("昵称");
+            fragmentUserName.setTvUserContent(user.getName());
+            fragmentUserEmail.setTvUserAttribute("邮箱");
+            fragmentUserEmail.setTvUserContent(user.getEmail());
+            fragmentUserXp.setTvUserAttribute("总经验");
+            fragmentUserXp.setTvUserContent(user.getXp()+"");
+            fragmentUsercoins.setTvUserAttribute("金币");
+            fragmentUsercoins.setTvUserContent(user.getCoin()+"");
+            fragmentUserCreatedate.setTvUserAttribute("创建时间");
+            fragmentUserCreatedate.setTvUserContent(DateFormat.format("yyyy-MM-dd hh:ss",user.getCreateDate()).toString());
+        }catch (Exception e){
+            Toast.makeText(UserInfoActivity.this,"获取用户信息失败，请检查网络设置",Toast.LENGTH_SHORT).show();
+        }
     }
 
     void onImageViewClicked() {

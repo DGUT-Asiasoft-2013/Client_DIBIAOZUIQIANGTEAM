@@ -18,8 +18,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_face">
+        android:layout_below="@+id/tv_face"
+        android:layout_alignParentStart="true">
 
 
         <fragment
@@ -39,7 +39,27 @@
             android:layout_below="@+id/fragment_account"
             android:layout_alignParentStart="true"
             tools:layout="@layout/fragment_inputcell_simpletext" />
-
+        <LinearLayout
+            android:id="@+id/ll_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/fragment_password">
+            <CheckBox
+                android:id="@+id/cb_remember_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="记住密码" />
+            <CheckBox
+                android:id="@+id/cb_auto_login"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="自动登录" />
+        </LinearLayout>
         <Button
             android:id="@+id/username_sign_in_button"
             style="?android:textAppearanceSmall"
@@ -51,8 +71,9 @@
             android:focusable="true"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:layout_below="@+id/fragment_password"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@+id/ll_check"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/password_recover"
@@ -63,7 +84,6 @@
             android:layout_marginTop="10dp"
             android:textColor="#30b7ff"
             android:text="@string/forgetpassword" />
-
 
     </RelativeLayout>
     <TextView
@@ -76,4 +96,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

@@ -151,7 +151,7 @@ public class MyProfileFragment extends Fragment {
      */
     public void getUser(){
         OkHttpClient client = Server.getSharedClient();
-        Request request = Server.requestBuilderWithApi("me").build();
+        Request request = Server.requestBuilderWithApi("user/me").build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

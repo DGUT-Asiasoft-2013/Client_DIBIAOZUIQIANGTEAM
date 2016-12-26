@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
+import com.dgut.collegemarket.util.Util;
 
 
 import java.io.IOException;
@@ -39,7 +41,7 @@ public class RegisterActivity extends Activity {
 
     PictrueInputCellFragment pictrue;
     Button register;
-
+    TextView exit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,7 @@ public class RegisterActivity extends Activity {
         name = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_name);
         email = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_email);
         register = (Button) findViewById(R.id.register);
+        exit = (TextView) findViewById(R.id.tv_exit);
 
         account.setInputType(InputType.TYPE_CLASS_NUMBER);
         register.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +63,13 @@ public class RegisterActivity extends Activity {
                 submit();
             }
         });
-
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.none,R.anim.slide_out_bottom);
+            }
+        });
     }
 
     /**
@@ -196,7 +205,7 @@ public class RegisterActivity extends Activity {
         if (email.getText().equals("")) {
             email.setLayoutError("邮箱地址不能为空");
             return false;
-        }else if(!isEmail(email.getText())){
+        }else if(!Util.isEmail(email.getText())){
             email.setLayoutError("邮箱格式不正确");
             return false;
         }
@@ -222,17 +231,7 @@ public class RegisterActivity extends Activity {
         finish();
     }
 
-    /**
-     * 判断邮箱格式
-     * @param email
-     * @return
-     */
-    public boolean isEmail(String email) {
-        String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
-        Pattern p = Pattern.compile(str);
-        Matcher m = p.matcher(email);
-        return m.matches();
-    }
+
     @Override
     protected void onResume() {
         super.onResume();

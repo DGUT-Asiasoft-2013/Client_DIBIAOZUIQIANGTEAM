@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -49,12 +50,7 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
         return view;
     }
 
-    /**
-     * 设置初始化头像
-     */
-    public void setInitPitcure(){
 
-    }
     void onImageViewClicked() {
         String[] items = {
                 "拍照",

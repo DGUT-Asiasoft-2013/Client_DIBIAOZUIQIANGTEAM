@@ -1,11 +1,13 @@
 package com.dgut.collegemarket.activity.myprofile.userInfo;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
@@ -22,44 +24,52 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class ForgetPasswordStep2Activity extends Activity {
 
-    SimpleTextInputCellFragment fragUserId = new SimpleTextInputCellFragment();
-    SimpleTextInputCellFragment fragNewPassword = new SimpleTextInputCellFragment();
-    SimpleTextInputCellFragment fragRepaterPassword = new SimpleTextInputCellFragment();
+    SimpleTextInputCellFragment fragNewpassword = new SimpleTextInputCellFragment();
+    SimpleTextInputCellFragment fragRepaterpassword = new SimpleTextInputCellFragment();
 
-    Button btnUpdate;
+    Button btnSubmit;
+    TextView exit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password);
+        setContentView(R.layout.activity_forget_password_step2);
 
-        fragUserId = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_user_id);
-        fragNewPassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_new_password);
-        fragRepaterPassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_repater_password);
-        btnUpdate = (Button) findViewById(R.id.btn_update);
+        fragNewpassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_new_password);
+        fragRepaterpassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_repater_password);
+        btnSubmit = (Button) findViewById(R.id.btn_update);
+        exit = (TextView) findViewById(R.id.tv_exit);
 
-        fragUserId.setHintText("用户账号");
-        fragNewPassword.setHintText("新密码");
-        fragRepaterPassword.setHintText("重复密码");
+        fragNewpassword.setHintText("新密码");
+        fragRepaterpassword.setHintText("重复密码");
 
-
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!fragNewPassword.getText().toString().equals(fragRepaterPassword.getText().toString())) {
-                    Toast.makeText(ForgetPasswordActivity.this,"前后密码不一致",Toast.LENGTH_SHORT).show();
+                finish();
+                overridePendingTransition(R.anim.none,R.anim.slide_out_left);
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newPasswrod = fragNewpassword.getText().toString();
+                String repaterPassword = fragRepaterpassword.getText().toString();
+                if(!newPasswrod.equals(repaterPassword)){
+                    Toast.makeText(ForgetPasswordStep2Activity.this,"重复密码错误",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 OkHttpClient okHttpClient = Server.getSharedClient();
                 MultipartBody requestBody = new MultipartBody.Builder()
-                        .addFormDataPart("account",fragUserId.getText().toString())
-                        .addFormDataPart("newpassword",MD5.getMD5(fragNewPassword.getText().toString()))
+                        .addFormDataPart("email",getIntent().getStringExtra("email"))
+                        .addFormDataPart("newpassword", MD5.getMD5(newPasswrod))
                         .build();
                 Request request = Server.requestBuilderWithApi("user/forget/password")
                         .post(requestBody)
                         .build();
-                final ProgressDialog dialog = new ProgressDialog(ForgetPasswordActivity.this);
+                final ProgressDialog dialog = new ProgressDialog(ForgetPasswordStep2Activity.this);
                 dialog.setMessage("正在提交请求");
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
@@ -71,8 +81,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 dialog.dismiss();
-
-                                Toast.makeText(ForgetPasswordActivity.this,"修改密码失败，请检查网络",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgetPasswordStep2Activity.this,"修改密码失败，请检查网络",Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -80,15 +89,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        final String result = response.body().string();
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 dialog.dismiss();
-                                Log.e("debug",result);
-                                Toast.makeText(ForgetPasswordActivity.this,result,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgetPasswordStep2Activity.this,"修改密码成功",Toast.LENGTH_SHORT).show();
                                 finish();
+                                overridePendingTransition(R.anim.none,R.anim.slide_out_left);
                             }
                         });
 

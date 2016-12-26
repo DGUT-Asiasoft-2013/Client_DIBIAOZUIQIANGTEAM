@@ -48,8 +48,6 @@ public class MainActivity extends Activity {
 
     }
 
-
-
     private void changeContentPageFragment(int index) {
         FragmentTransaction transition = getFragmentManager().beginTransaction();
         Fragment newFrag = null;

@@ -1,10 +1,13 @@
 package com.dgut.collegemarket.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,7 +16,7 @@ import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordActivity;
+import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordStep1Activity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
@@ -61,19 +64,47 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-
+                overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
             }
         });
         recover.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
+                startActivity(new Intent(LoginActivity.this, ForgetPasswordStep1Activity.class));
+                overridePendingTransition(R.anim.slide_in_left,R.anim.none);
             }
         });
-        account.setLableText("test");
-        password.setLableText("3");
+
+        initUser();
     }
 
+    /**
+     * 初始化输入
+     */
+    public void initUser(){
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        String accounts = preferences.getString("account","");
+        String passwords = preferences.getString("password","");
+        account.setLableText(accounts);
+        password.setLableText(passwords);
+    }
+
+    /**
+     * 设置User参数
+     * @param account
+     * @param password
+     */
+    public void setUser(String account,String password){
+        SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("account",account);
+        editor.putString("password",password);
+        editor.commit();
+    }
+
+    /**
+     * 登录
+     */
     private void loginHttpRequest() {
         if (!isInputCorrect()) {
             return;
@@ -103,7 +134,7 @@ public class LoginActivity extends FragmentActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(LoginActivity.this,e==null?"用户密码不正确":e.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,"网络连接失败，请检查网络设置",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -112,25 +143,35 @@ public class LoginActivity extends FragmentActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 progressDialog.dismiss();
                 final String result = response.body().string();
-                System.out.println(result);
-                final User user = new ObjectMapper().readValue(result,User.class);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                Log.e("debug",1+result);
+                if(result.equals("")){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(LoginActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else {
+                    final User user = new ObjectMapper().readValue(result, User.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                }
             }
         });
     }
 
 
-
-
-
+    /**
+     * 判断输入
+     * @return
+     */
     private boolean isInputCorrect() {
         if (account.getText().equals("")) {
             account.setLayoutError("用户名不能为空");
@@ -154,4 +195,3 @@ public class LoginActivity extends FragmentActivity {
     }
 }
 
-//
