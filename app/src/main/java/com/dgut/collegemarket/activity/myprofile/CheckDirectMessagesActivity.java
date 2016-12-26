@@ -5,22 +5,22 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.fragment.Records.DirectMessagesFragment;
+import com.dgut.collegemarket.fragment.Records.DirectMessagesRecordsFragment;
 import com.dgut.collegemarket.fragment.widgets.CheckDirectMessagesFragment;
 import com.dgut.collegemarket.fragment.widgets.CheckDirectMessagesFragment.OnNewClickedListener;
 import com.dgut.collegemarket.fragment.widgets.CheckDirectMessagesFragment.OnTabSelectedListener;
 
 
 //我的私信界面—显示数据库记录—私信记录
-public class DirectMessagesActivity extends Activity {
+public class CheckDirectMessagesActivity extends Activity {
 
-    DirectMessagesFragment contentDirectMessages = new DirectMessagesFragment();
+    DirectMessagesRecordsFragment contentDirectMessages = new DirectMessagesRecordsFragment();
     CheckDirectMessagesFragment checkrecords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_direct_messages);
+        setContentView(R.layout.activity_check_direct_messages);
 
         checkrecords = (CheckDirectMessagesFragment) getFragmentManager().findFragmentById(R.id.frag_tabbar);
         checkrecords.setOnTabSelectedListener(new OnTabSelectedListener() {

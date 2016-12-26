@@ -128,7 +128,7 @@ public class SearchActivity extends Activity {
                     .addFormDataPart("keyword", keyword)
                     .build();
 
-            Request request = Server.requestBuilderWithApi("record/search/"+keyword)
+            Request request = Server.requestBuilderWithApi("rec/search/"+keyword)
                     .post(body)
                     .build();
 

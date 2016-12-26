@@ -33,7 +33,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 //私信列表
-public class DirectMessagesFragment extends Fragment {
+public class DirectMessagesRecordsFragment extends Fragment {
+
     View view;
     ListView listView;
     View LoadMore;
@@ -47,7 +48,7 @@ public class DirectMessagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             activity = getActivity();
-            view = inflater.inflate(R.layout.fragment_direct_messages, null);
+            view = inflater.inflate(R.layout.fragment_records_direct_messages, null);
             LoadMore = inflater.inflate(R.layout.widget_load_more_button, null);
             textLoadMore = (TextView) LoadMore.findViewById(R.id.load_more_text);
 
@@ -125,7 +126,7 @@ public class DirectMessagesFragment extends Fragment {
     }
 
     void reload() {
-        Request request = Server.requestBuilderWithApi("record/records")
+        Request request = Server.requestBuilderWithApi("rec/records")
                 .get()
                 .build();
 
@@ -139,8 +140,8 @@ public class DirectMessagesFragment extends Fragment {
                                     });
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            DirectMessagesFragment.this.page = data.getNumber();
-                            DirectMessagesFragment.this.data = data.getContent();
+                            DirectMessagesRecordsFragment.this.page = data.getNumber();
+                            DirectMessagesRecordsFragment.this.data = data.getContent();
                             listAdapter.notifyDataSetInvalidated();
                         }
                     });
@@ -171,7 +172,7 @@ public class DirectMessagesFragment extends Fragment {
     void LoadMore() {
         LoadMore.setEnabled(false);
         textLoadMore.setText("加载更多");
-        Request request = Server.requestBuilderWithApi("record/records/" + (page+1))
+        Request request = Server.requestBuilderWithApi("rec/records/" + (page+1))
                 .get()
                 .build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
@@ -180,7 +181,7 @@ public class DirectMessagesFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
                         LoadMore.setEnabled(true);
-                        textLoadMore.setText("成功");
+                        textLoadMore.setText("继续点看看有没有漏的");
                     }
                 });
 

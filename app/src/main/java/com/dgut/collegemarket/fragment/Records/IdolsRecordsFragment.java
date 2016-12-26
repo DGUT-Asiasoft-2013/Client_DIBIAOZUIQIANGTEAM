@@ -1,6 +1,5 @@
 package com.dgut.collegemarket.fragment.Records;
 
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,9 +17,10 @@ import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.myprofile.ContentConsumptionActivity;
+import com.dgut.collegemarket.activity.myprofile.ContentIdolsActivity;
+import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Records;
-import com.dgut.collegemarket.api.Server;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,8 +32,8 @@ import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
 
-//消费列表
-public class ConsumptionRecordsFragment extends Fragment {
+//偶像列表
+public class IdolsRecordsFragment extends Fragment {
 
     View view;
     ListView listView;
@@ -48,13 +48,12 @@ public class ConsumptionRecordsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             activity = getActivity();
-            view = inflater.inflate(R.layout.fragment_records_consumption, null);
+            view = inflater.inflate(R.layout.fragment_records_idols, null);
             LoadMore = inflater.inflate(R.layout.widget_load_more_button, null);
             textLoadMore = (TextView) LoadMore.findViewById(R.id.load_more_text);
 
-            listView = (ListView) view.findViewById(R.id.consumption_list);
+            listView = (ListView) view.findViewById(R.id.idols_list);
             listView.addFooterView(LoadMore);
-            listView.setAdapter(listAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -140,8 +139,8 @@ public class ConsumptionRecordsFragment extends Fragment {
                                     });
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            ConsumptionRecordsFragment.this.page = data.getNumber();
-                            ConsumptionRecordsFragment.this.data = data.getContent();
+                            IdolsRecordsFragment.this.page = data.getNumber();
+                            IdolsRecordsFragment.this.data = data.getContent();
                             listAdapter.notifyDataSetInvalidated();
                         }
                     });
@@ -224,7 +223,7 @@ public class ConsumptionRecordsFragment extends Fragment {
 
         Records records = data.get(position);
 
-        Intent itnt = new Intent(activity, ContentConsumptionActivity.class);
+        Intent itnt = new Intent(activity, ContentIdolsActivity.class);
         itnt.putExtra("data", records);
         startActivity(itnt);
     }

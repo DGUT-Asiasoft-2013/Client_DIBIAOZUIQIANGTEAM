@@ -5,26 +5,26 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.fragment.Records.MessagesRecordsFragment;
-import com.dgut.collegemarket.fragment.Records.SubscriptionRecordsFragment;
-import com.dgut.collegemarket.fragment.widgets.CheckSubscriptionAndMessagesRecordsFragment;
-import com.dgut.collegemarket.fragment.widgets.CheckSubscriptionAndMessagesRecordsFragment.OnTabSelectedListener;
-import com.dgut.collegemarket.fragment.widgets.CheckSubscriptionAndMessagesRecordsFragment.OnNewClickedListener;
+import com.dgut.collegemarket.fragment.Records.FansRecordsFragment;
+import com.dgut.collegemarket.fragment.Records.IdolsRecordsFragment;
+import com.dgut.collegemarket.fragment.widgets.CheckIdolsAndFansRecordsFragment;
+import com.dgut.collegemarket.fragment.widgets.CheckIdolsAndFansRecordsFragment.OnTabSelectedListener;
+import com.dgut.collegemarket.fragment.widgets.CheckIdolsAndFansRecordsFragment.OnNewClickedListener;
 
 
 //个人页面—我的订阅—点击事件
-public class CheckSubscriptionAndMessagesRecordsActivity extends Activity {
+public class CheckIdolsAndFansRecordsActivity extends Activity {
 
-    SubscriptionRecordsFragment contentSubscriptionRecords = new SubscriptionRecordsFragment();
-    MessagesRecordsFragment contentMessagesRecords = new MessagesRecordsFragment();
-    CheckSubscriptionAndMessagesRecordsFragment checkrecords_2;
+    IdolsRecordsFragment contentIdolsRecords = new IdolsRecordsFragment();
+    FansRecordsFragment contentFansRecords = new FansRecordsFragment();
+    CheckIdolsAndFansRecordsFragment checkrecords_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_records_2);
+        setContentView(R.layout.activity_check_idols_and_fans_records);
 
-        checkrecords_2 = (CheckSubscriptionAndMessagesRecordsFragment) getFragmentManager().findFragmentById(R.id.frag_tabbar_2);
+        checkrecords_2 = (CheckIdolsAndFansRecordsFragment) getFragmentManager().findFragmentById(R.id.frag_tabbar_2);
         checkrecords_2.setOnTabSelectedListener(new OnTabSelectedListener() {
 
             @Override
@@ -57,10 +57,10 @@ public class CheckSubscriptionAndMessagesRecordsActivity extends Activity {
 
         switch (index) {
             case 0:
-                newFrag = contentSubscriptionRecords;
+                newFrag = contentIdolsRecords;
                 break;
             case 1:
-                newFrag = contentMessagesRecords;
+                newFrag = contentFansRecords;
                 break;
             default:
                 break;

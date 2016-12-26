@@ -12,7 +12,7 @@ import com.dgut.collegemarket.fragment.widgets.CheckConsumptionRecordsFragment.O
 
 
 //个人页面—我的消费—点击事件
-public class CheckConsumptionAndSalesRecordsActivity extends Activity {
+public class CheckConsumptionRecordsActivity extends Activity {
 
     ConsumptionRecordsFragment contentConsumptionRecords = new ConsumptionRecordsFragment();
     CheckConsumptionRecordsFragment checkrecords_1;
@@ -20,7 +20,7 @@ public class CheckConsumptionAndSalesRecordsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_records_1);
+        setContentView(R.layout.activity_check_consumption_records);
 
         checkrecords_1 = (CheckConsumptionRecordsFragment) getFragmentManager().findFragmentById(R.id.frag_tabbar_2);
         checkrecords_1.setOnTabSelectedListener(new OnTabSelectedListener() {

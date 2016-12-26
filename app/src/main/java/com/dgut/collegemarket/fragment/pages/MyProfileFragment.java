@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.myprofile.CheckConsumptionRecordsActivity;
+import com.dgut.collegemarket.activity.myprofile.CheckIdolsAndFansRecordsActivity;
 import com.dgut.collegemarket.activity.myprofile.AboutVersionActivity;
-import com.dgut.collegemarket.activity.myprofile.CheckConsumptionAndSalesRecordsActivity;
-import com.dgut.collegemarket.activity.myprofile.CheckSubscriptionAndMessagesRecordsActivity;
 
-import com.dgut.collegemarket.activity.myprofile.DirectMessagesActivity;
+import com.dgut.collegemarket.activity.myprofile.CheckDirectMessagesActivity;
 import com.dgut.collegemarket.activity.myprofile.RechargeActivity;
 import com.dgut.collegemarket.activity.myprofile.SearchActivity;
 import com.dgut.collegemarket.activity.myprofile.userInfo.UserInfoActivity;
@@ -70,7 +70,7 @@ public class MyProfileFragment extends Fragment {
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), CheckConsumptionAndSalesRecordsActivity.class));
+                    startActivity(new Intent(getActivity(), CheckConsumptionRecordsActivity.class));
                 }
             });
 
@@ -78,7 +78,7 @@ public class MyProfileFragment extends Fragment {
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), CheckSubscriptionAndMessagesRecordsActivity.class));
+                    startActivity(new Intent(getActivity(), CheckIdolsAndFansRecordsActivity.class));
                 }
             });
 
@@ -102,7 +102,7 @@ public class MyProfileFragment extends Fragment {
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), DirectMessagesActivity.class));
+                    startActivity(new Intent(getActivity(), CheckDirectMessagesActivity.class));
                 }
             });
 

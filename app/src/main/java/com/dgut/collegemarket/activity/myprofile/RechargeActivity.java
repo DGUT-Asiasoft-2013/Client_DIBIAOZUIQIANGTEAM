@@ -69,7 +69,7 @@ public class RechargeActivity extends Activity {
                     .addFormDataPart("cause", cause)
                     .build();
 
-            Request request = Server.requestBuilderWithApi("record/records/recharge")
+            Request request = Server.requestBuilderWithApi("rec/records/recharge")
                     .post(body)
                     .build();
 

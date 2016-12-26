@@ -7,7 +7,7 @@
 
 
     <LinearLayout
-        android:id="@+id/subscription_records"
+        android:id="@+id/idols_records"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -30,7 +30,7 @@
 
 
     <LinearLayout
-        android:id="@+id/messages_records"
+        android:id="@+id/fans_records"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

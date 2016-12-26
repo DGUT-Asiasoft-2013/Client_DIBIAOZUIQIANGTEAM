@@ -70,8 +70,7 @@ public class LoginActivity extends FragmentActivity {
                 startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
             }
         });
-
-        account.setLableText("3");
+        account.setLableText("test");
         password.setLableText("3");
     }
 
@@ -155,3 +154,4 @@ public class LoginActivity extends FragmentActivity {
     }
 }
 
+//

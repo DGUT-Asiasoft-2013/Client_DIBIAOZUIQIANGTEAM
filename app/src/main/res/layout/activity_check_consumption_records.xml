@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        tools:layout="@layout/fragment_check_records_1"></fragment>
+        tools:layout="@layout/fragment_check_consumption_records"></fragment>
 
     <FrameLayout
         android:id="@+id/content_1"

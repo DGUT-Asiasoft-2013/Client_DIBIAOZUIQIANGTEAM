@@ -9,20 +9,20 @@ import android.view.ViewGroup;
 import com.dgut.collegemarket.R;
 
 
-public class CheckSubscriptionAndMessagesRecordsFragment extends Fragment {
-    View subscriptionRecords, messageRecords, recordsButton;
+public class CheckIdolsAndFansRecordsFragment extends Fragment {
+    View idolsRecords, fansRecords, recordsButton;
     View[] tabs;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_check_records_2, null);
+        View view = inflater.inflate(R.layout.fragment_check_idols_and_fans_records, null);
 
-        subscriptionRecords = view.findViewById(R.id.subscription_records);
-        messageRecords = view.findViewById(R.id.messages_records);
+        idolsRecords = view.findViewById(R.id.idols_records);
+        fansRecords = view.findViewById(R.id.fans_records);
 
         tabs = new View[] {
-                subscriptionRecords, messageRecords,
+                idolsRecords, fansRecords,
         };
 
         for(final View tab : tabs){
@@ -43,9 +43,9 @@ public class CheckSubscriptionAndMessagesRecordsFragment extends Fragment {
         void onTabSelected(int index);
     }
 
-    CheckSubscriptionAndMessagesRecordsFragment.OnTabSelectedListener onTabSelectedListener;
+    CheckIdolsAndFansRecordsFragment.OnTabSelectedListener onTabSelectedListener;
 
-    public void setOnTabSelectedListener(CheckSubscriptionAndMessagesRecordsFragment.OnTabSelectedListener onTabSelectedListener) {
+    public void setOnTabSelectedListener(CheckIdolsAndFansRecordsFragment.OnTabSelectedListener onTabSelectedListener) {
         this.onTabSelectedListener = onTabSelectedListener;
     }
 
@@ -85,9 +85,9 @@ public class CheckSubscriptionAndMessagesRecordsFragment extends Fragment {
         void onNewClicked();
     }
 
-    CheckSubscriptionAndMessagesRecordsFragment.OnNewClickedListener onNewClickedListener;
+    CheckIdolsAndFansRecordsFragment.OnNewClickedListener onNewClickedListener;
 
-    public void setOnNewClickedListener(CheckSubscriptionAndMessagesRecordsFragment.OnNewClickedListener listener){
+    public void setOnNewClickedListener(CheckIdolsAndFansRecordsFragment.OnNewClickedListener listener){
         this.onNewClickedListener = listener;
     }
 
