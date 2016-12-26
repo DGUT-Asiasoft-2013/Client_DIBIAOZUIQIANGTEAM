@@ -32,8 +32,7 @@ public class Server {
 	}
 
 	//少年改个ip吧
-	public static String serverAddress_wuzeen = "http://172.27.15.26:8080/CollegeMarket/";
-	public static String serverAddress_zhongweiyuan = "http://172.27.0.22:8080/CollegeMarket/";
+	public static String serverAddress_wuzeen = "http://172.27.15.12:8080/CollegeMarket/";
 	public static Request.Builder requestBuilderWithApi(String api){
 		String url=serverAddress_wuzeen+"api/"+api;
 		System.out.println("访问了："+url);

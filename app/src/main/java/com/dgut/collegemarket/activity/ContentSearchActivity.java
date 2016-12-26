@@ -73,7 +73,7 @@ public class ContentSearchActivity extends Activity {
     private boolean isSubscribed;
 
     void checkSubscribed(){
-        Request request = Server.requestBuilderWithApi("record/isSubscribed/"+user.getId()).get().build();
+        Request request = Server.requestBuilderWithApi("subscribe/isSubscribed/"+user.getId()).get().build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call arg0, Response arg1) throws IOException {
@@ -116,7 +116,7 @@ public class ContentSearchActivity extends Activity {
     }
 
     void reloadSubscribed(){
-        Request request = Server.requestBuilderWithApi("record/"+"subscribe/"+user.getId())
+        Request request = Server.requestBuilderWithApi("subscribe/"+user.getId())
                 .get()
                 .build();
 
@@ -171,7 +171,7 @@ public class ContentSearchActivity extends Activity {
                 .addFormDataPart("subscribe", String.valueOf(!isSubscribed))
                 .build();
 
-        Request request = Server.requestBuilderWithApi("record/"+"subscribe/"+user.getId())
+        Request request = Server.requestBuilderWithApi("subscribe/"+user.getId())
                 .post(body)
                 .build();
 
