@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,8 @@ public class LoginActivity extends FragmentActivity {
     Button login;
     TextView recover,register;
     ProgressDialog progressDialog;
+    CheckBox cbRememberPassword;
+    CheckBox cbAutoLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +58,16 @@ public class LoginActivity extends FragmentActivity {
         recover = (TextView) findViewById(R.id.password_recover);
 
         register = (TextView) findViewById(R.id.register);
+        cbAutoLogin = (CheckBox) findViewById(R.id.cb_auto_login);
+        cbRememberPassword = (CheckBox) findViewById(R.id.cb_remember_password);
+
         login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!isInputCorrect()) {
+                    return;
+                }
+
                 loginHttpRequest();
             }
         });
@@ -74,7 +85,22 @@ public class LoginActivity extends FragmentActivity {
                 overridePendingTransition(R.anim.slide_in_left,R.anim.none);
             }
         });
-
+        cbRememberPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!b){
+                    cbAutoLogin.setChecked(false);
+                }
+            }
+        });
+        cbAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    cbRememberPassword.setChecked(true);
+                }
+            }
+        });
         initUser();
     }
 
@@ -85,8 +111,15 @@ public class LoginActivity extends FragmentActivity {
         SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         String accounts = preferences.getString("account","");
         String passwords = preferences.getString("password","");
+        boolean auto = preferences.getBoolean("auto",false);
+        boolean remember = preferences.getBoolean("remember",false);
         account.setLableText(accounts);
         password.setLableText(passwords);
+        cbAutoLogin.setChecked(auto);
+        cbRememberPassword.setChecked(remember);
+        if(auto){
+            loginHttpRequest();
+        }
     }
 
     /**
@@ -94,11 +127,13 @@ public class LoginActivity extends FragmentActivity {
      * @param account
      * @param password
      */
-    public void setUser(String account,String password){
+    public void setUser(String account,String password,boolean remember,boolean auto){
         SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("account",account);
         editor.putString("password",password);
+        editor.putBoolean("auto",auto);
+        editor.putBoolean("remember",remember);
         editor.commit();
     }
 
@@ -106,10 +141,6 @@ public class LoginActivity extends FragmentActivity {
      * 登录
      */
     private void loginHttpRequest() {
-        if (!isInputCorrect()) {
-            return;
-        }
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("登录中");
         progressDialog.setCancelable(false);
@@ -157,6 +188,13 @@ public class LoginActivity extends FragmentActivity {
                         @Override
                         public void run() {
                             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            if(cbRememberPassword.isChecked()){
+                                if(cbAutoLogin.isChecked()){
+                                    setUser(account.getText(),password.getText(),true,true);
+                                }else{
+                                    setUser(account.getText(),password.getText(),true,false);
+                                }
+                            }
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
