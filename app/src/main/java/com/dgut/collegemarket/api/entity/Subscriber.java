@@ -9,35 +9,44 @@ import java.util.Date;
 
 public class Subscriber implements Serializable {
 
-    int id;
+
     Date createDate;
 
-    User publishers;//发布者
-    User subscribers;//订阅者
+    public static class Key implements Serializable {
 
-    public int getId() {
+        User publishers;//发布者
+        User subscribers;//订阅者
+
+        public User getPublishers() {
+            return publishers;
+        }
+
+        public void setPublishers(User publishers) {
+            this.publishers = publishers;
+        }
+
+        public User getSubscribers() {
+            return subscribers;
+        }
+
+        public void setSubscribers(User subscribers) {
+            this.subscribers = subscribers;
+        }
+
+
+    }
+
+    Key id;
+
+
+    public Key getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Key id) {
         this.id = id;
     }
 
-    public User getPublishers() {
-        return publishers;
-    }
-
-    public void setPublishers(User publishers) {
-        this.publishers = publishers;
-    }
-
-    public User getSubscribers() {
-        return subscribers;
-    }
-
-    public void setSubscribers(User subscribers) {
-        this.subscribers = subscribers;
-    }
 
     public Date getCreateDate() {
         return createDate;

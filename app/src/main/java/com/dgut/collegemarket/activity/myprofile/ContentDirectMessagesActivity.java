@@ -1,46 +1,45 @@
 package com.dgut.collegemarket.activity.myprofile;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.entity.Records;
-import com.dgut.collegemarket.api.entity.Subscriber;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 
 import java.util.List;
 
-public class ContentFansActivity extends Activity {
+public class ContentDirectMessagesActivity extends AppCompatActivity {
 
     TextView money,cause,date;
     AvatarView imageView;
+    private Records records;
     User user;
-    private Subscriber subscriber;
-    List<Subscriber> data;
+    List<Records> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_fans);
+        setContentView(R.layout.activity_content_direct_messages);
 
-        subscriber = (Subscriber) getIntent().getSerializableExtra("data");
+        records = (Records) getIntent().getSerializableExtra("data");
 
 //        ListView list = (ListView) findViewById(R.id.list);
 
         money = (TextView) findViewById(R.id.money);
         cause = (TextView) findViewById(R.id.cause);
         date = (TextView) findViewById(R.id.date);
-        imageView = (AvatarView) findViewById(R.id.fans_image);
+        imageView = (AvatarView) findViewById(R.id.messages_image);
 
-        money.setText(subscriber.getId().getSubscribers().getName() + "于");
-        cause.setText("成为我的粉丝");
+        money.setText(" 我在北京时间： ");
+        cause.setText(" 用某某宝 " + records.getCause() + " 了 " + records.getCoin() + " 元 ");
 
-        String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
+        String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();
         date.setText(dateStr);
-        imageView.load(subscriber.getId().getSubscribers().getAvatar());
+        imageView.load(records.getUser().getAvatar());
 
 //            list.addHeaderView(headerView, null, false);
 

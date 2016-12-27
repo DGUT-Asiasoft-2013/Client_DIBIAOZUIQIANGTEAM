@@ -38,11 +38,11 @@
     </FrameLayout>
 
     <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/money"
@@ -76,9 +76,10 @@
         android:layout_gravity="bottom"
         android:background="@android:color/darker_gray" />
 
-    <ImageView
-        android:id="@+id/goods_image"
+    <com.dgut.collegemarket.fragment.widgets.AvatarView
+        android:id="@+id/consumption_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/tab_myprofile_background" />
+        android:layout_marginTop="5dp"
+        android:padding="5dp" />
 </LinearLayout>
