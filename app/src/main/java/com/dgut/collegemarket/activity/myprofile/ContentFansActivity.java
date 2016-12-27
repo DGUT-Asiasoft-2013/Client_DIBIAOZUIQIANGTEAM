@@ -35,7 +35,7 @@ public class ContentFansActivity extends Activity {
         date = (TextView) findViewById(R.id.date);
         imageView = (AvatarView) findViewById(R.id.fans_image);
 
-        money.setText(subscriber.getId().getSubscribers().getName() + "于");
+        money.setText(subscriber.getId().getSubscribers().getName() + " 在北京时间");
         cause.setText("成为我的粉丝");
 
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();

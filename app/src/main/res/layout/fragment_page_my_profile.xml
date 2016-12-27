@@ -99,7 +99,6 @@
             android:padding="1dp">
 
             <RelativeLayout
-                android:id="@+id/chong_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -119,18 +118,18 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
-                    android:text="某某宝"
+                    android:text="6666"
                     android:textColor="@color/colorAccent"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignBottom="@+id/tv_money1"-->
-                    <!--android:layout_toRightOf="@+id/tv_money1"-->
-                    <!--android:text="RMB"-->
-                    <!--android:textColor="@color/colorAccent"-->
-                    <!--android:textSize="9sp" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_money1"
+                    android:layout_toRightOf="@+id/tv_money1"
+                    android:text="金币"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="9sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -138,7 +137,7 @@
                     android:layout_below="@+id/tv_money1"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="充值"
+                    android:text="换现"
                     android:textSize="10sp" />
             </RelativeLayout>
 
@@ -167,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
-                    android:text="出来吧WORD余额"
+                    android:text="余额"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="28sp" />
 
@@ -199,6 +198,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/chong_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -218,16 +218,16 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
-                    android:text="6666"
+                    android:text="某某宝"
                     android:textColor="@color/colorAccent"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/tv_money2"
                     android:layout_toRightOf="@+id/tv_money2"
-                    android:text="金币"
+                    android:text="RMB"
                     android:textColor="@color/colorAccent"
                     android:textSize="9sp" />
 
@@ -237,7 +237,7 @@
                     android:layout_below="@+id/tv_money2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="套现"
+                    android:text="充值"
                     android:textSize="10sp" />
             </RelativeLayout>
 

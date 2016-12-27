@@ -7,111 +7,109 @@
     android:layout_height="match_parent">
 
 
+    <ImageView
+        android:id="@+id/truck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/truck" />
 
-        <ImageView
-            android:id="@+id/truck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/truck"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp" />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/truck"
-    android:layout_alignParentStart="true">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_above="@+id/truck">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_gravity="top"
-        android:layout_alignParentTop="true"
->
-
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="发布商品"
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="bottom"
-            android:background="@android:color/background_dark"></View>
-
-
-    </RelativeLayout>
-
-
-    <fragment
-        android:id="@+id/fragment_title"
-        class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+        android:layout_above="@+id/truck"
+        android:layout_alignParentStart="true">
 
-    <fragment
-        android:id="@+id/fragment_content"
-        class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/fragment_title"
-        tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <fragment
-            android:id="@+id/fragment_price"
-            class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/fragment_pictrue"
-            android:layout_below="@+id/fragment_quantity"
-            android:layout_weight="1"
-            tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+            android:layout_above="@+id/truck"
+            android:orientation="vertical">
 
-        <fragment
-            android:id="@+id/fragment_quantity"
-            class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/fragment_content"
-            android:layout_weight="1"
-            tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/fragment_pictrue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment"
-        tools:layout="@layout/fragment_inputcell_pictrue"
-        android:layout_below="@+id/fragment_price"
-        android:layout_alignParentStart="true"></fragment>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="top">
 
 
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="发布商品"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/background_dark"></View>
 
 
-</LinearLayout>
-</ScrollView>
+            </RelativeLayout>
+
+
+            <fragment
+                android:id="@+id/fragment_title"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+
+            <fragment
+                android:id="@+id/fragment_content"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fragment_title"
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <fragment
+                    android:id="@+id/fragment_price"
+                    class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/fragment_pictrue"
+                    android:layout_below="@+id/fragment_quantity"
+                    android:layout_weight="1"
+                    tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+
+                <fragment
+                    android:id="@+id/fragment_quantity"
+                    class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/fragment_content"
+                    android:layout_weight="1"
+                    tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/fragment_pictrue"
+                class="com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fragment_price"
+                tools:layout="@layout/fragment_inputcell_pictrue"></fragment>
+
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

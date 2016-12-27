@@ -1,53 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_goods_add"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/navbar"
+
+    <ImageView
+        android:id="@+id/truck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/post_up" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:background="@drawable/bg_goods_item_corners"
-        android:elevation="100dip"
-        android:padding="5dp">
+        android:layout_above="@+id/truck"
+        android:layout_alignParentStart="true">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="私信"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/truck"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/comment_send"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:text="发送" />
-
-    </FrameLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="top">
 
 
-    <EditText
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:background="@drawable/bg_goods_item_corners"
-        android:elevation="100dip"
-        android:ems="10"
-        android:gravity="top|left"
-        android:inputType="textMultiLine"
-        android:padding="5dp"
-        android:textColor="@android:color/holo_blue_dark" />
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="发送私信"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20dp" />
 
-</LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/background_dark"></View>
+
+
+            </RelativeLayout>
+
+
+            <fragment
+                android:id="@+id/message_name"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+
+            <fragment
+                android:id="@+id/message_text"
+                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fragment_title"
+                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<fragment-->
+                    <!--android:id="@+id/fragment_price"-->
+                    <!--class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignStart="@+id/fragment_pictrue"-->
+                    <!--android:layout_below="@+id/fragment_quantity"-->
+                    <!--android:layout_weight="1"-->
+                    <!--tools:layout="@layout/fragment_inputcell_simpletext"></fragment>-->
+
+                <!--<fragment-->
+                    <!--android:id="@+id/fragment_quantity"-->
+                    <!--class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentStart="true"-->
+                    <!--android:layout_below="@+id/fragment_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--tools:layout="@layout/fragment_inputcell_simpletext"></fragment>-->
+            <!--</LinearLayout>-->
+
+            <fragment
+                android:id="@+id/message_picture"
+                class="com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/fragment_price"
+                tools:layout="@layout/fragment_inputcell_pictrue"></fragment>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
