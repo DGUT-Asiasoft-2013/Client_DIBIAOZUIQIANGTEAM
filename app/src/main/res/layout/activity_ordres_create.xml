@@ -98,6 +98,8 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+
+                    android:id="@+id/rl_address"
                     android:layout_width="match_parent"
                     android:layout_height="45dp">
 
@@ -123,6 +125,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_time"
                     android:layout_width="match_parent"
                     android:layout_height="45dp">
 
@@ -162,6 +165,7 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/rl_pay_way"
                     android:layout_width="match_parent"
                     android:layout_height="45dp">
 
@@ -185,6 +189,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_note"
                     android:layout_width="match_parent"
                     android:layout_height="45dp">
 

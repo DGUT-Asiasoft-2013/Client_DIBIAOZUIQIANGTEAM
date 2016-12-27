@@ -96,7 +96,7 @@
         android:layout_alignParentBottom="true"
         android:background="#ffffff"
 
-        android:layout_below="@+id/relativeLayout">
+        android:layout_below="@+id/rl_contact_add">
 
         <ImageView
             android:id="@+id/image_albums"
