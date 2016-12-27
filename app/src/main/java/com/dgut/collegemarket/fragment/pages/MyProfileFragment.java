@@ -25,6 +25,7 @@ import com.dgut.collegemarket.activity.myprofile.AboutVersionActivity;
 import com.dgut.collegemarket.activity.myprofile.CheckDirectMessagesActivity;
 import com.dgut.collegemarket.activity.myprofile.RechargeActivity;
 import com.dgut.collegemarket.activity.myprofile.SearchActivity;
+import com.dgut.collegemarket.activity.myprofile.userInfo.SignInActivity;
 import com.dgut.collegemarket.activity.myprofile.userInfo.UserInfoActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
@@ -48,7 +49,7 @@ public class MyProfileFragment extends Fragment {
     AvatarView av;
     TextView tvName, tvEmail,tvLevel,tvXp;
     ProgressBar pbXp;
-    LinearLayout linearLayout;
+    LinearLayout linearLayout,linearLayout0;
     RelativeLayout relativeLayout,rlMe;
 
     User user=new User();
@@ -66,6 +67,14 @@ public class MyProfileFragment extends Fragment {
             tvXp = (TextView) view.findViewById(R.id.tv_xp);
             pbXp = (ProgressBar) view.findViewById(R.id.pb_xp);
 
+            linearLayout0 = (LinearLayout) view.findViewById(R.id.linearLayout0);
+            linearLayout0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent itnt = new Intent(getActivity(), SignInActivity.class);
+                    startActivity(itnt);
+                }
+            });
             linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout1);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

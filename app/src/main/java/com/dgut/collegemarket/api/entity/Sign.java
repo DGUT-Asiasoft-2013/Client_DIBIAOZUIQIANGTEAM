@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Sign implements Serializable {
 
+    int id;
     User user;
 
     Date createDate;//订阅时间
@@ -38,5 +39,13 @@ public class Sign implements Serializable {
 
     public void setXp(int xp) {
         this.xp = xp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

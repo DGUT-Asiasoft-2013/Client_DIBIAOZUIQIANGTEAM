@@ -67,7 +67,7 @@ public class SignListAdapter extends BaseAdapter {
         Sign sign = signs.get(i);
         tvLevel.setText("Lv"+ JudgeLevel.judege(sign.getUser().getXp()));
         tvName.setText(sign.getUser().getName());
-        tvXp.setText(sign.getXp());
+        tvXp.setText(sign.getXp()+"经验");
         tvDate.setText(DateToString.getStringDateYYMMDD(sign.getCreateDate()));
         return view;
     }
