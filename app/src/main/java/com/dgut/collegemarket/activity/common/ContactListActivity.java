@@ -37,8 +37,8 @@ public class ContactListActivity extends Activity {
     RelativeLayout AddContactRL;
     List<Contact> mContacts = new ArrayList<>();
     Page<Contact> contactPage;
-
-    ContactListAdapter adapter = new ContactListAdapter(this, mContacts);
+    List selectItem = new ArrayList<>();
+    ContactListAdapter adapter = new ContactListAdapter(this, mContacts, selectItem);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +58,21 @@ public class ContactListActivity extends Activity {
 
 
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
+                selectItem.add(0, i);
+                adapter.notifyDataSetInvalidated();
+                Contact contact=mContacts.get(i);
+                Intent intent = new Intent();
+                intent.putExtra("contact",contact);
+                setResult(RESULT_OK, intent);
+                finish();
+                overridePendingTransition(R.anim.none, R.anim.slide_out_left);
             }
         });
+
     }
 
     @Override

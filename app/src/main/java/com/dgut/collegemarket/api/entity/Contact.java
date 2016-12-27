@@ -1,9 +1,10 @@
 package com.dgut.collegemarket.api.entity;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Contact {
+public class Contact implements Serializable{
 	int id;
 	User user;
 	String name;

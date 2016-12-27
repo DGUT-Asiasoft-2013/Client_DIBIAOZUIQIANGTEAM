@@ -56,9 +56,9 @@
         android:id="@+id/img_select"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:srcCompat="@drawable/checkmark"
+       android:src="@drawable/checkmark"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>

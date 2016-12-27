@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,10 +24,12 @@ public class ContactListAdapter extends BaseAdapter {
 
     Context context;
     List<Contact> mContact;
+    List selectItem;
 
-    public ContactListAdapter(Context context, List<Contact> mContact) {
+    public ContactListAdapter(Context context, List<Contact> mContact, List selectItem) {
         this.context = context;
         this.mContact = mContact;
+        this.selectItem = selectItem;
     }
 
     @Override
@@ -45,7 +48,6 @@ public class ContactListAdapter extends BaseAdapter {
     }
 
 
-
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 
@@ -62,15 +64,20 @@ public class ContactListAdapter extends BaseAdapter {
         TextView phoneText = (TextView) view.findViewById(R.id.tv_phone);
         TextView schoolText = (TextView) view.findViewById(R.id.tv_school);
         TextView susheText = (TextView) view.findViewById(R.id.tv_sushe);
+        ImageView selectImg = (ImageView) view.findViewById(R.id.img_select);
 
         nameText.setText(contact.getName());
         phoneText.setText(contact.getPhone());
         schoolText.setText(contact.getSchool());
         susheText.setText(contact.getSushe());
 
+            if (selectItem.size() > 0&&(Integer) selectItem.get(0) == i) {
+                selectImg.setVisibility(View.VISIBLE);
 
-
-
+            }
+         else {
+            selectImg.setVisibility(View.INVISIBLE);
+        }
         return view;
     }
 
