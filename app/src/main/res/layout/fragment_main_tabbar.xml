@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-
+    android:background="@android:color/white"
+    android:elevation="5dp"
     android:orientation="horizontal">
 
 
@@ -16,8 +17,8 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/tab_goods_background"
          />
@@ -26,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="百货"
+            android:textSize="12sp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -38,8 +40,8 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/tab_posts_background"/>
 
@@ -47,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="悬赏"
+            android:textSize="12sp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -60,8 +63,8 @@
 
         <ImageView
             android:id="@+id/img_add"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="fitCenter"
             android:src="@drawable/tab_order_background"/>
 
@@ -77,8 +80,8 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/tab_order_background"/>
 
@@ -86,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="订单"
+            android:textSize="12sp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -99,8 +103,8 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/tab_myprofile_background"
           />
@@ -109,6 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="个人"
+            android:textSize="12sp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 </LinearLayout>

@@ -185,6 +185,8 @@ public class UserInfoActivity extends Activity{
     private void pickFromAlbum() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, REQUESTCODE_ALBUM);
     }
 
@@ -198,8 +200,10 @@ public class UserInfoActivity extends Activity{
         if (requestCode == REQUESTCODE_CAMERA) {
             startPhotoZoom(uri);
         } else if (requestCode == REQUESTCODE_ALBUM) {
-            url = selectImage(UserInfoActivity.this,data);
-            startPhotoZoom(data.getData());
+            uri = Uri.fromFile(getNewFile());
+            uri = data.getData();
+            url = selectImage(UserInfoActivity.this,uri);
+            startPhotoZoom(uri);
         }else if(requestCode == REQUESTCODE_CUTTING){
             try {
                 bitmap =  BitmapFactory.decodeFile(url);
@@ -230,9 +234,7 @@ public class UserInfoActivity extends Activity{
         startActivityForResult(intent, REQUESTCODE_CUTTING);
     }
 
-    public  String selectImage(Context context,Intent data){
-        Uri selectedImage = data.getData();
-//      Log.e(TAG, selectedImage.toString());
+    public  String selectImage(Context context,Uri selectedImage){
         if(selectedImage!=null){
             String uriStr=selectedImage.toString();
             String path=uriStr.substring(10,uriStr.length());

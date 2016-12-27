@@ -13,5 +13,9 @@ public class DateToString {
         String dateString = formatter.format(date);
         return dateString;
     }
-
+    public static String getStringDateYYMMDD(Date date)
+    {   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(date);
+        return dateString;
+    }
 }

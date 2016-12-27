@@ -40,14 +40,15 @@
         <activity android:name=".activity.goods.GoodsContentActivity" />
         <activity android:name=".activity.posts.PostContentActivity" />
         <activity android:name=".activity.posts.CommentActivity" />
-        <activity android:name=".activity.posts.PostCommentActivity"></activity>
-        <activity android:name=".activity.myprofile.AboutCollegeMarketActivity"/>
-        <activity android:name=".activity.myprofile.AboutVersionActivity"/>
+        <activity android:name=".activity.posts.PostCommentActivity" />
+        <activity android:name=".activity.myprofile.AboutCollegeMarketActivity" />
+        <activity android:name=".activity.myprofile.AboutVersionActivity" />
         <activity android:name=".activity.myprofile.userInfo.UpdatePasswordActivity" />
         <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep1Activity" />
-        <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep2Activity"></activity>
+        <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep2Activity" />
         <activity android:name=".activity.orders.OrdresCreateActivity" />
-        <activity android:name=".activity.common.ContactListActivity"></activity>
+        <activity android:name=".activity.common.ContactListActivity" />
+        <activity android:name=".activity.myprofile.userInfo.SignInActivity"></activity>
     </application>
 
 </manifest>

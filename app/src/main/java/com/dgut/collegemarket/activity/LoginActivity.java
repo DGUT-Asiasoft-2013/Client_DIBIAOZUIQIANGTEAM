@@ -175,7 +175,6 @@ public class LoginActivity extends FragmentActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 progressDialog.dismiss();
                 final String result = response.body().string();
-                Log.e("debug",1+result);
                 if(result.equals("")){
                     runOnUiThread(new Runnable() {
                         @Override
