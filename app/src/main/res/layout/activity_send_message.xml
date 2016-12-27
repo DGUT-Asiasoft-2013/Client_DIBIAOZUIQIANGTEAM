@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:background="@drawable/bg_goods_item_corners"
         android:elevation="100dip"
         android:padding="5dp">
@@ -41,7 +41,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:background="@drawable/bg_goods_item_corners"
         android:elevation="100dip"
         android:ems="10"

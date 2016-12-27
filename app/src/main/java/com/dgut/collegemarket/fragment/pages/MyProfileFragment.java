@@ -47,6 +47,7 @@ public class MyProfileFragment extends Fragment {
     Activity activity;
     AvatarView av;
     TextView tvName, tvEmail,tvLevel,tvXp;
+    TextView tvMoney;
     ProgressBar pbXp;
     LinearLayout linearLayout;
     RelativeLayout relativeLayout,rlMe;
@@ -65,6 +66,7 @@ public class MyProfileFragment extends Fragment {
             tvLevel = (TextView) view.findViewById(R.id.tv_level);
             tvXp = (TextView) view.findViewById(R.id.tv_xp);
             pbXp = (ProgressBar) view.findViewById(R.id.pb_xp);
+            tvMoney = (TextView)view.findViewById(R.id.tv_money);
 
             linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout1);
             linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +177,7 @@ public class MyProfileFragment extends Fragment {
                         tvXp.setText(user.getXp()+"/"+JudgeLevel.juderMax(user.getXp()));
                         pbXp.setMax(JudgeLevel.juderMax(user.getXp()));
                         pbXp.setProgress(user.getXp());
+                        tvMoney.setText(user.getCoin()+"");
                     }
                 });
             }
