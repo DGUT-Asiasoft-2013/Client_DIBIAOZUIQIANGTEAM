@@ -118,18 +118,18 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
-                    android:text="6666"
+                    android:text="金币"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tv_money1"
-                    android:layout_toRightOf="@+id/tv_money1"
-                    android:text="金币"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="9sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignBottom="@+id/tv_money1"-->
+                    <!--android:layout_toRightOf="@+id/tv_money1"-->
+                    <!--android:text="金币"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:textSize="9sp" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -222,14 +222,14 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tv_money2"
-                    android:layout_toRightOf="@+id/tv_money2"
-                    android:text="RMB"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="9sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignBottom="@+id/tv_money2"-->
+                    <!--android:layout_toRightOf="@+id/tv_money2"-->
+                    <!--android:text="RMB"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:textSize="9sp" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -500,7 +500,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="》》》》》》》》》敬请期待《《《《《《《《《《"
+                        android:text="》》》敬请期待《《《"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -536,7 +536,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="》》》》》》》》》敬请期待《《《《《《《《《《"
+                        android:text="》》》敬请期待《《《"
                         android:textSize="13dp" />
 
                 </LinearLayout>
