@@ -74,7 +74,7 @@ public class PostListFragment extends Fragment {
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setMessage("拼命获取帖子中");
         dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.show();
         client.newCall(request).enqueue(new Callback() {
             @Override

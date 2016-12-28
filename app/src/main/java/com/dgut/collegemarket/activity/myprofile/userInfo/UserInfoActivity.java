@@ -101,6 +101,15 @@ public class UserInfoActivity extends Activity{
                 onImageViewClicked();
             }
         });
+        InfoListFragment.InfoOnClickListener infoOnClickListener = new InfoListFragment.InfoOnClickListener() {
+            @Override
+            public void onclick() {
+                Intent itnt = new Intent(UserInfoActivity.this, UpdateUserNameActivity.class);
+                startActivity(itnt);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.none);
+            }
+        };
+        fragmentUserName.setInfoOnClickListener(infoOnClickListener);
 
         rlUpdatePassword.setOnClickListener(new View.OnClickListener() {
             @Override

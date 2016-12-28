@@ -1,6 +1,7 @@
 package com.dgut.collegemarket.activity.myprofile.userInfo;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -140,6 +141,10 @@ public class SignInActivity extends Activity {
                         tvCount.setText(count+"");
                         tvRanking.setText(ranking+"");
                         signListAdapter.notifyDataSetInvalidated();
+                        if(ranking!=0){;
+                            btnSign.setText("已签到");
+                            btnSign.setClickable(false);
+                        }
                     }
                 });
             }

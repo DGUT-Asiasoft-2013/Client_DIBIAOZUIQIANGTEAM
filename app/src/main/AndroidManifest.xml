@@ -48,7 +48,8 @@
         <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep2Activity" />
         <activity android:name=".activity.orders.OrdresCreateActivity" />
         <activity android:name=".activity.common.ContactListActivity" />
-        <activity android:name=".activity.myprofile.userInfo.SignInActivity"></activity>
+        <activity android:name=".activity.myprofile.userInfo.SignInActivity" />
+        <activity android:name=".activity.myprofile.userInfo.UpdateUserNameActivity"></activity>
     </application>
 
 </manifest>
