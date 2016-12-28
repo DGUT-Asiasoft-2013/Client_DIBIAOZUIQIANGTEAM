@@ -86,6 +86,7 @@ public class PostContentActivity extends Activity {
 //                likes();
             }
         });
+
     }
 
     @Override
