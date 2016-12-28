@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="消费详情"
+            android:text="偶像详情"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -38,11 +38,11 @@
     </FrameLayout>
 
     <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/money"
@@ -78,8 +78,23 @@
 
     <com.dgut.collegemarket.fragment.widgets.AvatarView
         android:id="@+id/idols_image"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:padding="5dp"/>
+        android:padding="5dp" />
+
+    <Button
+        android:id="@+id/send_messages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_goods_item_corners"
+        android:elevation="10dip"
+        android:text="私信" />
+
 </LinearLayout>

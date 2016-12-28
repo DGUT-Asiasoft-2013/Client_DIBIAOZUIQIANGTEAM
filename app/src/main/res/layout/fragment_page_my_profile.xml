@@ -78,8 +78,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
+            android:layout_height="80dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_below="@+id/linear_me"
@@ -89,9 +88,11 @@
             android:background="@drawable/bg_my_corners"
             android:elevation="2dip"
             android:orientation="horizontal"
-            android:padding="1dp">
+            android:padding="1dp"
+            android:weightSum="3">
 
             <RelativeLayout
+                android:id="@+id/linearLayout_0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -105,24 +106,33 @@
                 <!--android:elevation="5dip"-->
 
 
-                <TextView
-                    android:id="@+id/tv_money1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:text="金币"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="14sp" />
-
                 <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignBottom="@+id/tv_money1"-->
-                    <!--android:layout_toRightOf="@+id/tv_money1"-->
-                    <!--android:text="金币"-->
-                    <!--android:textColor="@color/colorAccent"-->
-                    <!--android:textSize="9sp" />-->
+                <!--android:id="@+id/tv_money1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="14dp"-->
+                <!--android:text="金币"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="12sp" />-->
+
+
+                <ImageView
+                    android:id="@+id/tv_money1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/sign_in" />
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignBottom="@+id/tv_money1"-->
+                <!--android:layout_toRightOf="@+id/tv_money1"-->
+                <!--android:text="金币"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="9sp" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -130,7 +140,7 @@
                     android:layout_below="@+id/tv_money1"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="换现"
+                    android:text="每日签到"
                     android:textSize="10sp" />
             </RelativeLayout>
 
@@ -141,8 +151,8 @@
             <!--android:background="@color/colorAccent"></View>-->
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="76dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="1dp"
@@ -158,10 +168,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:text="余额"
+                    android:layout_marginTop="10dp"
+                    android:text="余额显示"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="28sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,7 +188,7 @@
                     android:layout_below="@+id/tv_money"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="余额（软妹币）"
+                    android:text="余额"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -187,7 +197,6 @@
             <!--android:layout_height="match_parent"-->
             <!--android:layout_alignParentStart="true"-->
             <!--android:background="@color/colorAccent"></View>-->
-
 
 
             <RelativeLayout
@@ -205,15 +214,14 @@
                 <!--android:elevation="5dip"-->
                 <!---->
 
-                <TextView
+                <ImageView
                     android:id="@+id/tv_money2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="14dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:text="某某宝"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="12sp" />
+                    android:layout_gravity="center"
+                    android:background="@drawable/recharge_background" />
 
                 <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
@@ -230,7 +238,7 @@
                     android:layout_below="@+id/tv_money2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="充值"
+                    android:text="金币充值"
                     android:textSize="10sp" />
             </RelativeLayout>
 
@@ -269,7 +277,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/sign_up" />
+                        android:background="@drawable/sign_in" />
 
                     <TextView
                         android:id="@+id/textView0"
@@ -278,9 +286,10 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="签到"
-                        android:textSize="16dp" />
+                        android:text="每日签到"
+                        android:textSize="13dp" />
                 </LinearLayout>
+
                 <View
                     android:id="@+id/view1"
                     android:layout_width="match_parent"
@@ -288,6 +297,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="#F2F2F2"></View>
+
                 <LinearLayout
                     android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
@@ -303,7 +313,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_posts_background" />
+                        android:background="@drawable/coins" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -312,7 +322,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="我的消费"
+                        android:text="消费记录"
                         android:textSize="13dp" />
                 </LinearLayout>
 
@@ -338,7 +348,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_myprofile_background" />
+                        android:background="@drawable/friends" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -347,7 +357,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="我的订阅"
+                        android:text="我的好友"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -374,7 +384,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_order_background" />
+                        android:background="@drawable/message_myprofile" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -383,7 +393,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="我的私信    (敬请期待)"
+                        android:text="聊天记录    (敬请期待)"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -410,7 +420,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_myprofile_background" />
+                        android:background="@drawable/search_myprofile" />
 
                     <TextView
                         android:id="@+id/textView4"
@@ -419,7 +429,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="我要找人"
+                        android:text="找人"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -446,7 +456,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_goods_background" />
+                        android:background="@drawable/about_market" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -482,7 +492,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_order_background" />
+                        android:background="@drawable/version" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -518,7 +528,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_order_background" />
+                        android:background="@drawable/basketball" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -554,7 +564,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/tab_order_background" />
+                        android:background="@drawable/basketball" />
 
                     <TextView
                         android:id="@+id/textView8"

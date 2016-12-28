@@ -44,6 +44,7 @@ public class RechargeActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (CommonUtils.isFastDoubleClick()) {
                     return;
                 } else {
@@ -54,11 +55,13 @@ public class RechargeActivity extends Activity {
     }
 
     public static boolean isNumeric(String str) {
+
         Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(str).matches();
     }
 
     void recharge() {
+
         if (!editText.equals("")) {
             String coin = editText.getText().toString();
             String cause = "充值";
@@ -75,10 +78,12 @@ public class RechargeActivity extends Activity {
             Server.getSharedClient().newCall(request).enqueue(new Callback() {
                 @Override
                 public void onResponse(Call arg0, Response arg1) throws IOException {
+
                     final String responseBody = arg1.body().string();
 
                     runOnUiThread(new Runnable() {
                         public void run() {
+
                             RechargeActivity.this.onSucceed(responseBody);
                         }
                     });
@@ -86,8 +91,10 @@ public class RechargeActivity extends Activity {
 
                 @Override
                 public void onFailure(Call arg0, final IOException arg1) {
+
                     runOnUiThread(new Runnable() {
                         public void run() {
+
                             RechargeActivity.this.onFailure(arg1);
                         }
                     });
@@ -99,12 +106,14 @@ public class RechargeActivity extends Activity {
     }
 
     void onSucceed(String text) {
+
         new AlertDialog.Builder(this).setMessage(text)
                 .setMessage("充值成功！")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         finish();
                         overridePendingTransition(R.anim.none, R.anim.slide_out_bottom);
                     }
@@ -112,6 +121,7 @@ public class RechargeActivity extends Activity {
     }
 
     void onFailure(Exception e) {
+
         new AlertDialog.Builder(this).setMessage(e.getMessage()).show();
     }
 

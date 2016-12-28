@@ -46,8 +46,11 @@ public class ConsumptionRecordsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         if (view == null) {
+
             activity = getActivity();
+
             view = inflater.inflate(R.layout.fragment_records_consumption, null);
             LoadMore = inflater.inflate(R.layout.widget_load_more_button, null);
             textLoadMore = (TextView) LoadMore.findViewById(R.id.load_more_text);
@@ -60,6 +63,7 @@ public class ConsumptionRecordsFragment extends Fragment {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                     onItemClicked(position);
                 }
             });
@@ -68,6 +72,7 @@ public class ConsumptionRecordsFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
+
                     LoadMore();
                 }
             });
@@ -96,6 +101,7 @@ public class ConsumptionRecordsFragment extends Fragment {
         @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             View view = null;
 
             if (convertView == null) {
@@ -122,10 +128,12 @@ public class ConsumptionRecordsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         reload();
     }
 
     void reload() {
+
         Request request = Server.requestBuilderWithApi("rec/records")
                 .get()
                 .build();

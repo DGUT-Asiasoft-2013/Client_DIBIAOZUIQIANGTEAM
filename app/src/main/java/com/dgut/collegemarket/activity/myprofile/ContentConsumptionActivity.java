@@ -27,9 +27,10 @@ public class ContentConsumptionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_consumption);
+
         records = (Records) getIntent().getSerializableExtra("data");
 
-//        ListView list = (ListView) findViewById(R.id.list);
+
 
         money = (TextView) findViewById(R.id.money);
         cause = (TextView) findViewById(R.id.cause);
@@ -43,7 +44,8 @@ public class ContentConsumptionActivity extends Activity {
         date.setText(dateStr);
         imageView.load(records.getUser().getAvatar());
 
-//            list.addHeaderView(headerView, null, false);
+
+
 
     }
 }

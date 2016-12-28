@@ -47,6 +47,7 @@ public class FansRecordsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         if (view == null) {
             activity = getActivity();
             view = inflater.inflate(R.layout.fragment_records_fans, null);
@@ -96,6 +97,7 @@ public class FansRecordsFragment extends Fragment {
         @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             View view = null;
 
             if (convertView == null) {
@@ -111,7 +113,7 @@ public class FansRecordsFragment extends Fragment {
             Subscriber subscriber = data.get(position);
 
 
-            textCoin.setText(subscriber.getId().getSubscribers().getName() + "于");
+            textCoin.setText(subscriber.getId().getSubscribers().getName());
             textCause.setText("成为我的粉丝");
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
@@ -123,10 +125,12 @@ public class FansRecordsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         reload();
     }
 
     void reload() {
+
         Request request = Server.requestBuilderWithApi("subscribe/checkPub")
                 .get()
                 .build();
@@ -164,7 +168,9 @@ public class FansRecordsFragment extends Fragment {
     }
 
     void LoadMore() {
+
         LoadMore.setEnabled(false);
+
         textLoadMore.setText("加载更多");
         Request request = Server.requestBuilderWithApi("subscribe/checkPub/" + (page + 1))
                 .get()
@@ -206,6 +212,7 @@ public class FansRecordsFragment extends Fragment {
             public void onFailure(Call arg0, IOException arg1) {
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
+
                         LoadMore.setEnabled(true);
                         textLoadMore.setText("失败");
                     }

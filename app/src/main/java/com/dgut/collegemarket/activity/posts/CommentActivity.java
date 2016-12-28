@@ -37,6 +37,7 @@ public class CommentActivity extends Activity {
     PostCommentAdapter postCommentAdapter;
     Post post;
     int pageNum = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,23 +61,29 @@ public class CommentActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
         loadComments();
     }
 
     public void loadComments(){
+
         OkHttpClient client = Server.getSharedClient();
         int id = post.getId();
+
         MultipartBody requestBody = new MultipartBody.Builder()
                 .addFormDataPart("postId",post.getId()+"")
                 .build();
+
         Request request = Server.requestBuilderWithApi("post/postcomment/"+pageNum)
                 .post(requestBody)
                 .build();
+
         final ProgressDialog dialog = new ProgressDialog(CommentActivity.this);
         dialog.setMessage("拼命加载评论中");
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -91,14 +98,18 @@ public class CommentActivity extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 dialog.dismiss();
                 String result = response.body().string();
+
                 Page<PostComment> page = new ObjectMapper().readValue(result, new TypeReference<Page<PostComment>>(){});
                 postCommentList.addAll(page.getContent());
                 pageNum = page.getNumber();
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         postCommentAdapter.notifyDataSetInvalidated();
                     }
                 });

@@ -46,6 +46,7 @@ public class DirectMessagesRecordsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         if (view == null) {
             activity = getActivity();
             view = inflater.inflate(R.layout.fragment_records_direct_messages, null);
@@ -96,6 +97,7 @@ public class DirectMessagesRecordsFragment extends Fragment {
         @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             View view = null;
 
             if (convertView == null) {
@@ -122,10 +124,12 @@ public class DirectMessagesRecordsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         reload();
     }
 
     void reload() {
+
         Request request = Server.requestBuilderWithApi("rec/records")
                 .get()
                 .build();
@@ -170,6 +174,7 @@ public class DirectMessagesRecordsFragment extends Fragment {
     }
 
     void LoadMore() {
+
         LoadMore.setEnabled(false);
         textLoadMore.setText("加载更多");
         Request request = Server.requestBuilderWithApi("rec/records/" + (page+1))

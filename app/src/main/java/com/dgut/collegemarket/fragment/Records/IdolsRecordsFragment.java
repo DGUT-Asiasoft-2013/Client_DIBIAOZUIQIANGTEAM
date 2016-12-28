@@ -46,6 +46,7 @@ public class IdolsRecordsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         if (view == null) {
             activity = getActivity();
             view = inflater.inflate(R.layout.fragment_records_idols, null);
@@ -95,6 +96,7 @@ public class IdolsRecordsFragment extends Fragment {
         @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             View view = null;
 
             if (convertView == null) {
@@ -109,7 +111,7 @@ public class IdolsRecordsFragment extends Fragment {
             TextView textDate = (TextView) view.findViewById(R.id.date);
             Subscriber subscriber = data.get(position);
 
-            textCoin.setText("我于");
+            textCoin.setText("我");
             textCause.setText("成为" + subscriber.getId().getPublishers().getName() + "的粉丝");
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
@@ -121,10 +123,12 @@ public class IdolsRecordsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         reload();
     }
 
     void reload() {
+
         Request request = Server.requestBuilderWithApi("subscribe/checkSub")
                 .get()
                 .build();
@@ -169,6 +173,7 @@ public class IdolsRecordsFragment extends Fragment {
     }
 
     void LoadMore() {
+
         LoadMore.setEnabled(false);
         textLoadMore.setText("加载更多");
         Request request = Server.requestBuilderWithApi("subscribe/checkSub/" + (page + 1))

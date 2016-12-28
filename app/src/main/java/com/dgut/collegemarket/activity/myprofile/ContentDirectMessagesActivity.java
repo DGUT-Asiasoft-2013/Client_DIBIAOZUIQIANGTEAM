@@ -27,7 +27,8 @@ public class ContentDirectMessagesActivity extends AppCompatActivity {
 
         records = (Records) getIntent().getSerializableExtra("data");
 
-//        ListView list = (ListView) findViewById(R.id.list);
+
+
 
         money = (TextView) findViewById(R.id.money);
         cause = (TextView) findViewById(R.id.cause);
@@ -41,7 +42,8 @@ public class ContentDirectMessagesActivity extends AppCompatActivity {
         date.setText(dateStr);
         imageView.load(records.getUser().getAvatar());
 
-//            list.addHeaderView(headerView, null, false);
+
+
 
     }
 

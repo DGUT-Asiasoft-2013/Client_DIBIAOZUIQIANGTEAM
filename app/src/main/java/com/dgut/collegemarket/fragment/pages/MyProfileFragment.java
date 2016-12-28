@@ -50,10 +50,10 @@ public class MyProfileFragment extends Fragment {
     TextView tvName, tvEmail, tvLevel, tvXp;
     TextView tvMoney;
     ProgressBar pbXp;
-    LinearLayout linearLayout,linearLayout0;
-    RelativeLayout relativeLayout,rlMe;
+    LinearLayout linearLayout, linearLayout0;
+    RelativeLayout relativeLayout, rlMe;
 
-    User user=new User();
+    User user = new User();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -187,10 +187,18 @@ public class MyProfileFragment extends Fragment {
                         tvXp.setText(user.getXp() + "/" + JudgeLevel.juderMax(user.getXp()));
                         pbXp.setMax(JudgeLevel.juderMax(user.getXp()));
                         pbXp.setProgress(user.getXp());
-                        if (user.getCoin() <= 1000000.0) {
-                            tvMoney.setText(user.getCoin() + "");
+                        if (user.getCoin() <= 1000000000000.0) {
+                            if (user.getCoin() <= 1000000.0) {
+                                tvMoney.setText(user.getCoin() + "");
+                                if(user.getCoin() <= 0) {
+                                    tvMoney.setText("余额不足");
+                                }
+                            } else {
+                                tvMoney.setTextSize(12);
+                                tvMoney.setText(user.getCoin() + "");
+                            }
                         } else {
-                            tvMoney.setText("显示异常");
+                            tvMoney.setText(user.getCoin() + "");
                         }
                     }
                 });
