@@ -72,6 +72,7 @@ public class SignInActivity extends Activity {
             }
         });
         getAllSigns(pageNums);
+        btnSign.setClickable(false);
     }
 
     /**
@@ -107,6 +108,9 @@ public class SignInActivity extends Activity {
                     @Override
                     public void run() {
                         Toast.makeText(SignInActivity.this,"签到成功",Toast.LENGTH_SHORT).show();
+                        btnSign.setText("已签到");
+                        btnSign.setClickable(false);
+                        getAllSigns(pageNums+1);
                     }
                 });
             }
@@ -144,6 +148,8 @@ public class SignInActivity extends Activity {
                         if(ranking!=0){;
                             btnSign.setText("已签到");
                             btnSign.setClickable(false);
+                        }else{
+                            btnSign.setClickable(true);
                         }
                     }
                 });

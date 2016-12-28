@@ -25,6 +25,7 @@ import com.dgut.collegemarket.activity.myprofile.AboutVersionActivity;
 import com.dgut.collegemarket.activity.myprofile.CheckDirectMessagesActivity;
 import com.dgut.collegemarket.activity.myprofile.RechargeActivity;
 import com.dgut.collegemarket.activity.myprofile.SearchActivity;
+import com.dgut.collegemarket.activity.myprofile.userInfo.SignInActivity;
 import com.dgut.collegemarket.activity.myprofile.userInfo.UserInfoActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
