@@ -22,6 +22,7 @@ import com.dgut.collegemarket.api.entity.User;
 import com.squareup.picasso.Picasso;
 
 public class GoodsContentActivity extends AppCompatActivity {
+    private static final int RESULT_CREATE_ORDERS = 200;
     ImageView albumsImg;
     ImageView avatarImg;
     Goods goods;
@@ -149,11 +150,18 @@ public class GoodsContentActivity extends AppCompatActivity {
                     Intent intent = new Intent(GoodsContentActivity.this, OrdresCreateActivity.class);
                     intent.putExtra("goods", goods);
                     intent.putExtra("quantity",num);
-                    startActivity(intent);
+                    startActivityForResult(intent,RESULT_CREATE_ORDERS);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (requestCode==RESULT_OK)
+                finish();
+
     }
 
     @Override

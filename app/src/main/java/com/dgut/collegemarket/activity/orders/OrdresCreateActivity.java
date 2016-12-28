@@ -26,6 +26,7 @@ import com.dgut.collegemarket.api.entity.Contact;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.api.entity.Orders;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -88,6 +89,8 @@ public class OrdresCreateActivity extends Activity {
         sumText1.setText(num * goods.getPrice() + "元");
         sumText2.setText(num * goods.getPrice() + "");
 
+        Picasso.with(this).load(Server.serverAddress + goods.getPublishers().getAvatar()).resize(30, 30).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
+
         addressRL = (RelativeLayout) findViewById(R.id.rl_address);
         ;
         addressResultRL = (RelativeLayout) findViewById(R.id.rl_address_result);
@@ -144,12 +147,19 @@ public class OrdresCreateActivity extends Activity {
 
         OkHttpClient client = Server.getSharedClient();
 
+        System.out.println("goods_id:"+ goods.getId()
+                +"contact_id"+contact.getId()
+                +"price"+priceText.getText().toString()
+        +"quantity"+num
+                +"note"+noteText.getText().toString()
+                +"isPayOnline"+String.valueOf(isPayOnline));
+
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("goods_id", goods.getId()+"")
                 .addFormDataPart("contact_id", contact.getId()+"")
                 .addFormDataPart("price", priceText.getText().toString())
-                .addFormDataPart("quantity", quantityText.getText().toString())
+                .addFormDataPart("quantity", String.valueOf(num))
                 .addFormDataPart("note", noteText.getText().toString())
                 .addFormDataPart("isPayOnline", String.valueOf(isPayOnline));
 
@@ -182,14 +192,19 @@ public class OrdresCreateActivity extends Activity {
                         }
                     });
                 } else {
-                    System.out.println("result"+result);
+                    System.out.println("Orders:"+result);
                     final Orders orders = new ObjectMapper().readValue(result, Orders.class);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(OrdresCreateActivity.this, "订单创建成功" + orders.getGoods().getTitle(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OrdresCreateActivity.this, "订单创建成功" , Toast.LENGTH_SHORT).show();
+
+                            Intent intent=new Intent(OrdresCreateActivity.this,OrdersContentActivity.class);
+                            intent.putExtra("orders",orders);
+                            startActivity(intent);
+
+                            setResult(RESULT_OK);
                             finish();
-                            overridePendingTransition(R.anim.none, R.anim.slide_out_left);
                         }
                     });
                 }

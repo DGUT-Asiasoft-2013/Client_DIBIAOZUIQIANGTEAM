@@ -48,9 +48,6 @@ public class MainTabbarFragment extends Fragment {
                 }
             });
         }
-
-
-
         return view;
     }
 
@@ -113,6 +110,10 @@ public class MainTabbarFragment extends Fragment {
                     getActivity().overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
                 }
             });
+
+        }else if (selectedIndex == 2) {
+            AnimationEffec.setLightExpendAni(image);
+            image.setImageResource(R.drawable.tab_orders_receiver);
 
         } else {
             AnimationEffec.setLightExpendAni(image);
