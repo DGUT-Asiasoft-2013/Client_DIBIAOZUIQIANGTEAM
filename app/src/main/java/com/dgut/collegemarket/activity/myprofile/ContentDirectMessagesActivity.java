@@ -1,9 +1,8 @@
 package com.dgut.collegemarket.activity.myprofile;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
@@ -13,9 +12,7 @@ import com.dgut.collegemarket.fragment.widgets.AvatarView;
 
 import java.util.List;
 
-
-//我的消费界面—显示数据库记录
-public class ContentConsumptionActivity extends Activity {
+public class ContentDirectMessagesActivity extends AppCompatActivity {
 
     TextView money,cause,date;
     AvatarView imageView;
@@ -26,7 +23,8 @@ public class ContentConsumptionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_consumption);
+        setContentView(R.layout.activity_content_direct_messages);
+
         records = (Records) getIntent().getSerializableExtra("data");
 
 //        ListView list = (ListView) findViewById(R.id.list);
@@ -34,7 +32,7 @@ public class ContentConsumptionActivity extends Activity {
         money = (TextView) findViewById(R.id.money);
         cause = (TextView) findViewById(R.id.cause);
         date = (TextView) findViewById(R.id.date);
-        imageView = (AvatarView) findViewById(R.id.consumption_image);
+        imageView = (AvatarView) findViewById(R.id.messages_image);
 
         money.setText(" 我在北京时间： ");
         cause.setText(" 用某某宝 " + records.getCause() + " 了 " + records.getCoin() + " 元 ");
@@ -46,4 +44,5 @@ public class ContentConsumptionActivity extends Activity {
 //            list.addHeaderView(headerView, null, false);
 
     }
+
 }

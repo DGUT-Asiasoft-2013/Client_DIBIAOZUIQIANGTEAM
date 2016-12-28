@@ -25,7 +25,6 @@ import com.dgut.collegemarket.activity.myprofile.AboutVersionActivity;
 import com.dgut.collegemarket.activity.myprofile.CheckDirectMessagesActivity;
 import com.dgut.collegemarket.activity.myprofile.RechargeActivity;
 import com.dgut.collegemarket.activity.myprofile.SearchActivity;
-import com.dgut.collegemarket.activity.myprofile.userInfo.SignInActivity;
 import com.dgut.collegemarket.activity.myprofile.userInfo.UserInfoActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
@@ -47,7 +46,8 @@ public class MyProfileFragment extends Fragment {
     View view;
     Activity activity;
     AvatarView av;
-    TextView tvName, tvEmail,tvLevel,tvXp;
+    TextView tvName, tvEmail, tvLevel, tvXp;
+    TextView tvMoney;
     ProgressBar pbXp;
     LinearLayout linearLayout,linearLayout0;
     RelativeLayout relativeLayout,rlMe;
@@ -66,6 +66,7 @@ public class MyProfileFragment extends Fragment {
             tvLevel = (TextView) view.findViewById(R.id.tv_level);
             tvXp = (TextView) view.findViewById(R.id.tv_xp);
             pbXp = (ProgressBar) view.findViewById(R.id.pb_xp);
+            tvMoney = (TextView) view.findViewById(R.id.tv_money);
 
             linearLayout0 = (LinearLayout) view.findViewById(R.id.linearLayout0);
             linearLayout0.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +100,7 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
-            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_search);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_search);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -107,7 +108,7 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
-            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_messages);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_messages);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -115,7 +116,7 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
-            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_about);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_about);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -123,7 +124,7 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
-            linearLayout = (LinearLayout)view.findViewById(R.id.linearLayout_version);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_version);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -135,8 +136,8 @@ public class MyProfileFragment extends Fragment {
             rlMe.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(),UserInfoActivity.class);
-                    intent.putExtra("user",user);
+                    Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 }
             });
@@ -158,7 +159,7 @@ public class MyProfileFragment extends Fragment {
     /**
      * 获取当前用户信息
      */
-    public void getUser(){
+    public void getUser() {
         OkHttpClient client = Server.getSharedClient();
         Request request = Server.requestBuilderWithApi("user/me").build();
         client.newCall(request).enqueue(new Callback() {
@@ -167,23 +168,29 @@ public class MyProfileFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(),"获取用户信息失败，请检查网络",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "获取用户信息失败，请检查网络", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String result = response.body().string();
-                user = new ObjectMapper().readValue(result,User.class);
+                user = new ObjectMapper().readValue(result, User.class);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         av.load(user);
                         tvName.setText(user.getName());
-                        tvLevel.setText("Lv:"+ JudgeLevel.judege(user.getXp()));
-                        tvXp.setText(user.getXp()+"/"+JudgeLevel.juderMax(user.getXp()));
+                        tvLevel.setText("Lv:" + JudgeLevel.judege(user.getXp()));
+                        tvXp.setText(user.getXp() + "/" + JudgeLevel.juderMax(user.getXp()));
                         pbXp.setMax(JudgeLevel.juderMax(user.getXp()));
                         pbXp.setProgress(user.getXp());
+                        if (user.getCoin() <= 1000000.0) {
+                            tvMoney.setText(user.getCoin() + "");
+                        } else {
+                            tvMoney.setText("显示异常");
+                        }
                     }
                 });
             }

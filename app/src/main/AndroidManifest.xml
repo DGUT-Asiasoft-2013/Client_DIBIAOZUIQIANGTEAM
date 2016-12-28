@@ -24,32 +24,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainActivity" />
+        //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.goods.GoodsAddActivity" />
-        <activity android:name=".activity.myprofile.CheckConsumptionAndSalesRecordsActivity" />
-        <activity android:name=".activity.myprofile.CheckSubscriptionAndMessagesRecordsActivity" />
-        <activity android:name=".activity.myprofile.ContentConsumptionActivity" />
-        <activity android:name=".activity.myprofile.userInfo.UserInfoActivity" />
-        <activity android:name=".activity.posts.PostAddActivity" />
-        <activity android:name=".activity.myprofile.RechargeActivity" />
-        <activity android:name=".activity.myprofile.SearchActivity" />
-        <activity android:name=".activity.myprofile.DirectMessagesActivity" />
-        <activity android:name=".activity.myprofile.ContentSearchActivity" />
-        <activity android:name=".activity.common.SendMessageActivity" />
         <activity android:name=".activity.goods.GoodsContentActivity" />
+        //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.posts.PostContentActivity" />
         <activity android:name=".activity.posts.CommentActivity" />
         <activity android:name=".activity.posts.PostCommentActivity" />
-        <activity android:name=".activity.myprofile.AboutCollegeMarketActivity" />
-        <activity android:name=".activity.myprofile.AboutVersionActivity" />
+        <activity android:name=".activity.posts.PostAddActivity" />
+        //请地表最强战队成员规范化排序，谢谢！
+        <activity android:name=".activity.orders.OrdresCreateActivity" />
+        //请地表最强战队成员规范化排序，谢谢！.activity.common.目前：3个
+        <activity android:name=".activity.common.SendMessageActivity" />
+        <activity android:name=".activity.common.ContactListActivity" />
+        <activity android:name=".activity.common.ContactAddActivity" />
+        //请地表最强战队成员规范化排序，谢谢！.activity.myprofile.userInfo.目前：6个
         <activity android:name=".activity.myprofile.userInfo.UpdatePasswordActivity" />
         <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep1Activity" />
         <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep2Activity" />
-        <activity android:name=".activity.orders.OrdresCreateActivity" />
-        <activity android:name=".activity.common.ContactListActivity" />
+        <activity android:name=".activity.myprofile.userInfo.UserInfoActivity" />
         <activity android:name=".activity.myprofile.userInfo.SignInActivity" />
-        <activity android:name=".activity.myprofile.userInfo.UpdateUserNameActivity"></activity>
+        <activity android:name=".activity.myprofile.userInfo.UpdateAvatarActivity" />
+        //请地表最强战队成员规范化排序，谢谢！.activity.myprofile.目前：12个
+        <activity android:name=".activity.myprofile.AboutCollegeMarketActivity" />
+        <activity android:name=".activity.myprofile.AboutVersionActivity" />
+        <activity android:name=".activity.myprofile.RechargeActivity" />
+        <activity android:name=".activity.myprofile.SearchActivity" />
+        <activity android:name=".activity.myprofile.ContentSearchActivity" />
+        <activity android:name=".activity.myprofile.ContentConsumptionActivity" />
+        <activity android:name=".activity.myprofile.ContentFansActivity" />
+        <activity android:name=".activity.myprofile.ContentIdolsActivity" />
+        <activity android:name=".activity.myprofile.ContentDirectMessagesActivity" />
+        <activity android:name=".activity.myprofile.CheckConsumptionRecordsActivity" />
+        <activity android:name=".activity.myprofile.CheckDirectMessagesActivity" />
+        <activity android:name=".activity.myprofile.CheckIdolsAndFansRecordsActivity" />
+        //请地表最强战队成员规范化排序，谢谢！
+        <activity android:name=".activity.orders.NoteEditActivity"></activity>
     </application>
 
 </manifest>

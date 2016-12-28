@@ -148,6 +148,7 @@ public class GoodsContentActivity extends AppCompatActivity {
                 if (num > 0) {
                     Intent intent = new Intent(GoodsContentActivity.this, OrdresCreateActivity.class);
                     intent.putExtra("goods", goods);
+                    intent.putExtra("quantity",num);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
                 }

@@ -28,7 +28,6 @@ import okhttp3.Response;
 //充值界面—实现充值功能
 public class RechargeActivity extends Activity {
 
-    private Spinner spinner;
     private List<String> data_list;
     private ArrayAdapter<String> arr_adapter;
     EditText editText;

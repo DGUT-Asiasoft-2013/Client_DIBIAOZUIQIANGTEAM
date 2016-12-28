@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-  >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/line_camera"

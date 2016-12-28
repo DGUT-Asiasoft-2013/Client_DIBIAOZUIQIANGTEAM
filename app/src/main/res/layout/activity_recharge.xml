@@ -28,7 +28,7 @@
             android:padding="5dp"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:hint="冲多点吧！反正不是真的！" />
+            android:hint="冲多点吧！反正不是真的软妹币！" />
     </LinearLayout>
 
     <Button

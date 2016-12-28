@@ -158,9 +158,9 @@ public class ContentSearchActivity extends Activity {
 
     void onReloadSubscribedResult(int count){
         if(count>0){
-            subscribeButton.setText("订阅("+count+")");
+            subscribeButton.setText("已关注");
         }else{
-            subscribeButton.setText("订阅(0)");
+            subscribeButton.setText("关注");
         }
     }
 
