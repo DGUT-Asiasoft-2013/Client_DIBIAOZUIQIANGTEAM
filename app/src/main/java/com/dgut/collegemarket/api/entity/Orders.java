@@ -21,8 +21,18 @@ public class Orders implements Serializable{
 	int quantity;//商品数量
 	String note;
 	boolean isPayOnline;
+	int state;
 	Date createDate;
 	Date editDate;
+
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
 
 	public int getId() {
 		return id;
