@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.posts.CommentActivity;
 import com.dgut.collegemarket.api.entity.PostComment;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.DateToString;
@@ -23,10 +25,12 @@ public class PostCommentAdapter extends BaseAdapter{
 
     Context context;
     List<PostComment> postComments;
+    CommentActivity commentActivity;
 
-    public  PostCommentAdapter(Context context, List<PostComment> postComments){
+    public  PostCommentAdapter(Context context, List<PostComment> postComments,CommentActivity commentActivity){
         this.context = context;
         this.postComments = postComments;
+        this.commentActivity = commentActivity;
     }
     @Override
     public int getCount() {
@@ -57,12 +61,33 @@ public class PostCommentAdapter extends BaseAdapter{
         TextView tvName = (TextView) views.findViewById(R.id.tv_post_comment_person_name);
         TextView tvTime = (TextView) views.findViewById(R.id.tv_post_comment_time);
         TextView tvContent = (TextView) views.findViewById(R.id.tv_post_comment_content);
+        final TextView tvAccept = (TextView) views.findViewById(R.id.tv_accept);
+        ImageView ivAccept = (ImageView) views.findViewById(R.id.iv_accept);
 
-        PostComment postComment = postComments.get(i);
+        final PostComment postComment = postComments.get(i);
         avatarView.load(postComment.getCommentUser().getAvatar());
         tvName.setText(postComment.getCommentUser().getName());
         tvTime.setText(DateToString.getStringDate(postComment.getCreateDate()));
         tvContent.setText(postComment.getContent());
+        if(postComment.getPost().issolve()){
+            if(postComment.getPost().getAccepterId() == postComment.getId()){
+                ivAccept.setVisibility(View.VISIBLE);
+                tvAccept.setVisibility(View.GONE);
+            }else {
+                tvAccept.setVisibility(View.GONE);
+                ivAccept.setVisibility(View.GONE);
+            }
+        }else{
+            tvAccept.setText("采纳");
+            tvAccept.setVisibility(View.VISIBLE);
+        }
+        tvAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            commentActivity.Accept(postComment.getId());
+            }
+        });
+
 
         return views;
     }

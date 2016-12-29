@@ -19,6 +19,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -61,9 +62,8 @@
             android:id="@+id/tv_browse_volume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="13dp"
+            android:layout_below="@+id/rl_content"
+            android:layout_alignRight="@+id/rl_content"
             android:layout_marginTop="11dp"
             android:text="浏览量" />
 

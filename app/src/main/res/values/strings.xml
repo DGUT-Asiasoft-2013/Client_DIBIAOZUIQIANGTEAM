@@ -15,6 +15,7 @@
     <string name="loginout">注销</string>
     <string name="exit">返回</string>
     <string name="update">完成</string>
+    <string name="accept">采纳</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
