@@ -75,11 +75,20 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_lookcomments"
             android:layout_alignBottom="@+id/tv_lookcomments"
-            android:layout_marginRight="17dp"
-            android:layout_toLeftOf="@+id/tv_lookcomments"
-            android:text="点赞0"
+            android:layout_marginRight="3dp"
+            android:layout_toLeftOf="@+id/tv_likes_count"
+            android:text="点赞"
             android:textColor="@android:color/holo_green_dark" />
-
+        <TextView
+            android:id="@+id/tv_likes_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_lookcomments"
+            android:layout_alignBottom="@+id/tv_lookcomments"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/tv_lookcomments"
+            android:text="0"
+            android:textColor="@android:color/holo_green_dark" />
     </RelativeLayout>
 
     <LinearLayout

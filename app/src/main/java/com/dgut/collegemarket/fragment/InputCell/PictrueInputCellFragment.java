@@ -30,7 +30,7 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
     final int REQUESTCODE_ALBUM = 2;
 
 
-    TextView lable;
+
     ImageView imageView;
 
 
@@ -38,7 +38,7 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inputcell_pictrue, container, false);
 
-        lable = (TextView) view.findViewById(R.id.labletext);
+
         imageView = (ImageView) view.findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
                 "拍照",
                 "相册"
         };
-        new AlertDialog.Builder(getActivity()).setTitle(lable.getText())
+        new AlertDialog.Builder(getActivity()).setTitle("选择照片")
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -88,7 +88,7 @@ public class PictrueInputCellFragment extends BaseInputCelllFragment {
 
     @Override
     public void setLableText(String labletext) {
-        lable.setText(labletext);
+//        lable.setText(labletext);
     }
 
     @Override

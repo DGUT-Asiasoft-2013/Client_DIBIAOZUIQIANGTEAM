@@ -26,10 +26,14 @@
             android:textStyle="bold"/>
     </RelativeLayout>
 
+    <com.dgut.collegemarket.view.layout.VRefreshLayout
+        android:id="@+id/refresh_post_comment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ListView
         android:id="@+id/lv_article_comments_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
-
+    </com.dgut.collegemarket.view.layout.VRefreshLayout>
 </LinearLayout>

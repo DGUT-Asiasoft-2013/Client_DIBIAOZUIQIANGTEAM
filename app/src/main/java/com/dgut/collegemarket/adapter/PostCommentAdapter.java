@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.posts.CommentActivity;
 import com.dgut.collegemarket.api.entity.PostComment;
+import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.DateToString;
 
@@ -69,18 +70,26 @@ public class PostCommentAdapter extends BaseAdapter{
         tvName.setText(postComment.getCommentUser().getName());
         tvTime.setText(DateToString.getStringDate(postComment.getCreateDate()));
         tvContent.setText(postComment.getContent());
-        if(postComment.getPost().issolve()){
-            if(postComment.getPost().getAccepterId() == postComment.getId()){
-                ivAccept.setVisibility(View.VISIBLE);
-                tvAccept.setVisibility(View.GONE);
-            }else {
-                tvAccept.setVisibility(View.GONE);
-                ivAccept.setVisibility(View.GONE);
+
+
+            if (postComment.getPost().issolve()) {
+                if (postComment.getPost().getAccepterId() == postComment.getId()) {
+                    ivAccept.setVisibility(View.VISIBLE);
+                    tvAccept.setVisibility(View.GONE);
+                } else {
+                    tvAccept.setVisibility(View.GONE);
+                    ivAccept.setVisibility(View.GONE);
+                }
+            } else {
+                if(CurrentUserInfo.user_id == postComment.getPost().getPublishers().getId()) {
+                    tvAccept.setText("采纳");
+                    tvAccept.setVisibility(View.VISIBLE);
+                }else{
+                    tvAccept.setVisibility(View.GONE);
+                    ivAccept.setVisibility(View.GONE);
+                }
             }
-        }else{
-            tvAccept.setText("采纳");
-            tvAccept.setVisibility(View.VISIBLE);
-        }
+
         tvAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

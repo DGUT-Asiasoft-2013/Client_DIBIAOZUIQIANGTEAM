@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.AnimationEffec;
@@ -29,7 +30,7 @@ public class PostAddActivity extends Activity {
     ImageView truckImg,back;
     SimpleTextInputCellFragment fragmentTitle = new SimpleTextInputCellFragment();
     SimpleTextInputCellFragment fragmentContent = new SimpleTextInputCellFragment();
-    PictrueInputCellFragment fragmentPictrue = new PictrueInputCellFragment();
+    PictrueHDInputCellFragment fragmentPictrue = new PictrueHDInputCellFragment();
     SimpleTextInputCellFragment fragmentPrice = new SimpleTextInputCellFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class PostAddActivity extends Activity {
         truckImg = (ImageView) findViewById(R.id.truck);
         fragmentTitle = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_title);
         fragmentContent = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
-        fragmentPictrue = (PictrueInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
+        fragmentPictrue = (PictrueHDInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_post_pictrue);
         fragmentPrice = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_price);
         back = (ImageView) findViewById(R.id.iv_back);
 

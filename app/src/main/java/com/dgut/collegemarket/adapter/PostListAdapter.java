@@ -69,6 +69,7 @@ public class PostListAdapter extends BaseAdapter {
         TextView textContent = (TextView) view.findViewById(R.id.text_post_content);
         TextView tvCreateTime = (TextView) view.findViewById(R.id.tv_createtime);
         TextView tvPrice = (TextView) view.findViewById(R.id.tv_price);
+        ImageView imageAccepted  = (ImageView) view.findViewById(R.id.iv_accepted);
 
         Post post = mPost.get(i);
 
@@ -83,6 +84,13 @@ public class PostListAdapter extends BaseAdapter {
         String albumsUrl = Server.serverAddress + post.getAlbums();
         Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar) .into(imageAvatar)   ;
         Picasso.with(context).load(albumsUrl).resize(200,100).centerCrop().into(ivContentImg);
+        if(post.issolve()){
+            imageAccepted.setImageResource(R.drawable.accepted);
+        }else{
+            imageAccepted.setImageResource(R.drawable.unaccepted);
+        }
+
+
         return view;
     }
 

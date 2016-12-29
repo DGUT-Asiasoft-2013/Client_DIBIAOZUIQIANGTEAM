@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,7 +40,7 @@ public class PostContentActivity extends Activity {
     TextView tvText;
     TextView tvLookComment;
     TextView tvLike;
-
+    TextView tvLikeCount;
     boolean isLike = false;
     int countlikes = 0;
 
@@ -48,6 +49,7 @@ public class PostContentActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_content);
         post = (Post) getIntent().getSerializableExtra("post");
+        Log.e("debug",post.getId()+"");
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivContentImg = (ImageView) findViewById(R.id.iv_post_content_img);
@@ -57,6 +59,7 @@ public class PostContentActivity extends Activity {
         tvText = (TextView) findViewById(R.id.tv_article_text);
         tvLookComment = (TextView) findViewById(R.id.tv_lookcomments);
         tvLike = (TextView) findViewById(R.id.tv_likes);
+        tvLikeCount = (TextView) findViewById(R.id.tv_likes_count);
 
         String albumsUrl = Server.serverAddress + post.getAlbums();
         Picasso.with(PostContentActivity.this).load(albumsUrl).resize(500,300).centerInside().into(ivContentImg);
@@ -82,8 +85,12 @@ public class PostContentActivity extends Activity {
 
         tvLike.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-//                tvLike.setClickable(false);
-//                likes();
+                if(isLike){
+                    deletelikes();
+                }else{
+                    likes();
+                }
+
             }
         });
 
@@ -94,8 +101,8 @@ public class PostContentActivity extends Activity {
         super.onResume();
         tvTitle.setText(post.getTitle());
         tvText.setText(post.getContent());
-//        checkLikes();
-//        countLikes();
+        checkLikes();
+        countLikes();
     }
 
     /**
@@ -159,11 +166,13 @@ public class PostContentActivity extends Activity {
     public void likes() {
         OkHttpClient client = Server.getSharedClient();
 
-        MultipartBody requestBody = new MultipartBody.Builder().addFormDataPart("isLike", String.valueOf(!isLike))
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("postId", post.getId()+"")
                 .build();
 
-        Request request = Server.requestBuilderWithApi("article/likes/" )
-                .post(requestBody).build();
+        Request request = Server.requestBuilderWithApi("likes/addlikes" )
+                .post(requestBody)
+                .build();
 
         client.newCall(request).enqueue(new Callback() {
             public void onResponse(Call arg0, Response arg1) throws IOException {
@@ -171,18 +180,12 @@ public class PostContentActivity extends Activity {
                 final int res = Integer.valueOf(rs);
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        if (res == 0) {
-                            isLike = false;
-                            tvLike.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-                            countLikes();
-                            Toast.makeText(PostContentActivity.this, "取消点赞", Toast.LENGTH_SHORT).show();
-                        } else {
-                            isLike = true;
-                            tvLike.setTextColor(getResources().getColor(android.R.color.darker_gray));
-                            countLikes();
-                            Toast.makeText(PostContentActivity.this, "点赞", Toast.LENGTH_SHORT).show();
-                        }
-
+                        tvLike.setText("取消点赞");
+                        tvLikeCount.setText(res+"");
+                        tvLike.setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        tvLikeCount.setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        isLike = true;
+                        Toast.makeText(PostContentActivity.this, "点赞成功"+res, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -198,29 +201,78 @@ public class PostContentActivity extends Activity {
     }
 
     /**
+     * 取消点赞
+     */
+    public void deletelikes() {
+        OkHttpClient client = Server.getSharedClient();
+
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("postId", post.getId()+"")
+                .build();
+
+        Request request = Server.requestBuilderWithApi("likes/deletelikes" )
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            public void onResponse(Call arg0, Response arg1) throws IOException {
+                String rs = arg1.body().string();
+                final int res = Integer.valueOf(rs);
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        tvLike.setText("点赞");
+                        tvLikeCount.setText(res+"");
+                        tvLike.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                        tvLikeCount.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                        isLike = false;
+                        Toast.makeText(PostContentActivity.this, "取消点赞成功"+res, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            public void onFailure(Call arg0, IOException arg1) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(PostContentActivity.this, "点赞失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+    /**
      * 检查是否点赞
      */
     public void checkLikes() {
         OkHttpClient client = Server.getSharedClient();
-
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("postId",post.getId()+"")
+                .build();
         Request request = Server
-                .requestBuilderWithApi("/article/" + "/like/checklike").build();
+                .requestBuilderWithApi("likes/judgelikes")
+                .post(requestBody)
+                .build();
         client.newCall(request).enqueue(new Callback() {
             public void onResponse(Call arg0, Response arg1) throws IOException {
                 String rs = arg1.body().string();
                 boolean islike = Boolean.valueOf(rs);
                 if (islike) {
+
                     runOnUiThread(new Runnable() {
                         public void run() {
                             isLike = true;
+                            tvLike.setText("取消点赞");
                             tvLike.setTextColor(getResources().getColor(android.R.color.darker_gray));
+                            tvLikeCount.setTextColor(getResources().getColor(android.R.color.darker_gray));
                         }
                     });
                 } else {
+
                     runOnUiThread(new Runnable() {
                         public void run() {
                             isLike = false;
+                            tvLike.setText("点赞");
                             tvLike.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                            tvLikeCount.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
                         }
                     });
                 }
@@ -244,8 +296,11 @@ public class PostContentActivity extends Activity {
      */
     public void countLikes() {
         OkHttpClient client = Server.getSharedClient();
-
-        Request request = Server.requestBuilderWithApi("article/like/count/" )
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("postId",post.getId()+"")
+                .build();
+        Request request = Server.requestBuilderWithApi("likes/countlikes" )
+                .post(requestBody)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             public void onResponse(Call arg0, Response arg1) throws IOException {
@@ -253,8 +308,7 @@ public class PostContentActivity extends Activity {
                 final int res = Integer.valueOf(rs);
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        tvLike.setText("点赞" + res);
-                        tvLike.setClickable(true);
+                        tvLikeCount.setText(res+"");
                     }
                 });
             }
@@ -271,5 +325,6 @@ public class PostContentActivity extends Activity {
         });
 
     }
+
 
 }

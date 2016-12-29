@@ -30,5 +30,12 @@
     <item name="@android:windowExitAnimation">@anim/dialog_exit</item>    //退出时的动画
 </style>
 
+    <style name="AnimationFade">
+
+        <!-- PopupWindow左右弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/inputodown</item>
+        <item name="android:windowExitAnimation">@anim/outdowntoup</item>
+    </style>
+
 
 </resources>

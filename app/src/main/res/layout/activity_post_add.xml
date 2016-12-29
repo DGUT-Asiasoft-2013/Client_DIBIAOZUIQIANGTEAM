@@ -13,10 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/post_up"
-
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp" />
+         />
 
 
     <fragment
@@ -37,26 +36,26 @@
         tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
     <fragment
-        android:id="@+id/fragment_pictrue"
-        android:layout_width="wrap_content"
+        android:id="@+id/fragment_post_pictrue"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment"
+        class="com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment"
         tools:layout="@layout/fragment_inputcell_pictrue"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/fragment_price"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"></fragment>
+        android:layout_centerHorizontal="true"></fragment>
 
 
 
     <fragment
         android:id="@+id/fragment_price"
         class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_inputcell_simpletext"
         android:layout_below="@+id/fragment_content"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/fragment_pictrue"></fragment>
+        ></fragment>
 
 
     <RelativeLayout
