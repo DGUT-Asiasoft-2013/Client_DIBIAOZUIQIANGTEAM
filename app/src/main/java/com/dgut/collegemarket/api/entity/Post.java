@@ -10,6 +10,7 @@ import java.util.Date;
 public class Post implements Serializable{
     private int id;
     private User publishers;//发布者
+    private int accepterId;
     private String title;//标题
     private String content;//内容
     private String albums;//帖子图集
@@ -97,5 +98,13 @@ public class Post implements Serializable{
 
     public void setBrowseVolume(int browseVolume) {
         this.browseVolume = browseVolume;
+    }
+
+    public int getAccepterId() {
+        return accepterId;
+    }
+
+    public void setAccepterId(int accepterId) {
+        this.accepterId = accepterId;
     }
 }

@@ -37,7 +37,6 @@ public class CommentActivity extends Activity {
     PostCommentAdapter postCommentAdapter;
     Post post;
     int pageNum = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +53,9 @@ public class CommentActivity extends Activity {
                 finish();
             }
         });
-        postCommentAdapter = new PostCommentAdapter(CommentActivity.this,postCommentList);
+        postCommentAdapter = new PostCommentAdapter(CommentActivity.this,postCommentList,CommentActivity.this);
         lvComment.setAdapter(postCommentAdapter);
+        loadComments(pageNum);
     }
 
     @Override
@@ -65,25 +65,20 @@ public class CommentActivity extends Activity {
         loadComments();
     }
 
-    public void loadComments(){
-
+    public void loadComments(int pageNums){
         OkHttpClient client = Server.getSharedClient();
         int id = post.getId();
-
         MultipartBody requestBody = new MultipartBody.Builder()
                 .addFormDataPart("postId",post.getId()+"")
                 .build();
-
-        Request request = Server.requestBuilderWithApi("post/postcomment/"+pageNum)
+        Request request = Server.requestBuilderWithApi("post/postcomment/"+pageNums)
                 .post(requestBody)
                 .build();
-
         final ProgressDialog dialog = new ProgressDialog(CommentActivity.this);
         dialog.setMessage("拼命加载评论中");
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -111,6 +106,43 @@ public class CommentActivity extends Activity {
                     public void run() {
 
                         postCommentAdapter.notifyDataSetInvalidated();
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 采纳评论
+     */
+    public void Accept(int accepterId) {
+        OkHttpClient client = Server.getSharedClient();
+        MultipartBody requestBody  = new MultipartBody.Builder()
+                .addFormDataPart("accepterId",accepterId+"")
+                .addFormDataPart("postId",post.getId()+"")
+                .build();
+        Request request = Server.requestBuilderWithApi("post/postcomment/accept")
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CommentActivity.this,"联网失败，请检查网络",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CommentActivity.this,"采纳成功",Toast.LENGTH_SHORT).show();
+                        postCommentList.clear();
+                        loadComments(0);
                     }
                 });
             }
