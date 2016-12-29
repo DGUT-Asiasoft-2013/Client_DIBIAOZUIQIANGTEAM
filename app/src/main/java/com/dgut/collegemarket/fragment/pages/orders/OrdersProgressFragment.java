@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,19 +69,78 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
         ll_handle = (LinearLayout) view.findViewById(R.id.ll_handle);
         mUnderLineLinearLayout = (UnderLineLinearLayout) view.findViewById(R.id.underline_layout);
         mUnderLineLinearLayout.removeAllViews();
+        leftBtn = (Button) view.findViewById(R.id.btn_left);
+        rightBtn = (Button) view.findViewById(R.id.btn_right);
+        leftBtn.setOnClickListener(this);
+        rightBtn.setOnClickListener(this);
+
         if (CurrentUserInfo.user_id == orders.getGoods().getPublishers().getId()) {
-            ll_handle.setVisibility(View.VISIBLE);
-            leftBtn = (Button) view.findViewById(R.id.btn_left);
-            rightBtn = (Button) view.findViewById(R.id.btn_right);
-            leftBtn.setOnClickListener(this);
-            rightBtn.setOnClickListener(this);
+            leftBtn.setText("私信");
+           switch (orders.getState())
+           {
+               case 1:
+                   rightBtn.setText("接单");
+                   break;
+               case 2:
+                   rightBtn.setText("发货");
+                   break;
+               case 3:
+                   rightBtn.setText("待确认");
+                   break;
+               case 4:
+                   rightBtn.setText("待评价");
+                   break;
+               case 5:
+                   rightBtn.setText("查看评价");
+                   break;
+               case 6:
+                   rightBtn.setText("同意退款");
+                   leftBtn.setText("拒绝退款");
+                   break;
+               case 7:
+                   rightBtn.setText("已退款");
+                   break;
+               case 8:
+                   rightBtn.setText("已拒绝");
+                   break;
+           }
         } else {
-            ll_handle.setVisibility(View.GONE);
+            leftBtn.setText("取消订单");
+            switch (orders.getState())
+            {
+                case 1:
+                    rightBtn.setText("等待接单");
+                    break;
+                case 2:
+                    rightBtn.setText("已接单");
+                    break;
+                case 3:
+                    rightBtn.setText("确认收货");
+                    break;
+                case 4:
+                    leftBtn.setText("私信");
+                    rightBtn.setText("去评价");
+                    break;
+                case 5:
+                    leftBtn.setText("私信");
+                    rightBtn.setText("查看评价");
+                    break;
+                case 6:
+                    leftBtn.setText("私信");
+                    rightBtn.setText("等待退款");
+                    break;
+                case 7:
+                    leftBtn.setText("私信");
+                    rightBtn.setText("退款成功");
+                    break;
+                case 8:
+                    leftBtn.setText("私信");
+                    rightBtn.setText("联系客服");
+                    break;
+            }
+
         }
-
-
-        loadOrdersProgress();
-
+         loadOrdersProgress();
     }
 
     private void loadOrdersProgress() {
@@ -150,18 +210,30 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
 
         if (rightBtn.getText().toString().equals("接单")) {
             rightBtn.setText("发货");
+            rightBtn.setEnabled(true);
+        } else if (rightBtn.getText().toString().equals("发货")) {
+            rightBtn.setEnabled(true);
+            rightBtn.setText("待确认");
         }
-        else if(rightBtn.getText().toString().equals("发货"))
-        {
-            rightBtn.setText("确认收货");
+        else if (rightBtn.getText().toString().equals("确认收货")) {
+            rightBtn.setEnabled(true);
+            rightBtn.setText("去评价");
+            leftBtn.setText("私信");
         }
-        else if(rightBtn.getText().toString().equals("确认收货"))
-        {
-            rightBtn.setText("待评价");
+        else if (rightBtn.getText().toString().equals("同意退款")) {
+            leftBtn.setText("私信");
+            rightBtn.setEnabled(true);
+            rightBtn.setText("已退款");
         }
-        else
-        {
-            rightBtn.setText("查看评价");
+        else if (leftBtn.getText().toString().equals("拒绝退款")) {
+            leftBtn.setText("私信");
+            leftBtn.setEnabled(true);
+            rightBtn.setText("已拒绝");
+        }
+        else if (leftBtn.getText().toString().equals("取消订单")) {
+            leftBtn.setText("私信");
+            leftBtn.setEnabled(true);
+            rightBtn.setText("等待退款");
         }
     }
 
@@ -175,28 +247,41 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
 
         switch (view.getId()) {
             case R.id.btn_left:
+                if (leftBtn.getText().toString().equals("取消订单")) {
+                    changeState("申请取消", "等待卖方答复", 6 + "");
+                    leftBtn.setEnabled(false);
+
+                }
+                else if (leftBtn.getText().toString().equals("私信")) {
+                    Toast.makeText(activity, "私信", Toast.LENGTH_SHORT).show();
+                }
+                else if (leftBtn.getText().toString().equals("拒绝退款")) {
+                    leftBtn.setEnabled(false);
+                    changeState("拒绝退款", "如有疑问请联系客服", 8 + "");
+                }
                 break;
             case R.id.btn_right:
                 if (rightBtn.getText().toString().equals("接单")) {
-                    changeState("已接单","请卖方尽快发货");
+                    changeState("已接单", "请卖方尽快发货", 2 + "");
+                    rightBtn.setEnabled(false);
+                } else if (rightBtn.getText().toString().equals("发货")) {
+                    rightBtn.setEnabled(false);
+                    changeState("已发货", "请保证联系方式有效", 3 + "");
+                }
+                else if (rightBtn.getText().toString().equals("确认收货")) {
+                    rightBtn.setEnabled(false);
+                    changeState("交易完成", "如有疑问请联系客服", 4 + "");
+                }
+                else if (rightBtn.getText().toString().equals("查看评价")) {
+                    rightBtn.setEnabled(false);
+                    Toast.makeText(activity, "查看评价", Toast.LENGTH_SHORT).show();
+                }
+                else if (rightBtn.getText().toString().equals("同意退款")) {
+                    rightBtn.setEnabled(false);
+                    changeState("同意退款", "金币已退回买方", 7 + "");
+                }
 
-                }
-                else if(rightBtn.getText().toString().equals("发货"))
-                {
-                    changeState("已发货","请保证联系方式有效");
-                }
-                else if(rightBtn.getText().toString().equals("确认收货"))
-                {
-                    changeState("交易完成","如有疑问请联系客服");
-                }
-                else if(rightBtn.getText().toString().equals("待评价"))
-                {
-                    Toast.makeText(activity,"待评价",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                  Toast.makeText(activity,"跳往评价页面",Toast.LENGTH_SHORT).show();
-                }
+
 
                 break;
         }
@@ -205,13 +290,14 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
     }
 
 
-    private void changeState(String content,String title ) {
+    private void changeState(String content, String title, String state) {
 
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("content", content)
                 .addFormDataPart("title", title)
-                .addFormDataPart("orders_id", orders.getId() + "");
+                .addFormDataPart("orders_id", orders.getId() + "")
+                .addFormDataPart("state", state);
 
         //处理进度最多10个
         final Request request = Server.requestBuilderWithApi("orders/progress/add")

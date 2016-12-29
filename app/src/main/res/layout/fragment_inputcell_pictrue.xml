@@ -9,21 +9,21 @@
         android:id="@+id/line_camera"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="10dp"
+        android:layout_alignBottom="@+id/fragment_price"
+        android:layout_alignParentEnd="true"
         android:layout_marginRight="5dp"
         android:background="@drawable/bg_corners"
-        android:layout_alignBottom="@+id/fragment_price"
-        android:layout_alignParentEnd="true">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
 
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="center"
             android:layout_centerInParent="true"
+            android:scaleType="center"
             android:src="@drawable/camera" />
 
     </RelativeLayout>

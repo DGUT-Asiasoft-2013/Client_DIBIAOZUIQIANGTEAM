@@ -80,11 +80,7 @@ public class GoodsListAdapter extends BaseAdapter {
         String avatarUrl = Server.serverAddress + goods.getPublishers().getAvatar();
         String albumsUrl = Server.serverAddress + goods.getAlbums();
 
-
-
         Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar) .into(avatarImg)   ;
-
-
         Picasso.with(context).load(albumsUrl).resize(300,200).centerCrop().into(albumsImg);
 
         return view;

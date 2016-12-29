@@ -41,7 +41,7 @@ import okhttp3.Response;
 public class OrderListFragment extends Fragment {
     View view;
     Activity activity;
-     VRefreshLayout mRefreshLayout;
+    public static VRefreshLayout mRefreshLayout;
     int page = 0;
     int pageSize = 10;
     int NOT_MORE_PAGE = -1;
@@ -49,7 +49,7 @@ public class OrderListFragment extends Fragment {
     TextView textLoadMore;
     private ListView mListView;
     OrdersListAdapter adpter;
-    private List<Orders> mOrders = new ArrayList<Orders>();
+    private static List<Orders> mOrders = new ArrayList<Orders>();
     Page<Orders> ordersPage;
     boolean firstBuilt=true;
     
@@ -178,18 +178,29 @@ public class OrderListFragment extends Fragment {
 
             }
         });
-
-
     }
+
+    public static Orders getOrdersLastOne(){
+
+        for (int i=0;mOrders.size()>0;i++)
+        {
+            if ( mOrders.get(i).getState()<5)//得到最新的未完成订单 但是不包括申请取消订单的
+                return mOrders.get(i);
+        }
+
+        return null;
+    }
+
+
     private Handler scaleHandler = new Handler();
     private Runnable scaleRunnable = new Runnable() {
 
         @Override
         public void run() {
-            if (firstBuilt) {
+//            if (firstBuilt) {
                 mRefreshLayout.autoRefresh();
-                firstBuilt=false;
-            }
+//                firstBuilt=false;
+//            }
         }
     };
 

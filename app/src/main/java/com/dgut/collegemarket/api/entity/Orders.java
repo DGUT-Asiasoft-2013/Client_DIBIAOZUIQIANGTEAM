@@ -21,7 +21,7 @@ public class Orders implements Serializable{
 	int quantity;//商品数量
 	String note;
 	boolean isPayOnline;
-	int state;
+	int state;//状态（1表示订单刚提交，未接单；2表示已经接单，3表示已配送，4表示确认收货，交易完成，5表示已经评价， 6表示请求取消订单 ，7表示卖方同意取消，8表示卖方拒绝取消）
 	Date createDate;
 	Date editDate;
 

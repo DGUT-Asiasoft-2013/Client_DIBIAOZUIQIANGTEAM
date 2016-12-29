@@ -1,6 +1,7 @@
 package com.dgut.collegemarket.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Orders;
 import com.dgut.collegemarket.app.CurrentUserInfo;
+import com.dgut.collegemarket.util.OrdersStateToText;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class OrdersListAdapter extends BaseAdapter {
 
     ImageView avatarImg;
     TextView nameText, titleText, quantityText, sumText, stateText;
-    Button   leftBtn,rightBtn;
+    Button leftBtn, rightBtn;
 
     public OrdersListAdapter(Context context, List<Orders> mOrders) {
         this.context = context;
@@ -80,7 +82,37 @@ public class OrdersListAdapter extends BaseAdapter {
             quantityText.setText("X" + orders.getQuantity());
             sumText.setText(orders.getQuantity() * orders.getPrice() + "元");
 
+            stateText.setText(OrdersStateToText.getTextForBuyer(orders.getState()));
 
+            leftBtn.setText("私信");
+            leftBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+            rightBtn.setVisibility(View.GONE);
+            if (orders.getState() == 5) {
+                rightBtn.setVisibility(View.VISIBLE);
+                rightBtn.setText("查看评价");
+                rightBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
+            if (orders.getState() == 4) {
+                rightBtn.setVisibility(View.VISIBLE);
+                rightBtn.setText("去评价");
+                rightBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
 
         } else//不是购买的，那就是收到的订单
         {
@@ -106,8 +138,28 @@ public class OrdersListAdapter extends BaseAdapter {
             titleText.setText(orders.getGoods().getTitle());
             quantityText.setText("X" + orders.getQuantity());
             sumText.setText(orders.getQuantity() * orders.getPrice() + "元");
+
+            stateText.setText(OrdersStateToText.getTextForPublisers(orders.getState()));
+
             leftBtn.setText("私信");
-            rightBtn.setText("接单");
+            leftBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+            rightBtn.setVisibility(View.GONE);
+            if (orders.getState() == 5) {
+                rightBtn.setVisibility(View.VISIBLE);
+                rightBtn.setText("查看评价");
+                rightBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
 
         }
         return view;

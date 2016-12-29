@@ -10,7 +10,10 @@ import android.widget.ImageView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.goods.GoodsAddActivity;
+import com.dgut.collegemarket.activity.orders.OrdersContentActivity;
+import com.dgut.collegemarket.activity.orders.OrdresCreateActivity;
 import com.dgut.collegemarket.activity.posts.PostAddActivity;
+import com.dgut.collegemarket.fragment.pages.OrderListFragment;
 import com.dgut.collegemarket.util.AnimationEffec;
 
 
@@ -112,8 +115,18 @@ public class MainTabbarFragment extends Fragment {
             });
 
         }else if (selectedIndex == 2) {
-            AnimationEffec.setLightExpendAni(image);
+            AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
             image.setImageResource(R.drawable.tab_orders_receiver);
+            btnNew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(),OrdersContentActivity.class);
+                    intent.putExtra("orders",   OrderListFragment.getOrdersLastOne());
+                    startActivity(intent);
+
+                }
+            });
+
 
         } else {
             AnimationEffec.setLightExpendAni(image);
