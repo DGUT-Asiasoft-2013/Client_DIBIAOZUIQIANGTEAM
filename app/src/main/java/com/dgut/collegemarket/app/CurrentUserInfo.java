@@ -6,4 +6,5 @@ package com.dgut.collegemarket.app;
 
 public class CurrentUserInfo {
     public static boolean online = false;
+    public static int user_id =0;
 }

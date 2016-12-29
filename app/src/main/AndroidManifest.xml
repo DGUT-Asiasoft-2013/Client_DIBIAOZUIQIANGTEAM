@@ -62,7 +62,8 @@
         <activity android:name=".activity.myprofile.CheckDirectMessagesActivity" />
         <activity android:name=".activity.myprofile.CheckIdolsAndFansRecordsActivity" />
         //请地表最强战队成员规范化排序，谢谢！
-        <activity android:name=".activity.orders.NoteEditActivity"></activity>
+        <activity android:name=".activity.orders.NoteEditActivity" />
+        <activity android:name=".activity.orders.OrdersContentActivity"></activity>
     </application>
 
 </manifest>

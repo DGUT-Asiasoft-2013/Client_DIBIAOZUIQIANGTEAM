@@ -27,6 +27,7 @@ public class CheckConsumptionRecordsActivity extends Activity {
 
             @Override
             public void onTabSelected(int index) {
+
                 changeContentFragment1(index);
             }
         });
@@ -35,6 +36,7 @@ public class CheckConsumptionRecordsActivity extends Activity {
 
             @Override
             public void onNewClicked() {
+
                 bringUpEditor1();
             }
         });
@@ -70,8 +72,8 @@ public class CheckConsumptionRecordsActivity extends Activity {
     }
 
     void bringUpEditor1() {
-//        Intent itnt = new Intent(this, NewContentActivity.class);
-//        startActivity(itnt);
+
+
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
     }
 

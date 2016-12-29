@@ -43,7 +43,7 @@ public class SearchActivity extends Activity {
     ListView listView;
     List<User> data;
     EditText editText;
-    ImageButton imageButton;
+    ImageView imageView;
     int page = 0;
 
     @Override
@@ -52,8 +52,8 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
 
         editText = (EditText) findViewById(R.id.edit_search);
-        imageButton = (ImageButton) findViewById(R.id.image_button);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        imageView = (ImageView) findViewById(R.id.image_button);
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (CommonUtils.isFastDoubleClick()) {
@@ -63,7 +63,7 @@ public class SearchActivity extends Activity {
                 }
             }
         });
-//        if (view == null) {
+
             listView = (ListView) findViewById(R.id.list);
             listView.setAdapter(listAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,7 +73,7 @@ public class SearchActivity extends Activity {
                     onItemClicked(position);
                 }
             });
-//        }
+
 
     }
 
@@ -97,6 +97,7 @@ public class SearchActivity extends Activity {
         @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             View view = null;
 
             if (convertView == null) {
@@ -115,13 +116,16 @@ public class SearchActivity extends Activity {
             contentName.setText(user.getName().toString());
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", user.getCreateDate()).toString();
             textDate.setText(dateStr);
+
             return view;
         }
     };
 
 
     void search() {
+
         if (!editText.equals("")) {
+
             String keyword = editText.getText().toString();
 
             MultipartBody body = new MultipartBody.Builder()
@@ -140,6 +144,7 @@ public class SearchActivity extends Activity {
                                 .readValue(arg1.body().string(),
                                         new TypeReference<Page<User>>() {
                                         });
+
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 SearchActivity.this.page = data.getNumber();
@@ -148,6 +153,7 @@ public class SearchActivity extends Activity {
                             }
                         });
                     } catch (final Exception e) {
+
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 new AlertDialog.Builder(SearchActivity.this)

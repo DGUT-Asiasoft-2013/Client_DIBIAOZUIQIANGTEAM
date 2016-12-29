@@ -29,6 +29,7 @@ public class CheckIdolsAndFansRecordsActivity extends Activity {
 
             @Override
             public void onTabSelected(int index) {
+
                 changeContentFragment2(index);
             }
         });
@@ -37,6 +38,7 @@ public class CheckIdolsAndFansRecordsActivity extends Activity {
 
             @Override
             public void onNewClicked() {
+
                 bringUpEditor2();
             }
         });
@@ -75,8 +77,8 @@ public class CheckIdolsAndFansRecordsActivity extends Activity {
     }
 
     void bringUpEditor2() {
-//        Intent itnt = new Intent(this, NewContentActivity.class);
-//        startActivity(itnt);
+
+
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
     }
 }

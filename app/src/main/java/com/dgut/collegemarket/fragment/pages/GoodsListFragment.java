@@ -42,17 +42,18 @@ import okhttp3.Response;
 
 public class GoodsListFragment extends Fragment {
     private VRefreshLayout mRefreshLayout;
-    int pageSize = 10;
-    int NOT_MORE_PAGE = -1;
     Activity activity;
     View view;
     private List<ImageView> mViews;
     private List<Goods> mGoods = new ArrayList<Goods>();
+    Page<Goods> goodsPage;
     private ListView mListView;
     private View mJDHeaderView;
     GoodsListAdapter adpter;
     int page = 0;
-    Page<Goods> goodsPage;
+    int pageSize = 10;
+    int NOT_MORE_PAGE = -1;
+
 
     View btnLoadMore;
     TextView textLoadMore;
@@ -113,7 +114,6 @@ public class GoodsListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (page!=NOT_MORE_PAGE) {
-
                     refreshGoodsList();
                 }
             }

@@ -28,7 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class CommentActivity extends Activity implements CommentInterface{
+public class CommentActivity extends Activity {
 
     ImageView ivBack;
     ListView lvComment;
@@ -61,6 +61,8 @@ public class CommentActivity extends Activity implements CommentInterface{
     @Override
     protected void onResume() {
         super.onResume();
+
+        loadComments();
     }
 
     public void loadComments(int pageNums){
@@ -91,14 +93,18 @@ public class CommentActivity extends Activity implements CommentInterface{
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 dialog.dismiss();
                 String result = response.body().string();
+
                 Page<PostComment> page = new ObjectMapper().readValue(result, new TypeReference<Page<PostComment>>(){});
                 postCommentList.addAll(page.getContent());
                 pageNum = page.getNumber();
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         postCommentAdapter.notifyDataSetInvalidated();
                     }
                 });

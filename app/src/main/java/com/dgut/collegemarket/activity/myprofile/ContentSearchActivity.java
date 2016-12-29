@@ -28,6 +28,7 @@ import okhttp3.Response;
 
 //查找人界面点击事件—实现他人主页—实现点击私信—订阅功能
 public class ContentSearchActivity extends Activity {
+
     Subscriber subscriber;
     User user;
     Button subscribeButton;
@@ -54,6 +55,7 @@ public class ContentSearchActivity extends Activity {
                 if (CommonUtils.isFastDoubleClick()) {
                     return;
                 } else {
+
                     startActivity(new Intent(ContentSearchActivity.this, SendMessageActivity.class));
                 }
             }
@@ -63,7 +65,13 @@ public class ContentSearchActivity extends Activity {
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (CommonUtils.isFastDoubleClick()) {
+                    return;
+                } else {
+
                     toggleSubscribed();
+                }
             }
         });
     }
@@ -71,7 +79,9 @@ public class ContentSearchActivity extends Activity {
     private boolean isSubscribed;
 
     void checkSubscribed(){
+
         Request request = Server.requestBuilderWithApi("subscribe/isSubscribed/"+user.getId()).get().build();
+
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call arg0, Response arg1) throws IOException {
@@ -81,6 +91,7 @@ public class ContentSearchActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             onCheckSubscribedResult(responseString);
                         }
                     });
@@ -101,6 +112,7 @@ public class ContentSearchActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         onCheckSubscribedResult(false);
                     }
                 });
@@ -109,11 +121,13 @@ public class ContentSearchActivity extends Activity {
     }
 
     void onCheckSubscribedResult(boolean result){
+
         isSubscribed = result;
         subscribeButton.setTextColor(result ? Color.BLUE : Color.BLACK);
     }
 
     void reloadSubscribed(){
+
         Request request = Server.requestBuilderWithApi("subscribe/"+user.getId())
                 .get()
                 .build();
@@ -129,6 +143,7 @@ public class ContentSearchActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             onReloadSubscribedResult(count);
                         }
                     });
@@ -137,6 +152,7 @@ public class ContentSearchActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             onReloadSubscribedResult(0);
                         }
                     });
@@ -149,6 +165,7 @@ public class ContentSearchActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         onReloadSubscribedResult(0);
                     }
                 });
@@ -157,6 +174,7 @@ public class ContentSearchActivity extends Activity {
     }
 
     void onReloadSubscribedResult(int count){
+
         if(count>0){
             subscribeButton.setText("已关注");
         }else{
@@ -165,6 +183,7 @@ public class ContentSearchActivity extends Activity {
     }
 
     void toggleSubscribed(){
+
         MultipartBody body = new MultipartBody.Builder()
                 .addFormDataPart("subscribe", String.valueOf(!isSubscribed))
                 .build();
@@ -179,6 +198,7 @@ public class ContentSearchActivity extends Activity {
             public void onResponse(Call arg0, Response arg1) throws IOException {
                 runOnUiThread(new Runnable() {
                     public void run() {
+
                         reload();
                     }
                 });
@@ -188,6 +208,7 @@ public class ContentSearchActivity extends Activity {
             public void onFailure(Call arg0, IOException arg1) {
                 runOnUiThread(new Runnable() {
                     public void run() {
+
                         reload();
                     }
                 });
@@ -204,6 +225,7 @@ public class ContentSearchActivity extends Activity {
     }
 
     void reload(){
+
         reloadSubscribed();
         checkSubscribed();
     }

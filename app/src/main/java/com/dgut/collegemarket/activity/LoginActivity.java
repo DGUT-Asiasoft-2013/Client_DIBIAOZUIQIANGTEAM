@@ -184,6 +184,7 @@ public class LoginActivity extends FragmentActivity {
                     });
                 }else {
                     final User user = new ObjectMapper().readValue(result, User.class);
+                    CurrentUserInfo.user_id=user.getId();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
