@@ -105,7 +105,7 @@
                 android:layout_marginEnd="11dp"
                 android:layout_toStartOf="@+id/btn_orders_button_2"
                 android:background="@drawable/bg_btn_rectangle_blue"
-
+                android:focusable="false"
                 android:text="再来一单" />
 
             <View
@@ -121,7 +121,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="13dp"
                 android:background="@drawable/bg_btn_rectangle_yellow"
-
+                android:focusable="false"
                 android:text="去评价" />
 
         </RelativeLayout>

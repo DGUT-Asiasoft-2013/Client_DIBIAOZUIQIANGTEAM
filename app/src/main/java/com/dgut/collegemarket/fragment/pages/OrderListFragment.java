@@ -2,16 +2,19 @@ package com.dgut.collegemarket.fragment.pages;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.orders.OrdersContentActivity;
 import com.dgut.collegemarket.adapter.GoodsListAdapter;
 import com.dgut.collegemarket.adapter.OrdersListAdapter;
 import com.dgut.collegemarket.api.Server;
@@ -68,6 +71,14 @@ public class OrderListFragment extends Fragment {
                     if (page!=NOT_MORE_PAGE) {
                         refreshOrdersList();
                     }
+                }
+            });
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent=new Intent(activity, OrdersContentActivity.class);
+                    intent.putExtra("orders",mOrders.get(i));
+                    startActivity(intent);
                 }
             });
             initHeaderView();
