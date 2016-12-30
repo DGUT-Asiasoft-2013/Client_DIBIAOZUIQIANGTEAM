@@ -143,7 +143,7 @@ public class ConsumptionRecordsFragment extends Fragment {
             Records records = data.get(position);
 
             textCoin.setText(" 我在北京时间： ");
-            textCause.setText(" 用某某宝 " + records.getCause() + " 了 " + records.getCoin() + " 元 ");
+            textCause.setText( records.getCause()  + records.getCoin() + " 元 ");
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();
             textDate.setText(dateStr);
