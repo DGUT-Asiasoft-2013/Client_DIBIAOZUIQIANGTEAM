@@ -125,7 +125,7 @@ public class PostListFragment extends Fragment {
                         return;
                     } else {
                         initmPopupWindowView();
-                        popupWindow.showAsDropDown(v, 0, 5);
+                        popupWindow.showAsDropDown(v, 5, 10);
                     }
                 }
             });
@@ -135,8 +135,15 @@ public class PostListFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            if (popupWindow != null && popupWindow.isShowing()) {
+                popupWindow.dismiss();
+                popupWindow = null;
+            }
+        }
+
     }
 
     /**
