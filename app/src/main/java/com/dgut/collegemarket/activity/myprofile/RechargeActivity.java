@@ -64,7 +64,7 @@ public class RechargeActivity extends Activity {
 
         if (!editText.equals("")) {
             String coin = editText.getText().toString();
-            String cause = "充值";
+            String cause = "用某某宝充值了 ";
 
             MultipartBody body = new MultipartBody.Builder()
                     .addFormDataPart("coin", coin)
