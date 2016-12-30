@@ -112,7 +112,8 @@ public class SignInActivity extends Activity {
                         Toast.makeText(SignInActivity.this,"签到成功",Toast.LENGTH_SHORT).show();
                         btnSign.setText("已签到");
                         btnSign.setClickable(false);
-                        getAllSigns(pageNums+1);
+                        pageNums = 0;
+                        getAllSigns(pageNums);
                     }
                 });
             }
