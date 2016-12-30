@@ -50,7 +50,8 @@ public class MyProfileFragment extends Fragment {
     TextView tvName, tvEmail, tvLevel, tvXp;
     TextView tvMoney;
     ProgressBar pbXp;
-    LinearLayout linearLayout, linearLayout0;
+    LinearLayout linearLayout;
+    RelativeLayout linearLayout0;
     RelativeLayout relativeLayout, rlMe;
 
     User user = new User();
@@ -69,7 +70,7 @@ public class MyProfileFragment extends Fragment {
             pbXp = (ProgressBar) view.findViewById(R.id.pb_xp);
             tvMoney = (TextView) view.findViewById(R.id.tv_money);
 
-            linearLayout0 = (LinearLayout) view.findViewById(R.id.linearLayout0);
+            linearLayout0 = (RelativeLayout) view.findViewById(R.id.linearLayout0);
             linearLayout0.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

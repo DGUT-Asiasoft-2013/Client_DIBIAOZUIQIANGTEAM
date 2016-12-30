@@ -56,7 +56,9 @@ public class ContentFansActivity extends Activity {
                     return;
                 } else {
 
-                    startActivity(new Intent(ContentFansActivity.this, SendMessageActivity.class));
+                    Intent intent=  new Intent(ContentFansActivity.this, SendMessageActivity.class);
+                    intent.putExtra("user",subscriber.getId().getSubscribers());
+                    startActivity(intent);
                 }
             }
         });

@@ -2,16 +2,15 @@ package com.dgut.collegemarket.activity.common;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,16 +24,25 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.adapter.ChatLVAdapter;
 import com.dgut.collegemarket.adapter.FaceGVAdapter;
 import com.dgut.collegemarket.adapter.FaceVPAdapter;
+import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.api.entity.Message;
+import com.dgut.collegemarket.api.entity.Page;
+import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.view.message.ChatInfo;
 import com.dgut.collegemarket.view.message.DropdownListView;
 import com.dgut.collegemarket.view.message.DropdownListView.OnRefreshListenerHeader;
 import com.dgut.collegemarket.view.message.MyEditText;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,11 +51,19 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 //私信界面—发送私信
 public class SendMessageActivity extends Activity implements View.OnClickListener, OnRefreshListenerHeader {
 
 
+    User user;
+    private TextView headerText;
     private ViewPager mViewPager;
     private LinearLayout mDotsLayout;
     private MyEditText input;
@@ -55,8 +71,9 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
     private DropdownListView mListView;
     private ChatLVAdapter mLvAdapter;
 
+    private List<Message> mMessage = new ArrayList<Message>();
     private LinearLayout chat_face_container;
-    private ImageView image_face;//表情图标
+    private ImageView image_face,picture_face;//表情图标
     // 7列3行
     private int columns = 6;
     private int rows = 4;
@@ -65,22 +82,37 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
     private LinkedList<ChatInfo> infos = new LinkedList<ChatInfo>();
     private SimpleDateFormat sd;
 
-    private String reply = "";//模拟回复
+    Page<Message> messagePage;
+    int page = 0;
+    int pageSize = 10;
+    int NOT_MORE_PAGE = -1;
+    private String inputMessage = "";//模拟回复
 
 //    ImageView sendButton;
 //    SimpleTextInputCellFragment fragmentTitle = new SimpleTextInputCellFragment();
 //    SimpleTextInputCellFragment fragmentContent = new SimpleTextInputCellFragment();
 //    PictrueHDInputCellFragment fragmentPictrue = new PictrueHDInputCellFragment();
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        user = (User) getIntent().getExtras().get("user");
+        setContentView(R.layout.activity_send_message);
+        initStaticFaces();
+        initViews();
+
+    }
 
     @SuppressLint("SimpleDateFormat")
     private void initViews() {
         mListView = (DropdownListView) findViewById(R.id.message_chat_listview);
 
+        headerText = (TextView) findViewById(R.id.header);
+        headerText.setText("与 " + user.getName() + " 对话中");
         sd = new SimpleDateFormat("MM-dd HH:mm");
         //模拟收到信息
-        infos.add(getChatInfoFrom("你好啊！"));
-        infos.add(getChatInfoFrom("认识你很高兴#[face/png/f_static_018.png]#"));
+//        infos.add(getChatInfoFrom("你好啊！"));
+//        infos.add(getChatInfoFrom("认识你很高兴#[face/png/f_static_018.png]#"));
         mLvAdapter = new ChatLVAdapter(this, infos);
         mListView.setAdapter(mLvAdapter);
         //表情图标
@@ -99,6 +131,9 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
         image_face.setOnClickListener(this);
         // 发送
         send.setOnClickListener(this);
+
+        picture_face = (ImageView)findViewById(R.id.picture_face);
+        picture_face.setOnClickListener(this);
 
         mListView.setOnRefreshListenerHead(this);
         mListView.setOnTouchListener(new View.OnTouchListener() {
@@ -131,23 +166,82 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
                     chat_face_container.setVisibility(View.GONE);
                 }
                 break;
+            case R.id.picture_face://图片
+                hideSoftInputView();//隐藏软键盘
+                if (chat_face_container.getVisibility() == View.GONE) {
+                    chat_face_container.setVisibility(View.VISIBLE);
+                } else {
+                    chat_face_container.setVisibility(View.GONE);
+                }
+                break;
             case R.id.send_sms://发送
-                reply = input.getText().toString();
-                if (!TextUtils.isEmpty(reply)) {
-                    infos.add(getChatInfoTo(reply));
+                inputMessage = input.getText().toString();
+                if (!inputMessage.equals("")) {
+
+                    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("receiver_id", user.getId() + "")
+                            .addFormDataPart("content", inputMessage);
+
+                    final Request request = Server.requestBuilderWithApi("message/send")
+                            .post(multipartBuilder.build())
+                            .build();
+
+                    Server.getSharedClient().newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onResponse(Call arg0, Response arg1) throws IOException {
+                            try {
+                                final Message message = new ObjectMapper()
+                                        .readValue(arg1.body().string(),
+                                                Message.class);
+                                SendMessageActivity.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(SendMessageActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } catch (final Exception e) {
+                                SendMessageActivity.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        new AlertDialog.Builder(SendMessageActivity.this)
+                                                .setMessage(e.getMessage())
+                                                .show();
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call arg0, final IOException e) {
+                            SendMessageActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    new AlertDialog.Builder(SendMessageActivity.this)
+                                            .setMessage("服务器异常")
+                                            .show();
+                                }
+                            });
+                        }
+                    });
+
+
+                    infos.add(getChatInfoTo(inputMessage));
                     mLvAdapter.setList(infos);
                     mLvAdapter.notifyDataSetChanged();
                     mListView.setSelection(infos.size() - 1);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            infos.add(getChatInfoFrom(reply));
-                            mLvAdapter.setList(infos);
-                            mLvAdapter.notifyDataSetChanged();
-                            mListView.setSelection(infos.size() - 1);
+
+                            onRefresh();
+
+//                            infos.add(getChatInfoFrom(inputMessage));
+//                            mLvAdapter.setList(infos);
+//                            mLvAdapter.notifyDataSetChanged();
+//                            mListView.setSelection(infos.size() - 1);
                         }
                     }, 1000);
                     input.setText("");
+                } else {
+                    Toast.makeText(SendMessageActivity.this, "内容不能为空", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -381,7 +475,7 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0:
                     mLvAdapter.setList(infos);
@@ -392,13 +486,6 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_message);
-        initStaticFaces();
-        initViews();
-    }
 
     @Override
     public void onRefresh() {
@@ -406,9 +493,59 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
             @Override
             public void run() {
                 try {
-                    sleep(1000);
-                    Message msg = mHandler.obtainMessage(0);
+                    sleep(2000);
+                    android.os.Message msg = mHandler.obtainMessage(0);
                     mHandler.sendMessage(msg);
+
+
+                    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("receiver_id", user.getId() + "");
+                    final Request request = Server.requestBuilderWithApi("message/all/" + 0)
+                            .post(multipartBuilder.build())
+                            .build();
+
+
+                    Server.getSharedClient().newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                            SendMessageActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SendMessageActivity.this, "网络异常", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onResponse(Call call, final Response response) throws IOException {
+                            final String result = response.body().string();
+                            SendMessageActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    Toast.makeText(SendMessageActivity.this, "数据解析中", Toast.LENGTH_LONG).show();
+                                    try {
+
+                                        ObjectMapper mapper = new ObjectMapper();
+                                        messagePage = mapper.readValue(result, new TypeReference<Page<Message>>() {
+                                        });
+
+
+                                        mLvAdapter.setList(infos);
+                                        mLvAdapter.notifyDataSetChanged();
+                                        mListView.setSelection(infos.size() - 1);
+
+                                    } catch (IOException e) {
+                                        Toast.makeText(SendMessageActivity.this, "数据解析失败" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
+                        }
+                    });
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

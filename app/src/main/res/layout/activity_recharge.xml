@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context="com.dgut.collegemarket.activity.myprofile.RechargeActivity">
 
     <LinearLayout
@@ -28,6 +27,8 @@
             android:padding="5dp"
             android:layout_marginLeft="10dp"
             android:gravity="center"
+            android:numeric="decimal"
+            android:digits="0123456789."
             android:hint="冲多点吧！反正不是真的软妹币！" />
     </LinearLayout>
 

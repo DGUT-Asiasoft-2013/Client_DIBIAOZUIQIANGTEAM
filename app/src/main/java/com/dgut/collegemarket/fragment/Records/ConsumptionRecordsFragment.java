@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.dgut.collegemarket.activity.myprofile.ContentConsumptionActivity;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Records;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.view.layout.VRefreshLayout;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,11 +39,13 @@ public class ConsumptionRecordsFragment extends Fragment {
 
     View view;
     ListView listView;
+
     View LoadMore;
     TextView textLoadMore;
     List<Records> data;
     Activity activity;
-
+    VRefreshLayout mRefreshLayout;
+    int NOT_MORE_PAGE = -1;
     int page = 0;
 
     @Override
@@ -73,12 +77,34 @@ public class ConsumptionRecordsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    LoadMore();
+                    if (page != NOT_MORE_PAGE) {
+                        LoadMore();
+                    }
+                }
+            });
+            initHeaderView();
+        }
+
+        return view;
+    }
+
+    private void initHeaderView() {
+        mRefreshLayout = (VRefreshLayout) view.findViewById(R.id.refresh_layout);
+        if (mRefreshLayout != null) {
+            mRefreshLayout.setBackgroundColor(Color.DKGRAY);
+            mRefreshLayout.setAutoRefreshDuration(400);
+            mRefreshLayout.setRatioOfHeaderHeightToReach(1.5f);
+            mRefreshLayout.addOnRefreshListener(new VRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    page=0;
+                    reload();
                 }
             });
         }
 
-        return view;
+        mRefreshLayout.setHeaderView(mRefreshLayout.getDefaultHeaderView());
+        mRefreshLayout.setBackgroundColor(Color.parseColor("#ffc130"));
     }
 
     BaseAdapter listAdapter = new BaseAdapter() {
@@ -133,7 +159,6 @@ public class ConsumptionRecordsFragment extends Fragment {
     }
 
     void reload() {
-
         Request request = Server.requestBuilderWithApi("rec/records")
                 .get()
                 .build();
@@ -148,6 +173,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                                     });
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
+                            mRefreshLayout.refreshComplete();
                             ConsumptionRecordsFragment.this.page = data.getNumber();
                             ConsumptionRecordsFragment.this.data = data.getContent();
                             listAdapter.notifyDataSetInvalidated();
@@ -156,6 +182,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                 } catch (final Exception e) {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
+                            mRefreshLayout.refreshComplete();
                             new AlertDialog.Builder(activity)
                                     .setMessage(e.getMessage())
                                     .show();
@@ -168,6 +195,7 @@ public class ConsumptionRecordsFragment extends Fragment {
             public void onFailure(Call arg0, final IOException e) {
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
+                        mRefreshLayout.refreshComplete();
                         new AlertDialog.Builder(activity)
                                 .setMessage("服务器异常")
                                 .show();
@@ -179,8 +207,8 @@ public class ConsumptionRecordsFragment extends Fragment {
 
     void LoadMore() {
         LoadMore.setEnabled(false);
-        textLoadMore.setText("加载更多");
-        Request request = Server.requestBuilderWithApi("rec/records/" + (page+1))
+        textLoadMore.setText("加载中...");
+        Request request = Server.requestBuilderWithApi("rec/records/" + (page + 1))
                 .get()
                 .build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
@@ -188,8 +216,8 @@ public class ConsumptionRecordsFragment extends Fragment {
             public void onResponse(Call arg0, Response arg1) throws IOException {
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
-                        LoadMore.setEnabled(true);
-                        textLoadMore.setText("继续点看看有没有漏的");
+
+                        mRefreshLayout.refreshComplete();
                     }
                 });
 
@@ -212,7 +240,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                         });
                     }
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    textLoadMore.setText("数据解析失败"+ex.getLocalizedMessage());
                 }
             }
 
@@ -220,8 +248,9 @@ public class ConsumptionRecordsFragment extends Fragment {
             public void onFailure(Call arg0, IOException arg1) {
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
+                        mRefreshLayout.refreshComplete();
                         LoadMore.setEnabled(true);
-                        textLoadMore.setText("失败");
+                        textLoadMore.setText("网络异常");
                     }
                 });
             }

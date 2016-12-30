@@ -8,11 +8,28 @@ import java.util.Date;
  */
 
 public class Message implements Serializable{
+    int id;
     User sender;//发送者
     User receiver;//接收者
     String content;//文字
     String picture;//图片地址
     int type;//图文类型判断 1为图 0为文
+    Date createDate;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     public User getSender() {
         return sender;

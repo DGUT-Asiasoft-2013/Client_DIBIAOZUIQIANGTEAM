@@ -42,7 +42,7 @@ public class ContentIdolsActivity extends Activity {
         imageView = (AvatarView) findViewById(R.id.idols_image);
 
         money.setText("我在北京时间");
-        cause.setText("成为 " + subscriber.getId().getPublishers().getName() + " 的粉丝");
+        cause.setText("关注了 " + subscriber.getId().getPublishers().getName());
 
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
         date.setText(dateStr);
@@ -55,8 +55,9 @@ public class ContentIdolsActivity extends Activity {
                 if (CommonUtils.isFastDoubleClick()) {
                     return;
                 } else {
-
-                    startActivity(new Intent(ContentIdolsActivity.this, SendMessageActivity.class));
+                    Intent intent=  new Intent(ContentIdolsActivity.this, SendMessageActivity.class);
+                    intent.putExtra("user",subscriber.getId().getPublishers());
+                    startActivity(intent);
                 }
             }
         });

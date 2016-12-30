@@ -105,6 +105,7 @@ public class CommentActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     public void loadComments(int pageNums){
