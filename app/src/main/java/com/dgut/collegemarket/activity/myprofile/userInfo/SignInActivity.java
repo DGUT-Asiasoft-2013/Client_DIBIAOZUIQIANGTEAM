@@ -104,6 +104,7 @@ public class SignInActivity extends Activity {
             public void onResponse(Call call, Response response) throws IOException {
                 String result = response.body().string();
                 if (result.equals("")){
+
                     Toast.makeText(SignInActivity.this,"服务器忙，请稍后再试",Toast.LENGTH_SHORT).show();
                 }
                 runOnUiThread(new Runnable() {
