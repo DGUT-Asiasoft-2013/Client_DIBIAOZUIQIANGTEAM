@@ -60,6 +60,7 @@ public class SignInActivity extends Activity {
         btnSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnSign.setClickable(false);
                 int xp = new Random().nextInt(3)+1;
                 addSign(xp);
             }
@@ -93,6 +94,7 @@ public class SignInActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        btnSign.setClickable(true);
                         Toast.makeText(SignInActivity.this,"签到失败，请检查网络",Toast.LENGTH_SHORT).show();
                     }
                 });

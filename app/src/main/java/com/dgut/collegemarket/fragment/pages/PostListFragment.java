@@ -179,6 +179,12 @@ public class PostListFragment extends Fragment {
                         unAcceptedList.add(p);
                     }
                 }
+                pageNum = postPage.getNumber();
+                totalPageNum = postPage.getTotalPages();
+
+                if(pageNum==0){
+                    postslist.clear();
+                }
                 if(solve==0){
                     postslist.addAll(acceptedList);
                 }else if(solve==1){
@@ -187,8 +193,7 @@ public class PostListFragment extends Fragment {
                     postslist.addAll(postPage.getContent());
                 }
 
-                pageNum = postPage.getNumber();
-                totalPageNum = postPage.getTotalPages();
+
 
                 activity.runOnUiThread(new Runnable() {
                     @Override
