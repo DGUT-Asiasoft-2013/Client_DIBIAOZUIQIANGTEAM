@@ -9,7 +9,7 @@
         android:id="@+id/frag_tabbar_2"
         class="com.dgut.collegemarket.fragment.widgets.CheckIdolsAndFansRecordsFragment"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         tools:layout="@layout/fragment_check_idols_and_fans_records"></fragment>
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/frag_tabbar_2"
-        android:background="@android:color/background_dark"></View>
+        android:background="@android:color/darker_gray"></View>
 
     <FrameLayout
         android:id="@+id/content_2"

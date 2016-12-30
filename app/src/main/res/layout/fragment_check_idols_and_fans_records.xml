@@ -15,16 +15,18 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/tab_goods_background"
+            android:src="@drawable/idol_back"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:text="我的偶像"
+            android:textSize="12dp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -38,15 +40,17 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/tab_order_background"/>
+            android:src="@drawable/fans_background"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:text="我的粉丝"
+            android:textSize="12dp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
