@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.orders.OrderCommentListActivity;
+import com.dgut.collegemarket.activity.orders.OrdersCommentActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Orders;
 import com.dgut.collegemarket.app.CurrentUserInfo;
@@ -54,7 +56,7 @@ public class OrdersListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        Orders orders = mOrders.get(i);
+        final Orders orders = mOrders.get(i);
         View view = null;
         if (orders.getBuyer().getId() == CurrentUserInfo.user_id) //判断订单是不是当前用户购买的
         {
@@ -99,7 +101,9 @@ public class OrdersListAdapter extends BaseAdapter {
                 rightBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent itnt = new Intent(context,OrderCommentListActivity.class);
+                        itnt.putExtra("goodsId",orders.getGoods().getId());
+                        context.startActivity(itnt);
                     }
                 });
             }
@@ -109,6 +113,9 @@ public class OrdersListAdapter extends BaseAdapter {
                 rightBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Intent itnt = new Intent(context,OrdersCommentActivity.class);
+                        itnt.putExtra("orders",orders);
+                        context.startActivity(itnt);
 
                     }
                 });
@@ -156,7 +163,9 @@ public class OrdersListAdapter extends BaseAdapter {
                 rightBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent itnt = new Intent(context,OrderCommentListActivity.class);
+                        itnt.putExtra("goodsId",orders.getGoods().getId());
+                        context.startActivity(itnt);
                     }
                 });
             }

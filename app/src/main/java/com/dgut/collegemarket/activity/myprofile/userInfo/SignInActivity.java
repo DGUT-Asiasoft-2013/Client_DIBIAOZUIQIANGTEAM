@@ -114,6 +114,7 @@ public class SignInActivity extends Activity {
                         btnSign.setText("已签到");
                         btnSign.setClickable(false);
                         pageNums = 0;
+                        signList.clear();
                         getAllSigns(pageNums);
                     }
                 });
@@ -145,7 +146,7 @@ public class SignInActivity extends Activity {
                 final int ranking = sm.getRanking();
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(SignInActivity.this,"成功获取列表",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SignInActivity.this,"成功获取列表",Toast.LENGTH_SHORT).show();
                         tvCount.setText(count+"");
                         tvRanking.setText(ranking+"");
                         signListAdapter.notifyDataSetInvalidated();

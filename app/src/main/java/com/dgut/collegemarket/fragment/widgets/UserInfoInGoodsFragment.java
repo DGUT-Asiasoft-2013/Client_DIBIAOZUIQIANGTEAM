@@ -2,6 +2,7 @@ package com.dgut.collegemarket.fragment.widgets;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.goods.GoodsContentActivity;
+import com.dgut.collegemarket.activity.orders.OrderCommentListActivity;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.util.JudgeLevel;
 import com.squareup.picasso.Picasso;
@@ -26,6 +29,7 @@ public class UserInfoInGoodsFragment extends Fragment {
     Button privateMsgBt;
     Button commentBt;
     User user;
+    Goods goods;
     View view;
     Activity activity;
     ImageView avatar;
@@ -35,6 +39,7 @@ public class UserInfoInGoodsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_user_info_in_goods, null);
         activity = getActivity();
         user = GoodsContentActivity.publisher;
+        goods = GoodsContentActivity.goods;
 
         levelText = (TextView) view.findViewById(R.id.tv_level);
         nameText = (TextView) view.findViewById(R.id.tv_name);
@@ -57,7 +62,9 @@ public class UserInfoInGoodsFragment extends Fragment {
         commentBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                waitForUpdate();
+                Intent itnt = new Intent(activity, OrderCommentListActivity.class);
+                itnt.putExtra("goodsId",goods.getId());
+                activity.startActivity(itnt);
             }
         });
 

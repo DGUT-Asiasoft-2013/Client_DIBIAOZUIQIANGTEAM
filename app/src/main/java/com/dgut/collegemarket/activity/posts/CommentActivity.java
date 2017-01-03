@@ -130,7 +130,7 @@ public class CommentActivity extends Activity {
                     @Override
                     public void run() {
                         vRefreshLayout.refreshComplete();
-                        Toast.makeText(CommentActivity.this,"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CommentActivity.this,"联网失败，请检查网络",Toast.LENGTH_SHORT).show();
                     }
                 });
             }

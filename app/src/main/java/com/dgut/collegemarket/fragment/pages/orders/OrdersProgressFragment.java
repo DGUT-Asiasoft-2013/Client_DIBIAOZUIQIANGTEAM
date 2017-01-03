@@ -18,6 +18,8 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.LoginActivity;
 import com.dgut.collegemarket.activity.MainActivity;
 import com.dgut.collegemarket.activity.common.ContactListActivity;
+import com.dgut.collegemarket.activity.orders.OrderCommentListActivity;
+import com.dgut.collegemarket.activity.orders.OrdersCommentActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Contact;
 import com.dgut.collegemarket.api.entity.Orders;
@@ -273,14 +275,20 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
                     changeState("交易完成", "如有疑问请联系客服", 4 + "");
                 }
                 else if (rightBtn.getText().toString().equals("查看评价")) {
-                    rightBtn.setEnabled(false);
-                    Toast.makeText(activity, "查看评价", Toast.LENGTH_SHORT).show();
+
+                    Intent itnt = new Intent(activity,OrderCommentListActivity.class);
+                    itnt.putExtra("goodsId",orders.getGoods().getId());
+                    activity.startActivity(itnt);
                 }
                 else if (rightBtn.getText().toString().equals("同意退款")) {
                     rightBtn.setEnabled(false);
                     changeState("同意退款", "金币已退回买方", 7 + "");
                 }
-
+                else if(rightBtn.getText().toString().equals("去评价")){
+                    Intent itnt = new Intent(activity, OrdersCommentActivity.class);
+                    itnt.putExtra("orders",orders);
+                    activity.startActivity(itnt);
+                }
 
 
                 break;

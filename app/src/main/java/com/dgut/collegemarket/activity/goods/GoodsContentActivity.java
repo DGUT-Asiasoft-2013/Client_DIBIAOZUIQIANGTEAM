@@ -25,7 +25,7 @@ public class GoodsContentActivity extends AppCompatActivity {
     private static final int RESULT_CREATE_ORDERS = 200;
     ImageView albumsImg;
     ImageView avatarImg;
-    Goods goods;
+    public static Goods goods;
     Toolbar toolbar;
     public static User publisher;
 
