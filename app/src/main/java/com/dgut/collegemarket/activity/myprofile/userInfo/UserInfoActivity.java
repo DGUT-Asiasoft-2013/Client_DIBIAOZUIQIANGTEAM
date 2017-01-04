@@ -123,7 +123,7 @@ public class UserInfoActivity extends Activity{
             public void onClick(View view) {
                 SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("auto",false);
+                editor.putBoolean(user.getAccount()+"auto",false);
                 editor.commit();
                 CurrentUserInfo.online = false;
                 Intent intent = new Intent(UserInfoActivity.this, LoginActivity.class);

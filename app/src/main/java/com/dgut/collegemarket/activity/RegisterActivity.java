@@ -157,8 +157,6 @@ public class RegisterActivity extends Activity {
                                     public void gotResult(int responseCode, String registerDesc) {
                                         if (responseCode == 0) {
                                             progressDialog.dismiss();
-                                            LoginActivity.account.setLableText(accountS);
-                                            LoginActivity.password.setLableText(passwordMD5);
 
                                             new AlertDialog.Builder(RegisterActivity.this)
                                                     .setTitle("注册成功")

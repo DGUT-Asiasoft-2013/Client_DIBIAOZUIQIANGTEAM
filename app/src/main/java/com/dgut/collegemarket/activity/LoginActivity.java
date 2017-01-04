@@ -8,26 +8,39 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordStep1Activity;
+import com.dgut.collegemarket.adapter.EditTextAdapter;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.api.entity.MiniUser;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
+import com.dgut.collegemarket.view.widgets.DropEditText;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
@@ -49,20 +62,26 @@ import okhttp3.Response;
  */
 public class LoginActivity extends FragmentActivity {
 
-    public static   SimpleTextInputCellFragment account;
-    public static   SimpleTextInputCellFragment password;
+
     Button login;
     TextView recover,register;
     ProgressDialog progressDialog;
     CheckBox cbRememberPassword;
     CheckBox cbAutoLogin;
+
+    DropEditText account;
+    EditText password;
+    EditTextAdapter adapter;
+
+    List<String> accountList = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        account = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_account);
-        password = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_password);
+        account = (DropEditText) findViewById(R.id.drop_edit_text);
+        password = (EditText) findViewById(R.id.et_pasword);
 
         login = (Button) findViewById(R.id.username_sign_in_button);
         recover = (TextView) findViewById(R.id.password_recover);
@@ -113,7 +132,33 @@ public class LoginActivity extends FragmentActivity {
                 }
             }
         });
-//        initData();
+        account.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                password.setText("");
+                cbRememberPassword.setChecked(false);
+                cbAutoLogin.setChecked(false);
+                SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+                for(String account:accountList){
+                    if(account.equals(charSequence.toString())){
+                        password.setText(preferences.getString(account+"password",""));
+                        cbRememberPassword.setChecked(preferences.getBoolean(account+"remember",false));
+                        cbAutoLogin.setChecked(preferences.getBoolean(account+"auto",false));
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         initUser();
     }
 
@@ -122,17 +167,36 @@ public class LoginActivity extends FragmentActivity {
      */
     public void initUser(){
         SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        String accounts = preferences.getString("account","");
-        String passwords = preferences.getString("password","");
-        boolean auto = preferences.getBoolean("auto",false);
-        boolean remember = preferences.getBoolean("remember",false);
-        account.setLableText(accounts);
-        password.setLableText(passwords);
-        cbAutoLogin.setChecked(auto);
-        cbRememberPassword.setChecked(remember);
-        if(auto){
-            loginHttpRequest();
+        Set<String> accountSet  = preferences.getStringSet("accountset",null);
+
+        if(accountSet==null){
+            return;
         }
+
+        Iterator<String> iterator = accountSet.iterator();
+
+        while(iterator.hasNext()){
+            accountList.add(iterator.next());
+        }
+        adapter = new EditTextAdapter(this,accountList,LoginActivity.this);
+        account.setAdapter(adapter);
+
+        if(accountList!=null&&accountList.size()>0) {
+            String passwords = preferences.getString(accountList.get(0) + "password", "");
+            boolean auto = preferences.getBoolean(accountList.get(0) + "auto", false);
+            boolean remember = preferences.getBoolean(accountList.get(0) + "remember", false);
+
+            account.setText(accountList.get(0));
+            account.setSelection(accountList.get(0).length());
+            password.setText(passwords);
+
+            cbAutoLogin.setChecked(auto);
+            cbRememberPassword.setChecked(remember);
+            if (auto) {
+                loginHttpRequest();
+            }
+        }
+
     }
 
     /**
@@ -143,10 +207,17 @@ public class LoginActivity extends FragmentActivity {
     public void setUser(String account,String password,boolean remember,boolean auto){
         SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("account",account);
-        editor.putString("password",password);
-        editor.putBoolean("auto",auto);
-        editor.putBoolean("remember",remember);
+
+        Set<String> accountSet = preferences.getStringSet("accountset",null);
+        if(accountSet==null){
+            accountSet = new HashSet<String>();
+        }
+        accountSet.add(account);
+        editor.putStringSet("accountset",accountSet);
+
+        editor.putString(account+"password",password);
+        editor.putBoolean(account+"auto",auto);
+        editor.putBoolean(account+"remember",remember);
         editor.commit();
     }
 
@@ -163,8 +234,8 @@ public class LoginActivity extends FragmentActivity {
 
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("account", account.getText())
-                .addFormDataPart("passwordHash", MD5.getMD5(password.getText()));//密码加密
+                .addFormDataPart("account", account.getText().toString())
+                .addFormDataPart("passwordHash", MD5.getMD5(password.getText().toString()));//密码加密
 
 
         Request request = Server.requestBuilderWithApi("user/login")
@@ -203,7 +274,7 @@ public class LoginActivity extends FragmentActivity {
                         @Override
                         public void run() {
                             /**=================     调用SDk登陆接口    =================*/
-                            JMessageClient.login(account.getText(), MD5.getMD5(password.getText()), new BasicCallback() {
+                            JMessageClient.login(account.getText().toString(), MD5.getMD5(password.getText().toString()), new BasicCallback() {
                                 @Override
                                 public void gotResult(int responseCode, String LoginDesc) {
                                     if (responseCode == 0) {
@@ -212,9 +283,9 @@ public class LoginActivity extends FragmentActivity {
                                         CurrentUserInfo.online = true;
                                         if(cbRememberPassword.isChecked()){
                                             if(cbAutoLogin.isChecked()){
-                                                setUser(account.getText(),password.getText(),true,true);
+                                                setUser(account.getText().toString(),password.getText().toString(),true,true);
                                             }else{
-                                                setUser(account.getText(),password.getText(),true,false);
+                                                setUser(account.getText().toString(),password.getText().toString(),true,false);
                                             }
                                         }
                                         //调用JPush API设置Alias
@@ -259,12 +330,11 @@ public class LoginActivity extends FragmentActivity {
      */
     private boolean isInputCorrect() {
         if (account.getText().equals("")) {
-            account.setLayoutError("用户名不能为空");
-            password.getText();//清除上一次密码为空的提示
+           Toast.makeText(LoginActivity.this,"用户名不能为空",Toast.LENGTH_SHORT).show();
             return false;
         }
         if (password.getText().equals("")) {
-            password.setLayoutError("密码不能为空");
+            Toast.makeText(LoginActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -275,9 +345,29 @@ public class LoginActivity extends FragmentActivity {
     protected void onResume() {
         JPushInterface.onResume(this);
         super.onResume();
-        account.setHintText("请输入账号");
-        password.setHintText("请输入密码");
-        password.setIsPassword(true);
+        account.setHint("请输入账号");
+        password.setHint("请输入密码");
+        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    }
+
+    public void deleteAccount(String accounts){
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        Set<String> accountSet  = preferences.getStringSet("accountset",null);
+        accountSet.remove(accounts);
+        SharedPreferences.Editor editor =  preferences.edit();
+        editor.remove(accounts+"password");
+        editor.remove(accounts+"remember");
+        editor.remove(accounts+"auto");
+        editor.commit();
+        accountList.remove(accounts);
+        if(accountList.size()>0){
+            account.setText(accountList.get(0));
+            adapter.notifyDataSetChanged();
+        }else{
+            account.setText("");
+            account.dismiss();
+        }
+
     }
 
     private static final String TAG = "JPush";
