@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.common.SendMessageActivity;
 import com.dgut.collegemarket.activity.orders.OrderCommentListActivity;
 import com.dgut.collegemarket.activity.orders.OrdersCommentActivity;
 import com.dgut.collegemarket.api.Server;
@@ -90,7 +91,9 @@ public class OrdersListAdapter extends BaseAdapter {
             leftBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent=new Intent(context, SendMessageActivity.class);
+                    intent.putExtra("user",orders.getGoods().getPublishers());
+                    context.startActivity(intent);
                 }
             });
 
@@ -152,7 +155,9 @@ public class OrdersListAdapter extends BaseAdapter {
             leftBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent=new Intent(context, SendMessageActivity.class);
+                    intent.putExtra("user",orders.getBuyer());
+                    context.startActivity(intent);
                 }
             });
 

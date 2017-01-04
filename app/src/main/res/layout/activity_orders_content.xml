@@ -4,13 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/view_navigationbar_order_detail"
-        />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_scroll"
+    <include layout="@layout/view_navigationbar_order_detail" />
+
+    <com.dgut.collegemarket.view.layout.VRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.dgut.collegemarket.view.layout.VRefreshLayout>
 
 </LinearLayout>

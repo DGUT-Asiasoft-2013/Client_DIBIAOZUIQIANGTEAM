@@ -77,7 +77,7 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent=new Intent(activity, OrdersContentActivity.class);
-                    intent.putExtra("orders",mOrders.get(i));
+                    intent.putExtra("orders_id",mOrders.get(i).getId());
                     startActivity(intent);
                 }
             });

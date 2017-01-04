@@ -18,6 +18,7 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.LoginActivity;
 import com.dgut.collegemarket.activity.MainActivity;
 import com.dgut.collegemarket.activity.common.ContactListActivity;
+import com.dgut.collegemarket.activity.common.SendMessageActivity;
 import com.dgut.collegemarket.activity.orders.OrderCommentListActivity;
 import com.dgut.collegemarket.activity.orders.OrdersCommentActivity;
 import com.dgut.collegemarket.api.Server;
@@ -27,6 +28,8 @@ import com.dgut.collegemarket.api.entity.OrdersProgress;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.app.CurrentUserInfo;
+import com.dgut.collegemarket.app.MsgType;
+import com.dgut.collegemarket.util.CreateSigMsg;
 import com.dgut.collegemarket.util.DateToString;
 import com.dgut.collegemarket.util.MD5;
 import com.dgut.collegemarket.view.layout.UnderLineLinearLayout;
@@ -35,7 +38,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -62,7 +67,7 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
         if (view == null) {
             activity = getActivity();
             view = inflater.inflate(R.layout.fragment_orders_progress, null);
-            initView();
+
         }
         return view;
     }
@@ -78,38 +83,36 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
 
         if (CurrentUserInfo.user_id == orders.getGoods().getPublishers().getId()) {
             leftBtn.setText("私信");
-           switch (orders.getState())
-           {
-               case 1:
-                   rightBtn.setText("接单");
-                   break;
-               case 2:
-                   rightBtn.setText("发货");
-                   break;
-               case 3:
-                   rightBtn.setText("待确认");
-                   break;
-               case 4:
-                   rightBtn.setText("待评价");
-                   break;
-               case 5:
-                   rightBtn.setText("查看评价");
-                   break;
-               case 6:
-                   rightBtn.setText("同意退款");
-                   leftBtn.setText("拒绝退款");
-                   break;
-               case 7:
-                   rightBtn.setText("已退款");
-                   break;
-               case 8:
-                   rightBtn.setText("已拒绝");
-                   break;
-           }
+            switch (orders.getState()) {
+                case 1:
+                    rightBtn.setText("接单");
+                    break;
+                case 2:
+                    rightBtn.setText("发货");
+                    break;
+                case 3:
+                    rightBtn.setText("待确认");
+                    break;
+                case 4:
+                    rightBtn.setText("待评价");
+                    break;
+                case 5:
+                    rightBtn.setText("查看评价");
+                    break;
+                case 6:
+                    rightBtn.setText("同意退款");
+                    leftBtn.setText("拒绝退款");
+                    break;
+                case 7:
+                    rightBtn.setText("已退款");
+                    break;
+                case 8:
+                    rightBtn.setText("已拒绝");
+                    break;
+            }
         } else {
             leftBtn.setText("取消订单");
-            switch (orders.getState())
-            {
+            switch (orders.getState()) {
                 case 1:
                     rightBtn.setText("等待接单");
                     break;
@@ -142,7 +145,7 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
             }
 
         }
-         loadOrdersProgress();
+        loadOrdersProgress();
     }
 
     private void loadOrdersProgress() {
@@ -216,23 +219,19 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
         } else if (rightBtn.getText().toString().equals("发货")) {
             rightBtn.setEnabled(true);
             rightBtn.setText("待确认");
-        }
-        else if (rightBtn.getText().toString().equals("确认收货")) {
+        } else if (rightBtn.getText().toString().equals("确认收货")) {
             rightBtn.setEnabled(true);
             rightBtn.setText("去评价");
             leftBtn.setText("私信");
-        }
-        else if (rightBtn.getText().toString().equals("同意退款")) {
+        } else if (rightBtn.getText().toString().equals("同意退款")) {
             leftBtn.setText("私信");
             rightBtn.setEnabled(true);
             rightBtn.setText("已退款");
-        }
-        else if (leftBtn.getText().toString().equals("拒绝退款")) {
+        } else if (leftBtn.getText().toString().equals("拒绝退款")) {
             leftBtn.setText("私信");
             leftBtn.setEnabled(true);
             rightBtn.setText("已拒绝");
-        }
-        else if (leftBtn.getText().toString().equals("取消订单")) {
+        } else if (leftBtn.getText().toString().equals("取消订单")) {
             leftBtn.setText("私信");
             leftBtn.setEnabled(true);
             rightBtn.setText("等待退款");
@@ -241,7 +240,7 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
 
     public void setOrder(Orders orders) {
         this.orders = orders;
-
+        initView();
     }
 
     @Override
@@ -253,11 +252,16 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
                     changeState("申请取消", "等待卖方答复", 6 + "");
                     leftBtn.setEnabled(false);
 
-                }
-                else if (leftBtn.getText().toString().equals("私信")) {
-                    Toast.makeText(activity, "私信", Toast.LENGTH_SHORT).show();
-                }
-                else if (leftBtn.getText().toString().equals("拒绝退款")) {
+                } else if (leftBtn.getText().toString().equals("私信")) {
+                    Intent intent = new Intent(activity, SendMessageActivity.class);
+                    if (orders.getBuyer().getId() == CurrentUserInfo.user_id) //判断订单是不是当前用户购买的
+                    {
+                        intent.putExtra("user", orders.getBuyer());
+                    } else {
+                        intent.putExtra("user", orders.getBuyer());
+                    }
+                    startActivity(intent);
+                } else if (leftBtn.getText().toString().equals("拒绝退款")) {
                     leftBtn.setEnabled(false);
                     changeState("拒绝退款", "如有疑问请联系客服", 8 + "");
                 }
@@ -269,10 +273,13 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
                 } else if (rightBtn.getText().toString().equals("发货")) {
                     rightBtn.setEnabled(false);
                     changeState("已发货", "请保证联系方式有效", 3 + "");
-                }
-                else if (rightBtn.getText().toString().equals("确认收货")) {
+                } else if (rightBtn.getText().toString().equals("确认收货")) {
                     rightBtn.setEnabled(false);
                     changeState("交易完成", "如有疑问请联系客服", 4 + "");
+                } else if (rightBtn.getText().toString().equals("查看评价")) {
+                    rightBtn.setEnabled(false);
+                    Toast.makeText(activity, "查看评价", Toast.LENGTH_SHORT).show();
+                } else if (rightBtn.getText().toString().equals("同意退款")) {
                 }
                 else if (rightBtn.getText().toString().equals("查看评价")) {
 
@@ -298,7 +305,7 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
     }
 
 
-    private void changeState(String content, String title, String state) {
+    private void changeState(String content, String title, final String state) {
 
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -334,6 +341,21 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        //发送新订单消息
+                        Map<String, String> valuesMap = new HashMap<>();
+                        valuesMap.put("msg_type", MsgType.MSG_ORDERS);
+                        valuesMap.put("orders_state", state);
+                        valuesMap.put("orders_id", orders.getId() + "");
+                        CreateSigMsg.context = activity;
+
+                        String account;
+                        if (state.equals("4")||state.equals("5")||state.equals("6"))
+                            account = orders.getGoods().getPublishers().getAccount();
+                        else
+                            account = orders.getBuyer().getAccount();
+
+                        CreateSigMsg.CreateSigTextMsg(account,
+                                "订单消息", getOrdersStateString(state), valuesMap);
 
                         addProgressItem(progress);
                     }
@@ -343,6 +365,28 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
             }
         });
 
+
+    }
+
+    private String getOrdersStateString(String state) {
+        switch (state) {
+            case "2":
+                return orders.getGoods().getPublishers().getName() + "已接单";
+            case "3":
+                return orders.getGoods().getPublishers().getName() + "已经发货";
+            case "4":
+                return orders.getBuyer().getName() + "确认收货";
+            case "5":
+                return "收到一条来自" + orders.getBuyer().getName() + "的评价";
+            case "6":
+                return orders.getBuyer().getName() + "申请取消订单";
+            case "7":
+                return orders.getGoods().getPublishers().getName() + "拒绝您的退款申请";
+            case "8":
+                return orders.getGoods().getPublishers().getName() + "同意您的退款申请";
+        }
+
+        return "";
 
     }
 }

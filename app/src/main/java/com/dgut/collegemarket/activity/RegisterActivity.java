@@ -6,9 +6,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
@@ -19,9 +21,10 @@ import com.dgut.collegemarket.util.Util;
 
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -77,10 +80,10 @@ public class RegisterActivity extends Activity {
      */
     private void submit() {
 
-        if (!isInputCorrect()) {
-            return;
-        }
-        String accountS = account.getText();
+//        if (!isInputCorrect()) {
+//            return;
+//        }
+        final String accountS = account.getText();
         String passwordS = password.getText();
         String passwordRepeatS = passwordRepeat.getText();
         String emailS = email.getText();
@@ -91,14 +94,14 @@ public class RegisterActivity extends Activity {
             passwordRepeat.setClickable();
             return;
         }
-        passwordS = MD5.getMD5(passwordS);
+       final String passwordMD5 = MD5.getMD5(passwordS);
 
         OkHttpClient client = new OkHttpClient();
 
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("account", accountS)
-                .addFormDataPart("passwordHash", passwordS)
+                .addFormDataPart("passwordHash", passwordMD5)
                 .addFormDataPart("email", emailS)
                 .addFormDataPart("name", nameS);
         if (pictrue.getPngData() != null)
@@ -138,31 +141,55 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-                progressDialog.dismiss();
+
                 if (response.isSuccessful()) {
                     final String result = response.body().string();
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (!request.equals(""))
-                                new AlertDialog.Builder(RegisterActivity.this)
-                                        .setTitle("注册成功")
-                                        .setCancelable(true)
-                                        .setNegativeButton("马上登陆", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                finish();
-                                            }
-                                        })
-                                        .show();
-                            else
+                            if (!request.equals("")) {
+
+
+/**=================     调用SDK注册接口    =================*/
+                                JMessageClient.register(accountS, passwordMD5, new BasicCallback() {
+                                    @Override
+                                    public void gotResult(int responseCode, String registerDesc) {
+                                        if (responseCode == 0) {
+                                            progressDialog.dismiss();
+                                            LoginActivity.account.setLableText(accountS);
+                                            LoginActivity.password.setLableText(passwordMD5);
+
+                                            new AlertDialog.Builder(RegisterActivity.this)
+                                                    .setTitle("注册成功")
+                                                    .setCancelable(true)
+                                                    .setNegativeButton("马上登陆", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            finish();
+                                                        }
+                                                    })
+                                                    .show();
+                                            Log.i("RegisterActivity", "JMessageClient.register " + ", responseCode = " + responseCode + " ; registerDesc = " + registerDesc);
+
+                                        } else {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(getApplicationContext(), "注册失败", Toast.LENGTH_SHORT).show();
+                                            Log.i("RegisterActivity", "JMessageClient.register " + ", responseCode = " + responseCode + " ; registerDesc = " + registerDesc);
+                                        }
+                                    }
+                                });
+
+                            }
+                            else {
+                                progressDialog.dismiss();
                                 new AlertDialog.Builder(RegisterActivity.this)
                                         .setTitle("注册失败")
                                         .setMessage("用户名已存在")
                                         .setCancelable(true)
                                         .setNegativeButton("重新注册", null)
                                         .show();
+                            }
                         }
                     });
 
@@ -234,6 +261,7 @@ public class RegisterActivity extends Activity {
 
     @Override
     protected void onResume() {
+        JPushInterface.onResume(this);
         super.onResume();
 
         account.setHintText("请输入账号(8-13位数字)");
@@ -248,4 +276,11 @@ public class RegisterActivity extends Activity {
         name.setHintText("昵称");
     }
 
+
+    @Override
+    protected void onPause() {
+        JPushInterface.onPause(this);
+        finish();
+        super.onPause();
+    }
 }

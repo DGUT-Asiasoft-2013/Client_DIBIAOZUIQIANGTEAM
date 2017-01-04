@@ -34,7 +34,7 @@ public class VRefreshLayout extends ViewGroup {
     public final static int STATUS_REFRESHING = 3;//正在刷新
     public final static int STATUS_RELEASE_CANCEL = 4;//松手取消
     public final static int STATUS_COMPLETE = 5;//刷新完成
-    private static final String TAG = "VRefreshLayout";
+
     private int mStatus;
 
     private View mHeaderView;
@@ -150,7 +150,7 @@ public class VRefreshLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.e(TAG, "onMeasure: ");
+//        //Log.e(TAG, "onMeasure: ");
         ensureContent();
         //measure contentView
         if (mContentView != null) {
@@ -199,7 +199,7 @@ public class VRefreshLayout extends ViewGroup {
 
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
-        Log.e(TAG, "onLayout: mHeaderCurrentTop" + mHeaderCurrentTop);
+//        //Log.e(TAG, "onLayout: mHeaderCurrentTop" + mHeaderCurrentTop);
         //layout headerView
         if (mHeaderView != null) {
             mHeaderView.layout(paddingLeft, mHeaderCurrentTop, paddingLeft + mHeaderView.getMeasuredWidth(), mHeaderCurrentTop + mHeaderView.getMeasuredHeight());
@@ -216,7 +216,7 @@ public class VRefreshLayout extends ViewGroup {
             int bottom = top + contentHeight;
             mContentView.layout(left, top, right, bottom);
         }
-        Log.e(TAG, "onLayout: ");
+//        //Log.e(TAG, "onLayout: ");
     }
 
     @Override
@@ -242,7 +242,7 @@ public class VRefreshLayout extends ViewGroup {
         int pointerIndex;
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                Log.e(TAG, "onInterceptTouchEvent: ACTION_DOWN");
+//                //Log.e(TAG, "onInterceptTouchEvent: ACTION_DOWN");
                 mIsBeingDragged = false;
                 notifyStatus(STATUS_INIT);
                 mActivePointerId = ev.getPointerId(0);
@@ -254,7 +254,7 @@ public class VRefreshLayout extends ViewGroup {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                Log.e(TAG, "onInterceptTouchEvent: ACTION_MOVE");
+//                //Log.e(TAG, "onInterceptTouchEvent: ACTION_MOVE");
                 pointerIndex = ev.findPointerIndex(mActivePointerId);
                 if (pointerIndex < 0) {
                     return false;
@@ -264,13 +264,13 @@ public class VRefreshLayout extends ViewGroup {
                 break;
 
             case MotionEventCompat.ACTION_POINTER_UP:
-                Log.e(TAG, "onInterceptTouchEvent: ACTION_POINTER_UP");
+//                //Log.e(TAG, "onInterceptTouchEvent: ACTION_POINTER_UP");
                 checkOtherPointerUp(ev);
                 break;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Log.e(TAG, "onInterceptTouchEvent: ACTION_DOWN");
+//                //Log.e(TAG, "onInterceptTouchEvent: ACTION_DOWN");
                 mIsBeingDragged = false;
                 mActivePointerId = -1;
                 break;
@@ -306,7 +306,7 @@ public class VRefreshLayout extends ViewGroup {
         int pointerIndex;
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                Log.e(TAG, "onTouchEvent: ACTION_DOWN");
+//                //Log.e(TAG, "onTouchEvent: ACTION_DOWN");
                 mIsBeingDragged = false;
                 notifyStatus(STATUS_INIT);
                 mActivePointerId = ev.getPointerId(0);
@@ -318,7 +318,7 @@ public class VRefreshLayout extends ViewGroup {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                Log.e(TAG, "onTouchEvent: ACTION_MOVE");
+//                //Log.e(TAG, "onTouchEvent: ACTION_MOVE");
                 pointerIndex = ev.findPointerIndex(mActivePointerId);
                 if (pointerIndex < 0) {
                     return false;
@@ -335,7 +335,7 @@ public class VRefreshLayout extends ViewGroup {
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN:
-                Log.e(TAG, "onTouchEvent: ACTION_POINTER_DOWN");
+//                //Log.e(TAG, "onTouchEvent: ACTION_POINTER_DOWN");
                 pointerIndex = MotionEventCompat.getActionIndex(ev);
                 if (pointerIndex < 0) {
                     return false;
@@ -344,12 +344,12 @@ public class VRefreshLayout extends ViewGroup {
                 break;
 
             case MotionEventCompat.ACTION_POINTER_UP:
-                Log.e(TAG, "onTouchEvent: ACTION_POINTER_UP");
+                //Log.e(TAG, "onTouchEvent: ACTION_POINTER_UP");
                 checkOtherPointerUp(ev);
                 break;
 
             case MotionEvent.ACTION_UP:
-                Log.e(TAG, "onTouchEvent: ACTION_UP");
+                //Log.e(TAG, "onTouchEvent: ACTION_UP");
                 pointerIndex = ev.findPointerIndex(mActivePointerId);
                 if (pointerIndex < 0) {
                     return false;
@@ -364,7 +364,7 @@ public class VRefreshLayout extends ViewGroup {
 
                 break;
             case MotionEvent.ACTION_CANCEL:
-                Log.e(TAG, "onTouchEvent: ACTION_CANCEL");
+                //Log.e(TAG, "onTouchEvent: ACTION_CANCEL");
                 return false;
         }
         return true;
@@ -372,7 +372,7 @@ public class VRefreshLayout extends ViewGroup {
     }
 
     private void actionUp(float dy) {
-        Log.e(TAG, "actionUp: " + dy);
+        //Log.e(TAG, "actionUp: " + dy);
         if (dy < mRefreshDistance) {
             //cancel
             animOffsetToStartPos();

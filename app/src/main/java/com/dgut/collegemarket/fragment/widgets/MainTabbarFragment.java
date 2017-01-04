@@ -115,6 +115,7 @@ public class MainTabbarFragment extends Fragment {
             });
 
         }else if (selectedIndex == 2) {
+            btnNew.setEnabled(true);
             AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
             image.setImageResource(R.drawable.tab_orders_receiver);
             btnNew.setOnClickListener(new View.OnClickListener() {

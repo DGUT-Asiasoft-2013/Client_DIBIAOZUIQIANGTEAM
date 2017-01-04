@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
 import android.os.Bundle;
@@ -27,7 +28,15 @@ import com.dgut.collegemarket.util.MD5;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.Set;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
+import im.sdk.debug.activity.TypeActivity;
+import im.sdk.debug.utils.JPushUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MultipartBody;
@@ -40,8 +49,8 @@ import okhttp3.Response;
  */
 public class LoginActivity extends FragmentActivity {
 
-    SimpleTextInputCellFragment account;
-    SimpleTextInputCellFragment password;
+    public static   SimpleTextInputCellFragment account;
+    public static   SimpleTextInputCellFragment password;
     Button login;
     TextView recover,register;
     ProgressDialog progressDialog;
@@ -75,7 +84,9 @@ public class LoginActivity extends FragmentActivity {
         register.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
             }
         });
@@ -102,6 +113,7 @@ public class LoginActivity extends FragmentActivity {
                 }
             }
         });
+//        initData();
         initUser();
     }
 
@@ -173,33 +185,53 @@ public class LoginActivity extends FragmentActivity {
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-                progressDialog.dismiss();
+
                 final String result = response.body().string();
                 if(result.equals("")){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            progressDialog.dismiss();
                             Toast.makeText(LoginActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }else {
+
                     final User user = new ObjectMapper().readValue(result, User.class);
                     CurrentUserInfo.user_id=user.getId();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            CurrentUserInfo.online = true;
-                            if(cbRememberPassword.isChecked()){
-                                if(cbAutoLogin.isChecked()){
-                                    setUser(account.getText(),password.getText(),true,true);
-                                }else{
-                                    setUser(account.getText(),password.getText(),true,false);
+                            /**=================     调用SDk登陆接口    =================*/
+                            JMessageClient.login(account.getText(), MD5.getMD5(password.getText()), new BasicCallback() {
+                                @Override
+                                public void gotResult(int responseCode, String LoginDesc) {
+                                    if (responseCode == 0) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                        CurrentUserInfo.online = true;
+                                        if(cbRememberPassword.isChecked()){
+                                            if(cbAutoLogin.isChecked()){
+                                                setUser(account.getText(),password.getText(),true,true);
+                                            }else{
+                                                setUser(account.getText(),password.getText(),true,false);
+                                            }
+                                        }
+                                        //调用JPush API设置Alias
+                                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, account.getText()));
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                        Log.i("LoginActivity", "JMessageClient.login" + ", responseCode = " + responseCode + " ; LoginDesc = " + LoginDesc);
+
+                                    } else {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_SHORT).show();
+                                        Log.i("LoginActivity", "JMessageClient.login" + ", responseCode = " + responseCode + " ; LoginDesc = " + LoginDesc);
+                                    }
                                 }
-                            }
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            });
+
                         }
                     });
                 }
@@ -207,6 +239,19 @@ public class LoginActivity extends FragmentActivity {
         });
     }
 
+    /**
+     * #################    第一个界面,登陆或者是注册    #################
+     */
+    private void initData() {
+        /**=================     获取个人信息不是null则直接进入Main界面    =================*/
+        UserInfo myInfo = JMessageClient.getMyInfo();
+        if (myInfo != null) {
+            //调用JPush API设置Alias
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, myInfo.getUserName()));
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 
     /**
      * 判断输入
@@ -228,10 +273,106 @@ public class LoginActivity extends FragmentActivity {
 
     @Override
     protected void onResume() {
+        JPushInterface.onResume(this);
         super.onResume();
         account.setHintText("请输入账号");
         password.setHintText("请输入密码");
         password.setIsPassword(true);
     }
+
+    private static final String TAG = "JPush";
+    private static final int MSG_SET_ALIAS = 1001;
+    private static final int MSG_SET_TAGS = 1002;
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    Log.d(TAG, "Set alias in handler.");
+                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
+                    break;
+
+                case MSG_SET_TAGS:
+                    Log.d(TAG, "Set tags in handler.");
+                    JPushInterface.setAliasAndTags(getApplicationContext(), null, (Set<String>) msg.obj, mTagsCallback);
+                    break;
+
+                default:
+                    Log.i(TAG, "Unhandled msg - " + msg.what);
+            }
+        }
+    };
+
+    @Override
+    protected void onPause() {
+        JPushInterface.onPause(this);
+        finish();
+        super.onPause();
+    }
+
+
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs;
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    Log.i(TAG, logs);
+                    break;
+
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    Log.i(TAG, logs);
+                    if (JPushUtil.isConnected(getApplicationContext())) {
+                        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    } else {
+                        Log.i(TAG, "No network");
+                    }
+                    break;
+
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    Log.e(TAG, logs);
+            }
+
+            JPushUtil.showToast(logs, getApplicationContext());
+        }
+
+    };
+
+    private final TagAliasCallback mTagsCallback = new TagAliasCallback() {
+
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs;
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    Log.i(TAG, logs);
+                    break;
+
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    Log.i(TAG, logs);
+                    if (JPushUtil.isConnected(getApplicationContext())) {
+                        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_TAGS, tags), 1000 * 60);
+                    } else {
+                        Log.i(TAG, "No network");
+                    }
+                    break;
+
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    Log.e(TAG, logs);
+            }
+
+            JPushUtil.showToast(logs, getApplicationContext());
+        }
+
+    };
+
 }
 

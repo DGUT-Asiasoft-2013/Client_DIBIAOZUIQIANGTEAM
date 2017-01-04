@@ -41,7 +41,7 @@ public class OrdersDetailFrament extends Fragment {
         if (view == null) {
             activity = getActivity();
             view = inflater.inflate(R.layout.fragment_orders_detail, null);
-            initView();
+
         }
         return view;
     }
@@ -81,6 +81,6 @@ public class OrdersDetailFrament extends Fragment {
     }
 
     public void setOrder(Orders orders) {
-        this.orders = orders;
+        this.orders = orders;         initView();
     }
 }

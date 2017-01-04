@@ -25,10 +25,14 @@ import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Contact;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.api.entity.Orders;
+import com.dgut.collegemarket.app.MsgType;
+import com.dgut.collegemarket.util.CreateSigMsg;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -90,6 +94,7 @@ public class OrdresCreateActivity extends Activity {
         sumText2.setText(num * goods.getPrice() + "");
 
         Picasso.with(this).load(Server.serverAddress + goods.getPublishers().getAvatar()).resize(30, 30).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
+
 
         addressRL = (RelativeLayout) findViewById(R.id.rl_address);
         ;
@@ -161,8 +166,8 @@ public class OrdresCreateActivity extends Activity {
                 .addFormDataPart("price", priceText.getText().toString())
                 .addFormDataPart("quantity", String.valueOf(num))
                 .addFormDataPart("note", noteText.getText().toString())
-                .addFormDataPart("isPayOnline", String.valueOf(isPayOnline));
-
+                .addFormDataPart("isPayOnline", String.valueOf(isPayOnline))
+ .addFormDataPart("state", String.valueOf(1));
         Request request = Server.requestBuilderWithApi("orders/add")
                 .post(multipartBuilder.build())
                 .build();
@@ -198,11 +203,18 @@ public class OrdresCreateActivity extends Activity {
                         @Override
                         public void run() {
                             Toast.makeText(OrdresCreateActivity.this, "订单创建成功" , Toast.LENGTH_SHORT).show();
-
+                            //发送新订单消息
+                            Map<String, String> valuesMap  = new HashMap<>();
+                            valuesMap.put("msg_type", MsgType.MSG_ORDERS);
+                            valuesMap.put("orders_state", "1");
+                            valuesMap.put("orders_id", orders.getId()+"");
+                            CreateSigMsg.context=getApplicationContext();
+//                            CreateSigMsg.CreateSigCustomMsg(orders.getGoods().getPublishers().getAccount(),valuesMap);
+                            CreateSigMsg.CreateSigTextMsg(orders.getGoods().getPublishers().getAccount(),
+                                    "订单消息","您有一份来自"+orders.getBuyer().getName()+"的新订单",valuesMap);
                             Intent intent=new Intent(OrdresCreateActivity.this,OrdersContentActivity.class);
-                            intent.putExtra("orders",orders);
+                            intent.putExtra("orders_id",orders.getId());
                             startActivity(intent);
-
                             setResult(RESULT_OK);
                             finish();
                         }
