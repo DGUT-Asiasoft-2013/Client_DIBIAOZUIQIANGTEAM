@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.common.SendMessageActivity;
 import com.dgut.collegemarket.activity.orders.OrdersContentActivity;
 import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.app.MsgType;
@@ -148,7 +149,7 @@ public class MainActivity extends Activity {
         System.out.println("NotificationClickEvent");
         Message msg = event.getMessage();
 
-        final Intent notificationIntent = new Intent(getApplicationContext(), ShowMessageActivity.class);
+        final Intent notificationIntent = new Intent(getApplicationContext(), SendMessageActivity.class);
         MessageContent content = msg.getContent();
         switch (msg.getContentType()) {
             case text:
@@ -162,84 +163,38 @@ public class MainActivity extends Activity {
                 }
                 break;
             case image:
-                ImageContent imageContent = (ImageContent) content;
-                imageContent.downloadOriginImage(msg, new DownloadCompletionCallback() {
-                    @Override
-                    public void onComplete(int i, String s, File file) {
-                        if (i == 0) {
-                            Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
-                            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-                            byte[] bitmapByte = bos.toByteArray();
-                            notificationIntent.setFlags(2);
-                            notificationIntent.putExtra("bitmap", bitmapByte);
-                            startActivity(notificationIntent);
-                        }
-                    }
-                });
-                final List<String> list = new ArrayList<String>();
-                msg.setOnContentDownloadProgressCallback(new ProgressUpdateCallback() {
-                    @Override
-                    public void onProgressUpdate(double v) {
-                        String progressStr = (int) (v * 100) + "%";
-                        list.add(progressStr);
-                        notificationIntent.putStringArrayListExtra(SET_DOWNLOAD_PROGRESS, (ArrayList<String>) list);
-                    }
-                });
 
-                boolean callbackExists = msg.isContentDownloadProgressCallbackExists();
-                notificationIntent.putExtra(IS_DOWNLOAD_PROGRESS_EXISTS, callbackExists + "");
-                break;
-            case voice:
-                VoiceContent voiceContent = (VoiceContent) content;
-                voiceContent.downloadVoiceFile(msg, new DownloadCompletionCallback() {
-                    @Override
-                    public void onComplete(int i, String s, File file) {
-                        if (i == 0) {
-                            String path = file.getPath();
-                            notificationIntent.setFlags(3);
-                            notificationIntent.putExtra("voice", path);
-                            startActivity(notificationIntent);
-                        }
-                    }
-                });
-                break;
-            case file:
-                UserInfo fromUser = msg.getFromUser();
-                String userName = fromUser.getUserName();
-                String appKey = fromUser.getAppKey();
-                ConversationType targetType = msg.getTargetType();
-
-                int id = msg.getId();
-
-                notificationIntent.putExtra("user", userName);
-                notificationIntent.putExtra("appkey", appKey);
-                notificationIntent.putExtra("msgid", id);
-                notificationIntent.putExtra("isGroup", targetType + "");
-                notificationIntent.setFlags(10);
-
+                notificationIntent.putExtra("user_id",msg.getFromUser().getUserName());
                 startActivity(notificationIntent);
+//                ImageContent imageContent = (ImageContent) content;
+//                imageContent.downloadOriginImage(msg, new DownloadCompletionCallback() {
+//                    @Override
+//                    public void onComplete(int i, String s, File file) {
+//                        if (i == 0) {
+//                            Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+//                            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+//                            byte[] bitmapByte = bos.toByteArray();
+//                            notificationIntent.setFlags(2);
+//                            notificationIntent.putExtra("bitmap", bitmapByte);
+//                            startActivity(notificationIntent);
+//                        }
+//                    }
+//                });
+//                final List<String> list = new ArrayList<String>();
+//                msg.setOnContentDownloadProgressCallback(new ProgressUpdateCallback() {
+//                    @Override
+//                    public void onProgressUpdate(double v) {
+//                        String progressStr = (int) (v * 100) + "%";
+//                        list.add(progressStr);
+//                        notificationIntent.putStringArrayListExtra(SET_DOWNLOAD_PROGRESS, (ArrayList<String>) list);
+//                    }
+//                });
+
+//                boolean callbackExists = msg.isContentDownloadProgressCallbackExists();
+//                notificationIntent.putExtra(IS_DOWNLOAD_PROGRESS_EXISTS, callbackExists + "");
                 break;
 
-            case location:
-                LocationContent locationContent = (LocationContent) content;
-                String address = locationContent.getAddress();
-                Number latitude = locationContent.getLatitude();
-                Number scale = locationContent.getScale();
-                Number longitude = locationContent.getLongitude();
-
-                String la = String.valueOf(latitude);
-                String sc = String.valueOf(scale);
-                String lo = String.valueOf(longitude);
-
-                notificationIntent.setFlags(4);
-                notificationIntent.putExtra("address", address);
-                notificationIntent.putExtra("latitude", la);
-                notificationIntent.putExtra("scale", sc);
-                notificationIntent.putExtra("longitude", lo);
-
-                startActivity(notificationIntent);
-                break;
 
             default:
                 break;
@@ -254,6 +209,7 @@ public class MainActivity extends Activity {
                 //处理文字消息
                 TextContent textContent = (TextContent) msg.getContent();
                 textContent.getText();
+
 
 
                 break;
@@ -273,26 +229,6 @@ public class MainActivity extends Activity {
                     }
                 });
 
-
-                break;
-            case voice:
-                final Intent intentVoice = new Intent(getApplicationContext(), ShowDownloadVoiceInfoActivity.class);
-                final VoiceContent voiceContent = (VoiceContent) msg.getContent();
-                final int duration = voiceContent.getDuration();
-                final String format = voiceContent.getFormat();
-                /**=================     下载语音文件    =================*/
-                voiceContent.downloadVoiceFile(msg, new DownloadCompletionCallback() {
-                    @Override
-                    public void onComplete(int i, String s, File file) {
-                        if (i == 0) {
-                            Toast.makeText(getApplicationContext(), "下载成功", Toast.LENGTH_SHORT).show();
-                            intentVoice.putExtra(DOWNLOAD_INFO, "path = " + file.getPath() + "\n" + "duration = " + duration + "\n" + "format = " + format + "\n");
-                            startActivity(intentVoice);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "下载失败", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
                 break;
 
             case image:

@@ -56,7 +56,7 @@ public class ContentSearchActivity extends Activity {
                     return;
                 } else {
 
-                    startActivity(new Intent(ContentSearchActivity.this, SendMessageActivity.class));
+//                    startActivity(new Intent(ContentSearchActivity.this, SendMessageActivity.class));
                 }
             }
         });

@@ -2,15 +2,20 @@ package com.dgut.collegemarket.activity.common;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,6 +28,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,39 +36,54 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.adapter.ChatLVAdapter;
 import com.dgut.collegemarket.adapter.FaceGVAdapter;
 import com.dgut.collegemarket.adapter.FaceVPAdapter;
-import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.api.entity.Message;
-import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.User;
+import com.dgut.collegemarket.util.CreateSigMsg;
+import com.dgut.collegemarket.util.DateToString;
 import com.dgut.collegemarket.view.message.ChatInfo;
 import com.dgut.collegemarket.view.message.DropdownListView;
 import com.dgut.collegemarket.view.message.DropdownListView.OnRefreshListenerHeader;
 import com.dgut.collegemarket.view.message.MyEditText;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.Request;
-import okhttp3.Response;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.DownloadCompletionCallback;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.content.CustomContent;
+import cn.jpush.im.android.api.content.ImageContent;
+import cn.jpush.im.android.api.content.MessageContent;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.content.VoiceContent;
+import cn.jpush.im.android.api.enums.ContentType;
+import cn.jpush.im.android.api.enums.ConversationType;
+import cn.jpush.im.android.api.enums.MessageDirect;
+import cn.jpush.im.android.api.event.MessageEvent;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
+import im.sdk.debug.activity.createmessage.ShowDownloadVoiceInfoActivity;
+import im.sdk.debug.activity.imagecontent.ShowDownloadPathActivity;
 
 
 //私信界面—发送私信
 public class SendMessageActivity extends Activity implements View.OnClickListener, OnRefreshListenerHeader {
+    private static int RESULT_LOAD_IMAGE = 1;
+    private String mPicturePath;
 
 
-    User user;
+    UserInfo mUserInfo;
+    String account;
     private TextView headerText;
     private ViewPager mViewPager;
     private LinearLayout mDotsLayout;
@@ -71,9 +92,8 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
     private DropdownListView mListView;
     private ChatLVAdapter mLvAdapter;
 
-    private List<Message> mMessage = new ArrayList<Message>();
     private LinearLayout chat_face_container;
-    private ImageView image_face,picture_face;//表情图标
+    private ImageView image_face, picture_face;//表情图标
     // 7列3行
     private int columns = 6;
     private int rows = 4;
@@ -82,24 +102,24 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
     private LinkedList<ChatInfo> infos = new LinkedList<ChatInfo>();
     private SimpleDateFormat sd;
 
-    Page<Message> messagePage;
-    int page = 0;
-    int pageSize = 10;
-    int NOT_MORE_PAGE = -1;
     private String inputMessage = "";//模拟回复
-
-//    ImageView sendButton;
-//    SimpleTextInputCellFragment fragmentTitle = new SimpleTextInputCellFragment();
-//    SimpleTextInputCellFragment fragmentContent = new SimpleTextInputCellFragment();
-//    PictrueHDInputCellFragment fragmentPictrue = new PictrueHDInputCellFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = (User) getIntent().getExtras().get("user");
+        account = (String) getIntent().getExtras().get("account");
         setContentView(R.layout.activity_send_message);
+        JMessageClient.enterSingleConversation(account, null);
+
         initStaticFaces();
         initViews();
+        loadConversation();
+    }
+
+    private void loadConversation() {
+        Conversation conversation = getConversation();
+        if (conversation == null) return;
+        getAllMessage(conversation);
 
     }
 
@@ -108,11 +128,20 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
         mListView = (DropdownListView) findViewById(R.id.message_chat_listview);
 
         headerText = (TextView) findViewById(R.id.header);
-        headerText.setText("与 " + user.getName() + " 对话中");
+        JMessageClient.getUserInfo(account, new GetUserInfoCallback() {
+            @Override
+            public void gotResult(int i, String s, final UserInfo userInfo) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        headerText.setText("与 " + userInfo.getNickname() + " 对话中");
+                    }
+                });
+            }
+        });
+
         sd = new SimpleDateFormat("MM-dd HH:mm");
-        //模拟收到信息
-//        infos.add(getChatInfoFrom("你好啊！"));
-//        infos.add(getChatInfoFrom("认识你很高兴#[face/png/f_static_018.png]#"));
+
         mLvAdapter = new ChatLVAdapter(this, infos);
         mListView.setAdapter(mLvAdapter);
         //表情图标
@@ -132,7 +161,7 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
         // 发送
         send.setOnClickListener(this);
 
-        picture_face = (ImageView)findViewById(R.id.picture_face);
+        picture_face = (ImageView) findViewById(R.id.picture_input);
         picture_face.setOnClickListener(this);
 
         mListView.setOnRefreshListenerHead(this);
@@ -166,79 +195,24 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
                     chat_face_container.setVisibility(View.GONE);
                 }
                 break;
-            case R.id.picture_face://图片
+            case R.id.picture_input://图片
                 hideSoftInputView();//隐藏软键盘
-                if (chat_face_container.getVisibility() == View.GONE) {
-                    chat_face_container.setVisibility(View.VISIBLE);
-                } else {
-                    chat_face_container.setVisibility(View.GONE);
-                }
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, RESULT_LOAD_IMAGE);
                 break;
             case R.id.send_sms://发送
+
                 inputMessage = input.getText().toString();
                 if (!inputMessage.equals("")) {
 
-                    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
-                            .setType(MultipartBody.FORM)
-                            .addFormDataPart("receiver_id", user.getId() + "")
-                            .addFormDataPart("content", inputMessage);
-
-                    final Request request = Server.requestBuilderWithApi("message/send")
-                            .post(multipartBuilder.build())
-                            .build();
-
-                    Server.getSharedClient().newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onResponse(Call arg0, Response arg1) throws IOException {
-                            try {
-                                final Message message = new ObjectMapper()
-                                        .readValue(arg1.body().string(),
-                                                Message.class);
-                                SendMessageActivity.this.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        Toast.makeText(SendMessageActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } catch (final Exception e) {
-                                SendMessageActivity.this.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        new AlertDialog.Builder(SendMessageActivity.this)
-                                                .setMessage(e.getMessage())
-                                                .show();
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call arg0, final IOException e) {
-                            SendMessageActivity.this.runOnUiThread(new Runnable() {
-                                public void run() {
-                                    new AlertDialog.Builder(SendMessageActivity.this)
-                                            .setMessage("服务器异常")
-                                            .show();
-                                }
-                            });
-                        }
-                    });
-
-
-                    infos.add(getChatInfoTo(inputMessage));
-                    mLvAdapter.setList(infos);
+                    infos.add(getChatInfoTo(inputMessage, 0));
                     mLvAdapter.notifyDataSetChanged();
-                    mListView.setSelection(infos.size() - 1);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                    mListView.smoothScrollToPosition(mLvAdapter.getCount() - 1);//移动到尾部
 
-                            onRefresh();
 
-//                            infos.add(getChatInfoFrom(inputMessage));
-//                            mLvAdapter.setList(infos);
-//                            mLvAdapter.notifyDataSetChanged();
-//                            mListView.setSelection(infos.size() - 1);
-                        }
-                    }, 1000);
+                    CreateSigMsg.context = this;
+                    CreateSigMsg.CreateSigTextMsg(account, JMessageClient.getMyInfo().getNickname(), inputMessage, null);
+
                     input.setText("");
                 } else {
                     Toast.makeText(SendMessageActivity.this, "内容不能为空", Toast.LENGTH_SHORT).show();
@@ -248,6 +222,99 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            mPicturePath = cursor.getString(columnIndex);
+
+            cursor.close();
+
+
+            File file = new File(mPicturePath);
+
+
+            try {
+                ImageContent imageContent = new ImageContent(file);
+                infos.add(getChatInfoTo(imageContent.getLocalThumbnailPath(), 1));
+                mLvAdapter.notifyDataSetChanged();
+                mListView.setSelection(ListView.FOCUS_DOWN);//刷新到底部
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                Message imageMessage = JMessageClient.createSingleImageMessage(account, null, file);
+                imageMessage.setOnSendCompleteCallback(new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        if (i == 0) {
+//                            Toast.makeText(getApplicationContext(), "发送成功", Toast.LENGTH_SHORT).show();
+                            System.out.println("发送成功");
+
+                        } else {
+//                            Toast.makeText(getApplicationContext(), "发送失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                JMessageClient.sendMessage(imageMessage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public void onEvent(MessageEvent event) {
+
+        final Message msg = event.getMessage();
+        final ChatInfo chatInfo = new ChatInfo();
+        MessageContent content = msg.getContent();
+        if (content.getContentType() == ContentType.text) {
+            TextContent stringExtra = (TextContent) content;
+            chatInfo.content = stringExtra.getText();
+            chatInfo.type = 0;
+        }
+        if (content.getContentType() == ContentType.image) {
+            final ImageContent imageContent = (ImageContent) msg.getContent();
+            imageContent.downloadThumbnailImage(msg, new DownloadCompletionCallback() {
+                @Override
+                public void onComplete(int i, String s, File file) {
+                    if (i == 0) {
+                        chatInfo.pictureFromUrl = file.getPath();
+                        System.out.println("图片:" + chatInfo.pictureFromUrl);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mLvAdapter.notifyDataSetChanged();
+                                mListView.setSelection(ListView.FOCUS_DOWN);//刷新到底部
+                            }
+                        });
+                    }
+                }
+            });
+            chatInfo.type = 1;
+        }
+        chatInfo.time = sd.format(new Date());
+        if (msg.getDirect() == MessageDirect.send) {
+            chatInfo.fromOrTo = 1;
+        } else {
+            chatInfo.fromOrTo = 0;
+        }
+        infos.add(chatInfo);
+        mLvAdapter.notifyDataSetChanged();
+        mListView.smoothScrollToPosition(mLvAdapter.getCount() - 1);//移动到尾部
     }
 
     /*
@@ -444,15 +511,39 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
 
     }
 
+    @Override
+    protected void onResume() {
+        JMessageClient.registerEventReceiver(this, 5);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        JMessageClient.unRegisterEventReceiver(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        JMessageClient.unRegisterEventReceiver(this);
+        JMessageClient.exitConversation();
+        super.onDestroy();
+    }
+
     /**
      * 发送的信息
      *
      * @param message
      * @return
      */
-    private ChatInfo getChatInfoTo(String message) {
+    private ChatInfo getChatInfoTo(String message, int type) {
         ChatInfo info = new ChatInfo();
-        info.content = message;
+        info.type = type;
+        if (type == 0) {
+            info.content = message;
+        } else {
+            info.pictureFromUrl = message;
+        }
         info.fromOrTo = 1;
         info.time = sd.format(new Date());
         return info;
@@ -478,8 +569,6 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0:
-                    mLvAdapter.setList(infos);
-                    mLvAdapter.notifyDataSetChanged();
                     mListView.onRefreshCompleteHeader();
                     break;
             }
@@ -492,63 +581,9 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
         new Thread() {
             @Override
             public void run() {
-                try {
-                    sleep(2000);
-                    android.os.Message msg = mHandler.obtainMessage(0);
-                    mHandler.sendMessage(msg);
-
-
-                    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
-                            .setType(MultipartBody.FORM)
-                            .addFormDataPart("receiver_id", user.getId() + "");
-                    final Request request = Server.requestBuilderWithApi("message/all/" + 0)
-                            .post(multipartBuilder.build())
-                            .build();
-
-
-                    Server.getSharedClient().newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                            SendMessageActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(SendMessageActivity.this, "网络异常", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onResponse(Call call, final Response response) throws IOException {
-                            final String result = response.body().string();
-                            SendMessageActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    Toast.makeText(SendMessageActivity.this, "数据解析中", Toast.LENGTH_LONG).show();
-                                    try {
-
-                                        ObjectMapper mapper = new ObjectMapper();
-                                        messagePage = mapper.readValue(result, new TypeReference<Page<Message>>() {
-                                        });
-
-
-                                        mLvAdapter.setList(infos);
-                                        mLvAdapter.notifyDataSetChanged();
-                                        mListView.setSelection(infos.size() - 1);
-
-                                    } catch (IOException e) {
-                                        Toast.makeText(SendMessageActivity.this, "数据解析失败" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-
-                        }
-                    });
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                loadConversation();
+                android.os.Message msg = mHandler.obtainMessage(0);
+                mHandler.sendMessage(msg);
             }
         }.start();
     }
@@ -562,6 +597,75 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
     }
 
 
+    private Conversation getConversation() {
+
+
+        Conversation conversation;
+        if (!TextUtils.isEmpty(account)) {
+            conversation = JMessageClient.getSingleConversation(account, null);
+            if (conversation != null) {
+                mUserInfo = (UserInfo) conversation.getTargetInfo();
+            } else {
+//                Toast.makeText(SendMessageActivity.this, "会话不存在", Toast.LENGTH_SHORT).show();
+                return null;
+            }
+        } else {
+//            Toast.makeText(SendMessageActivity.this, "需要userName", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return conversation;
+    }
+
+    private void getAllMessage(Conversation conversation) {
+        List<cn.jpush.im.android.api.model.Message> allMessage = conversation.getAllMessage();
+        infos.clear();
+        for (cn.jpush.im.android.api.model.Message msg : allMessage) {
+            final ChatInfo chatInfo = new ChatInfo();
+            MessageContent content = msg.getContent();
+            if (content.getContentType() == ContentType.text) {
+                TextContent stringExtra = (TextContent) content;
+                chatInfo.content = stringExtra.getText();
+                chatInfo.type = 0;
+            }
+            if (content.getContentType() == ContentType.image) {
+                final ImageContent imageContent = (ImageContent) msg.getContent();
+                imageContent.downloadThumbnailImage(msg, new DownloadCompletionCallback() {
+                    @Override
+                    public void onComplete(int i, String s, File file) {
+                        if (i == 0) {
+                            chatInfo.pictureFromUrl = file.getPath();
+                            System.out.println("图片:" + chatInfo.pictureFromUrl);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mLvAdapter.notifyDataSetChanged();
+                                    mListView.smoothScrollToPosition(mLvAdapter.getCount() - 1);//移动到尾部
+                                }
+                            });
+                        }
+                    }
+                });
+                chatInfo.type = 1;
+            }
+
+            chatInfo.time = DateToString.timeStamp2Date(String.valueOf(msg.getCreateTime()),"MM-dd HH:mm");
+            if (msg.getDirect() == MessageDirect.send) {
+                chatInfo.fromOrTo = 1;
+            } else {
+                chatInfo.fromOrTo = 0;
+            }
+            infos.add(chatInfo);
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mLvAdapter.notifyDataSetChanged();
+                mListView.smoothScrollToPosition(mLvAdapter.getCount() - 1);//移动到尾部
+            }
+        });
+
+
+    }
 }
 
 

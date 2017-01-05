@@ -51,7 +51,7 @@
             android:background="@drawable/chat_bottom_shape" >
 
             <ImageView
-                android:id="@+id/picture_face"
+                android:id="@+id/picture_input"
                 android:layout_width="30dip"
                 android:layout_height="30dip"
                 android:layout_alignParentLeft="true"

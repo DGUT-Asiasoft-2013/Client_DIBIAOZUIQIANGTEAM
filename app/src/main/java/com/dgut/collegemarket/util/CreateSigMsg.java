@@ -49,6 +49,7 @@ public class CreateSigMsg {
     public static void CreateSigTextMsg(String name,String customName, String text, Map<String, String> valuesMap) {
 
         final MessageContent content = new TextContent(text);
+        if(valuesMap!=null)
         content.setExtras(valuesMap);
 
         Conversation mConversation = JMessageClient.getSingleConversation(name, null);
@@ -61,7 +62,7 @@ public class CreateSigMsg {
             @Override
             public void gotResult(int i, String s) {
                 if (i == 0) {
-                    Toast.makeText(context, "发送成功", Toast.LENGTH_SHORT).show();
+
                 } else {
                     Toast.makeText(context, "发送失败", Toast.LENGTH_SHORT).show();
                 }

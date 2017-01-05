@@ -189,7 +189,7 @@ public class OrdersContentActivity extends AppCompatActivity implements ViewPage
                 //处理文字消息
                 TextContent textContent = (TextContent) msg.getContent();
                 Map stringExtras = textContent.getStringExtras();
-                System.out.println("msg_type:" + stringExtras.get("msg_type"));
+
                 if (stringExtras.get("msg_type").equals(MsgType.MSG_ORDERS)) {
                     runOnUiThread(new Runnable() {
                         @Override

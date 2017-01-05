@@ -56,7 +56,7 @@ public class ContentIdolsActivity extends Activity {
                     return;
                 } else {
                     Intent intent=  new Intent(ContentIdolsActivity.this, SendMessageActivity.class);
-                    intent.putExtra("user",subscriber.getId().getPublishers());
+                    intent.putExtra("account",subscriber.getId().getPublishers().getAccount());
                     startActivity(intent);
                 }
             }

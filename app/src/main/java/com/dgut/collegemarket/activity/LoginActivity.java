@@ -289,7 +289,7 @@ public class LoginActivity extends FragmentActivity {
                                             }
                                         }
                                         //调用JPush API设置Alias
-                                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, account.getText()));
+                                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, account.getText().toString()));
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                         finish();

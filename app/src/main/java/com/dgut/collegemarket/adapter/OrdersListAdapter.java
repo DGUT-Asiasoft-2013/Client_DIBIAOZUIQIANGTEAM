@@ -92,7 +92,7 @@ public class OrdersListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(context, SendMessageActivity.class);
-                    intent.putExtra("user",orders.getGoods().getPublishers());
+                    intent.putExtra("account",orders.getGoods().getPublishers().getAccount());
                     context.startActivity(intent);
                 }
             });
@@ -156,7 +156,7 @@ public class OrdersListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(context, SendMessageActivity.class);
-                    intent.putExtra("user",orders.getBuyer());
+                    intent.putExtra("account",orders.getBuyer().getAccount());
                     context.startActivity(intent);
                 }
             });

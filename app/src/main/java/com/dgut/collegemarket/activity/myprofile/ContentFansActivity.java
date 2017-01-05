@@ -57,7 +57,7 @@ public class ContentFansActivity extends Activity {
                 } else {
 
                     Intent intent=  new Intent(ContentFansActivity.this, SendMessageActivity.class);
-                    intent.putExtra("user",subscriber.getId().getSubscribers());
+                    intent.putExtra("account",subscriber.getId().getSubscribers().getAccount());
                     startActivity(intent);
                 }
             }

@@ -51,6 +51,7 @@ public class ContactListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 
+
         View view = null;
 
         if (convertView == null) {

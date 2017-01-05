@@ -62,7 +62,7 @@
         <activity android:name=".activity.orders.OrdersCommentActivity" />
         <activity android:name=".activity.orders.OrderCommentListActivity" />
         //请地表最强战队成员规范化排序，谢谢！.activity.common.目前：3个
-        <activity android:name=".activity.common.SendMessageActivity" />
+        <activity android:name=".activity.common.SendMessageActivity"   android:launchMode="singleTask"/>
         <activity android:name=".activity.common.ContactListActivity" />
         <activity android:name=".activity.common.ContactAddActivity" />
         //请地表最强战队成员规范化排序，谢谢！.activity.myprofile.userInfo.目前：7个

@@ -256,9 +256,9 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
                     Intent intent = new Intent(activity, SendMessageActivity.class);
                     if (orders.getBuyer().getId() == CurrentUserInfo.user_id) //判断订单是不是当前用户购买的
                     {
-                        intent.putExtra("user", orders.getBuyer());
+                        intent.putExtra("account", orders.getBuyer().getAccount());
                     } else {
-                        intent.putExtra("user", orders.getBuyer());
+                        intent.putExtra("account", orders.getGoods().getPublishers().getAccount());
                     }
                     startActivity(intent);
                 } else if (leftBtn.getText().toString().equals("拒绝退款")) {
