@@ -37,7 +37,7 @@ public class ContentConsumptionActivity extends Activity {
         date = (TextView) findViewById(R.id.date);
         imageView = (AvatarView) findViewById(R.id.consumption_image);
 
-        money.setText(" 我在北京时间： ");
+        money.setText(records.getCoin()+"");
         cause.setText(records.getCause() + records.getCoin() + " 元 ");
 
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();

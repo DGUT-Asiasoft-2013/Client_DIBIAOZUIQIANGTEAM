@@ -9,8 +9,8 @@
     <!--<item android:drawable="@android:color/transparent">-->
     <!--</item>-->
 
-    <item android:drawable="@drawable/fans_back_pressed"
+    <item android:drawable="@drawable/recharge_usecard_pressed"
         android:state_selected="true"></item>
-    <item android:drawable="@drawable/fans_background"></item>
+    <item android:drawable="@drawable/recharge_usecard"></item>
 
 </selector>

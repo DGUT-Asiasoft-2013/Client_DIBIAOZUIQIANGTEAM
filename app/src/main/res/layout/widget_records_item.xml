@@ -12,8 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
+        <com.dgut.collegemarket.fragment.widgets.AvatarView
+            android:id="@+id/consumption_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="2dp"
+            android:padding="5dp" />
+
         <TextView
             android:id="@+id/money"
+            android:layout_marginLeft="45dp"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="$Money"
@@ -31,6 +40,7 @@
 
         <TextView
             android:id="@+id/cause"
+            android:layout_marginLeft="45dp"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

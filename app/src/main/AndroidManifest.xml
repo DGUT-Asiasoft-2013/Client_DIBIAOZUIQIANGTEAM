@@ -76,7 +76,7 @@
         //请地表最强战队成员规范化排序，谢谢！.activity.myprofile.目前：12个
         <activity android:name=".activity.myprofile.AboutCollegeMarketActivity" />
         <activity android:name=".activity.myprofile.AboutVersionActivity" />
-        <activity android:name=".activity.myprofile.RechargeActivity" />
+        <activity android:windowSoftInputMode="stateVisible|adjustResize" android:name=".activity.myprofile.RechargeActivity" />
         <activity android:name=".activity.myprofile.SearchActivity" />
         <activity android:name=".activity.myprofile.ContentSearchActivity" />
         <activity android:name=".activity.myprofile.ContentConsumptionActivity" />
@@ -231,6 +231,7 @@
         <activity android:name="im.sdk.debug.activity.createmessage.CreateSendFileActivity" />
         <activity android:name="im.sdk.debug.activity.createmessage.CreateLocationMessageActivity" />
         <activity android:name=".activity.posts.RegistActivity"></activity>
+        <activity android:name=".activity.myprofile.ContentRechargeActivity"></activity>
     </application>
 
 </manifest>

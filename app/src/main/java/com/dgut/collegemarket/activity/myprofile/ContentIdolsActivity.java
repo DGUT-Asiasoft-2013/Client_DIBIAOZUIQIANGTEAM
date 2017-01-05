@@ -41,8 +41,8 @@ public class ContentIdolsActivity extends Activity {
         date = (TextView) findViewById(R.id.date);
         imageView = (AvatarView) findViewById(R.id.idols_image);
 
-        money.setText("我在北京时间");
-        cause.setText("关注了 " + subscriber.getId().getPublishers().getName());
+        money.setText("我关注了");
+        cause.setText(subscriber.getId().getPublishers().getName());
 
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
         date.setText(dateStr);

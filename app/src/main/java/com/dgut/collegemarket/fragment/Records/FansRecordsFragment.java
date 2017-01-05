@@ -14,14 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.myprofile.CheckIdolsAndFansRecordsActivity;
 import com.dgut.collegemarket.activity.myprofile.ContentFansActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Subscriber;
+import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.view.layout.VRefreshLayout;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,6 +44,7 @@ public class FansRecordsFragment extends Fragment {
     View view;
     ListView listView;
     View LoadMore;
+    ImageView imageView_turnBack;
     TextView textLoadMore;
     List<Subscriber> data;
     Activity activity;
@@ -56,6 +60,15 @@ public class FansRecordsFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_records_fans, null);
             LoadMore = inflater.inflate(R.layout.widget_load_more_button, null);
             textLoadMore = (TextView) LoadMore.findViewById(R.id.load_more_text);
+
+
+            imageView_turnBack = (ImageView)view.findViewById(R.id.imageView_turnBack);
+            imageView_turnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().finish();
+                }
+            });
 
             listView = (ListView) view.findViewById(R.id.fans_list);
             listView.addFooterView(LoadMore);
@@ -131,13 +144,14 @@ public class FansRecordsFragment extends Fragment {
             } else {
                 view = convertView;
             }
-
+            AvatarView contentImage = (AvatarView)view.findViewById(R.id.consumption_image);
             TextView textCoin = (TextView) view.findViewById(R.id.money);
             TextView textCause = (TextView) view.findViewById(R.id.cause);
             TextView textDate = (TextView) view.findViewById(R.id.date);
             Subscriber subscriber = data.get(position);
 
 
+            contentImage.load(subscriber.getId().getSubscribers().getAvatar());
             textCoin.setText(subscriber.getId().getSubscribers().getName());
             textCause.setText("成为我的粉丝");
 
@@ -225,6 +239,8 @@ public class FansRecordsFragment extends Fragment {
 
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
+                                LoadMore.setEnabled(true);
+                                textLoadMore.setText("加载完成");
                                 mRefreshLayout.refreshComplete();
                                 listAdapter.notifyDataSetChanged();
                             }

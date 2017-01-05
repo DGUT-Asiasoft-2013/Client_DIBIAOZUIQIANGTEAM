@@ -28,7 +28,7 @@ import okhttp3.Response;
 
 public class GoodsAddActivity extends Activity {
 
-    ImageView truckImg;
+    ImageView truckImg,back;
     SimpleTextInputCellFragment titleFrag;
     SimpleTextInputCellFragment contentFrag;
     SimpleTextInputCellFragment priceFrag;
@@ -46,6 +46,13 @@ public class GoodsAddActivity extends Activity {
         quantityFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_quantity);
         pictrueFrag = (PictrueHDInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
 
+        back = (ImageView) findViewById(R.id.goods_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         truckImg.setOnClickListener(new View.OnClickListener() {
             @Override

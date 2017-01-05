@@ -22,6 +22,7 @@ import com.dgut.collegemarket.activity.myprofile.ContentConsumptionActivity;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Records;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.view.layout.VRefreshLayout;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -137,6 +138,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                 view = convertView;
             }
 
+            AvatarView avatarView = (AvatarView)view.findViewById(R.id.consumption_image);
             TextView textCoin = (TextView) view.findViewById(R.id.money);
             TextView textCause = (TextView) view.findViewById(R.id.cause);
             TextView textDate = (TextView) view.findViewById(R.id.date);
@@ -147,6 +149,7 @@ public class ConsumptionRecordsFragment extends Fragment {
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();
             textDate.setText(dateStr);
+            avatarView.load(records.getUser().getAvatar());
             return view;
         }
     };
@@ -235,6 +238,8 @@ public class ConsumptionRecordsFragment extends Fragment {
 
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
+                                LoadMore.setEnabled(true);
+                                textLoadMore.setText("加载完成");
                                 listAdapter.notifyDataSetChanged();
                             }
                         });

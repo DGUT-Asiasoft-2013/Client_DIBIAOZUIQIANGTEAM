@@ -9,8 +9,8 @@
     <!--<item android:drawable="@android:color/transparent">-->
     <!--</item>-->
 
-    <item android:drawable="@drawable/idol_back"
+    <item android:drawable="@drawable/idol_back_pressed"
         android:state_selected="true"></item>
-    <item android:drawable="@drawable/idol_back_pressed"></item>
+    <item android:drawable="@drawable/idol_back"></item>
 
 </selector>

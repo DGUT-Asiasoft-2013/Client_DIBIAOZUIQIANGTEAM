@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.dgut.collegemarket.activity.myprofile.ContentIdolsActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Subscriber;
+import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.view.layout.VRefreshLayout;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +42,7 @@ public class IdolsRecordsFragment extends Fragment {
     View view;
     ListView listView;
     View LoadMore;
+    ImageView imageView_turnBack;
     TextView textLoadMore;
     List<Subscriber> data;
     Activity activity;
@@ -64,6 +67,14 @@ public class IdolsRecordsFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     onItemClicked(position);
+                }
+            });
+
+            imageView_turnBack = (ImageView)view.findViewById(R.id.imageView_turnBack);
+            imageView_turnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().finish();
                 }
             });
 
@@ -131,13 +142,15 @@ public class IdolsRecordsFragment extends Fragment {
                 view = convertView;
             }
 
+            AvatarView contentImage = (AvatarView)view.findViewById(R.id.consumption_image);
             TextView textCoin = (TextView) view.findViewById(R.id.money);
             TextView textCause = (TextView) view.findViewById(R.id.cause);
             TextView textDate = (TextView) view.findViewById(R.id.date);
             Subscriber subscriber = data.get(position);
 
-            textCoin.setText("我");
-            textCause.setText("关注了" + subscriber.getId().getPublishers().getName());
+            contentImage.load(subscriber.getId().getPublishers().getAvatar());
+            textCoin.setText("我关注了");
+            textCause.setText(subscriber.getId().getPublishers().getName());
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
             textDate.setText(dateStr);
@@ -229,6 +242,8 @@ public class IdolsRecordsFragment extends Fragment {
 
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
+                                LoadMore.setEnabled(true);
+                                textLoadMore.setText("加载完成");
                                 mRefreshLayout.refreshComplete();
                                 listAdapter.notifyDataSetChanged();
                             }

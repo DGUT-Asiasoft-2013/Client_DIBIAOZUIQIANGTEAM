@@ -51,7 +51,7 @@ public class OrdresCreateActivity extends Activity {
     Contact contact;
     TextView contactNameText;
     TextView titleText;
-    ImageView avatarImg;
+    ImageView avatarImg,imageView;
     TextView quantityText;
     TextView priceText;
     TextView sumText1;
@@ -75,6 +75,7 @@ public class OrdresCreateActivity extends Activity {
     }
 
     private void initView() {
+        imageView = (ImageView)findViewById(R.id.imageView7);
         nameText = (TextView) findViewById(R.id.tv_name);
         avatarImg = (ImageView) findViewById(R.id.img_avatar);
         quantityText = (TextView) findViewById(R.id.tv_quantity);
@@ -104,6 +105,13 @@ public class OrdresCreateActivity extends Activity {
         ;
         payWayRL = (RelativeLayout) findViewById(R.id.rl_pay_way);
         ;
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         addressRL.setOnClickListener(new View.OnClickListener() {
             @Override
