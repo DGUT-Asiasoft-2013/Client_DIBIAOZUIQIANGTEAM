@@ -64,7 +64,6 @@ public class PostListAdapter extends BaseAdapter {
         TextView tvLevel = (TextView) view.findViewById(R.id.level);
         TextView tvName = (TextView) view.findViewById(R.id.tv_name);
         TextView textTitle = (TextView) view.findViewById(R.id.text_post_title);
-        TextView tvBrowseVolume = (TextView) view.findViewById(R.id.tv_browse_volume);
         ImageView ivContentImg = (ImageView) view.findViewById(R.id.iv_content_img);
         TextView textContent = (TextView) view.findViewById(R.id.text_post_content);
         TextView tvCreateTime = (TextView) view.findViewById(R.id.tv_createtime);
@@ -76,14 +75,13 @@ public class PostListAdapter extends BaseAdapter {
         tvLevel.setText("Lv"+JudgeLevel.judege(post.getPublishers().getXp()));
         tvName.setText(post.getPublishers().getName());
         textTitle.setText(post.getTitle());
-        tvBrowseVolume.setText("浏览量"+post.getBrowseVolume()+"");
         textContent.setText(post.getContent());
         tvCreateTime.setText(DateToString.getStringDate(post.getCreateDate()));
         tvPrice.setText("悬赏："+post.getReward()+"");
         String avatarUrl = Server.serverAddress + post.getPublishers().getAvatar();
         String albumsUrl = Server.serverAddress + post.getAlbums();
         Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar) .into(imageAvatar)   ;
-        Picasso.with(context).load(albumsUrl).resize(200,100).centerCrop().into(ivContentImg);
+        Picasso.with(context).load(albumsUrl).resize(300,200).centerCrop().into(ivContentImg);
         if(post.issolve()){
             imageAccepted.setImageResource(R.drawable.accepted);
         }else{

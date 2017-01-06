@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.fragment.pages.regist;
+package com.dgut.collegemarket.fragment.pages.forgetpassword;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,10 +19,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.RegisterActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
-import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -41,7 +39,7 @@ import okhttp3.Response;
  * Created by Administrator on 2017/1/5.
  */
 
-public class RegisterThirdFragment extends Fragment{
+public class ForgetPasswordThirdFragment extends Fragment{
 
     View view;
     Activity activity;
@@ -84,6 +82,35 @@ public class RegisterThirdFragment extends Fragment{
                 goBack();
             }
         });
+        getCurrentUser();
+    }
+    User currentUser=new User();
+    void getCurrentUser(){
+
+        OkHttpClient client = Server.getSharedClient();
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("account",phone)
+                .build();
+        Request request = Server.requestBuilderWithApi("user/finduser")
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(activity,"联网失败，请检查网络",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                currentUser = new ObjectMapper().readValue(result,User.class);
+            }
+        });
     }
 
     public void regist(){
@@ -96,14 +123,14 @@ public class RegisterThirdFragment extends Fragment{
         OkHttpClient client = Server.getSharedClient();
         MultipartBody requestBody = new MultipartBody.Builder()
                 .addFormDataPart("account",phone)
-                .addFormDataPart("passwordHash", MD5.getMD5(password))
+                .addFormDataPart("newpassword", MD5.getMD5(password))
                 .build();
-        final Request request = Server.requestBuilderWithApi("user/register")
+        final Request request = Server.requestBuilderWithApi("user/forget/password")
                 .post(requestBody)
                 .build();
 
         final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("注册中");
+        progressDialog.setMessage("修改中");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -121,60 +148,60 @@ public class RegisterThirdFragment extends Fragment{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String result = response.body().string();
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!request.equals("")) {
-                            try {
-                                User user = new ObjectMapper().readValue(result,User.class);
+                if (!request.equals("")) {
+                    try {
+                        User user = new ObjectMapper().readValue(result,User.class);
 
-/**=================     调用SDK注册接口    =================*/
-                            JMessageClient.register(phone, MD5.getMD5(password), new BasicCallback() {
-                                @Override
-                                public void gotResult(int responseCode, String registerDesc) {
-                                    if (responseCode == 0) {
-                                        progressDialog.dismiss();
-                                        try {
-                                            User user = new ObjectMapper().readValue(result,User.class);
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                        new AlertDialog.Builder(activity)
-                                                .setTitle("注册成功")
-                                                .setCancelable(true)
-                                                .setNegativeButton("马上登陆", new DialogInterface.OnClickListener() {
+                        JMessageClient.login(currentUser.getAccount(), currentUser.getPasswordHash(), new BasicCallback() {
+                            @Override
+                            public void gotResult(int i, String s) {
+                                if(i==0){
+                                    JMessageClient.updateUserPassword(currentUser.getPasswordHash(), MD5.getMD5(password), new BasicCallback() {
+                                        @Override
+                                        public void gotResult(int responseCode, String updadePasswordDesc) {
+                                            if (responseCode == 0) {
+                                                activity.runOnUiThread(new Runnable() {
                                                     @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        goNext();
+                                                    public void run() {
+                                                        progressDialog.dismiss();
+                                                        Toast.makeText(activity, "修改成功", Toast.LENGTH_SHORT).show();
+                                                        JMessageClient.logout();
+                                                        activity.finish();
                                                     }
-                                                })
-                                                .show();
-                                        Log.i("RegisterActivity", "JMessageClient.register " + ", responseCode = " + responseCode + " ; registerDesc = " + registerDesc);
-
-                                    } else {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(activity, "注册失败", Toast.LENGTH_SHORT).show();
-                                        Log.i("RegisterActivity", "JMessageClient.register " + ", responseCode = " + responseCode + " ; registerDesc = " + registerDesc);
-                                    }
+                                                });
+                                            } else {
+                                                activity.runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        progressDialog.dismiss();
+                                                        Toast.makeText(activity, "修改失败", Toast.LENGTH_SHORT).show();
+                                                        JMessageClient.logout();
+                                                        activity.finish();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
                                 }
-                            });
-                            } catch (IOException e) {
-                                progressDialog.dismiss();
-                                Toast.makeText(activity, "注册失败", Toast.LENGTH_SHORT).show();
-                                e.printStackTrace();
                             }
-                        }
-                        else {
-                            progressDialog.dismiss();
-                            new AlertDialog.Builder(activity)
-                                    .setTitle("注册失败")
-                                    .setMessage("用户名已存在")
-                                    .setCancelable(true)
-                                    .setNegativeButton("重新注册", null)
-                                    .show();
-                        }
+                        });
+
+
+                    } catch (IOException e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(activity, "修改密码失败", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
-                });
+                }
+                else {
+                    progressDialog.dismiss();
+                    new AlertDialog.Builder(activity)
+                            .setTitle("修改密码")
+                            .setMessage("用户名不存在")
+                            .setCancelable(true)
+                            .setNegativeButton("去注册", null)
+                            .show();
+                }
 
             }
 

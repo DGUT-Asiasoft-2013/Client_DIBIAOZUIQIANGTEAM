@@ -79,7 +79,7 @@
         <activity android:name=".activity.common.ContactAddActivity" />
         //请地表最强战队成员规范化排序，谢谢！.activity.myprofile.userInfo.目前：7个
         <activity android:name=".activity.myprofile.userInfo.UpdatePasswordActivity" />
-        <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep1Activity" />
+        <activity android:name=".activity.myprofile.userInfo.ForgetPasswordActivity" />
         <activity android:name=".activity.myprofile.userInfo.ForgetPasswordStep2Activity" />
         <activity android:name=".activity.myprofile.userInfo.UserInfoActivity" />
         <activity android:name=".activity.myprofile.userInfo.SignInActivity" />

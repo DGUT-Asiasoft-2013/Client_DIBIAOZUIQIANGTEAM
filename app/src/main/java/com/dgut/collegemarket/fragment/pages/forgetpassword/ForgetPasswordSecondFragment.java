@@ -1,4 +1,4 @@
-package com.dgut.collegemarket.fragment.pages.regist;
+package com.dgut.collegemarket.fragment.pages.forgetpassword;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -28,7 +28,7 @@ import cn.smssdk.SMSSDK;
  * Created by Administrator on 2017/1/5.
  */
 
-public class RegisterSecondFragment extends Fragment{
+public class ForgetPasswordSecondFragment extends Fragment{
 
     View view;
     Activity activity;

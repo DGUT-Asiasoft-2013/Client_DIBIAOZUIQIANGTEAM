@@ -46,12 +46,12 @@
                 android:id="@+id/text_post_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="98dp"
                 android:text="标题"
                 android:textColor="#000"
                 android:textSize="18dp"
-                android:layout_alignTop="@+id/image_avatar" />
+                android:layout_alignLeft="@+id/image_avatar"
+                android:layout_below="@+id/image_avatar"
+                android:layout_marginTop="20dp"/>
 
             <ImageView
                 android:id="@+id/image_avatar"
@@ -62,39 +62,30 @@
                 android:layout_alignTop="@+id/sale"
                 android:layout_alignParentStart="true" />
 
-            <TextView
-                android:id="@+id/tv_browse_volume"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_content"
-                android:layout_alignRight="@+id/rl_content"
-                android:layout_marginTop="11dp"
-                android:text="浏览量" />
 
             <TextView
                 android:id="@+id/level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/image_avatar"
-                android:layout_below="@+id/image_avatar"
-                android:layout_marginStart="10dp"
+                android:layout_below="@+id/tv_name"
                 android:text="等级"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/tv_name"
                 android:textColor="@android:color/holo_red_light"/>
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/level"
-                android:layout_below="@+id/level"
-                android:layout_marginTop="5dp"
-                android:text="昵称" />
+                android:layout_alignTop="@+id/image_avatar"
+                android:layout_toRightOf="@+id/image_avatar"
+                android:text="昵称"
+                android:layout_marginLeft="20dp"/>
             <LinearLayout
                 android:id="@+id/ll_content_img"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_below="@+id/text_post_title"
-                android:layout_alignLeft="@+id/text_post_title"
                 android:layout_marginTop="5dp">
                 <ImageView
                     android:id="@+id/iv_content_img"

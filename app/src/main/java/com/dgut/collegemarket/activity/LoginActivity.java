@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordStep1Activity;
+import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordActivity;
 import com.dgut.collegemarket.adapter.EditTextAdapter;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.User;
@@ -108,7 +108,7 @@ public class LoginActivity extends FragmentActivity {
         recover.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ForgetPasswordStep1Activity.class));
+                startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
                 overridePendingTransition(R.anim.slide_in_left,R.anim.none);
             }
         });

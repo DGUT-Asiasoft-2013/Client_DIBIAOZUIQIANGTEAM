@@ -1,38 +1,56 @@
-package com.dgut.collegemarket.activity;
+package com.dgut.collegemarket.activity.myprofile.userInfo;
 
-import android.app.Activity;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.LoginActivity;
+import com.dgut.collegemarket.activity.RegisterSuccessActivity;
+import com.dgut.collegemarket.activity.RegistersActivity;
+import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
+import com.dgut.collegemarket.fragment.pages.forgetpassword.ForgetPasswordFirstFragment;
+import com.dgut.collegemarket.fragment.pages.forgetpassword.ForgetPasswordSecondFragment;
+import com.dgut.collegemarket.fragment.pages.forgetpassword.ForgetPasswordThirdFragment;
 import com.dgut.collegemarket.fragment.pages.regist.RegisterFirstFragment;
 import com.dgut.collegemarket.fragment.pages.regist.RegisterSecondFragment;
 import com.dgut.collegemarket.fragment.pages.regist.RegisterThirdFragment;
+import com.dgut.collegemarket.util.MD5;
+import com.dgut.collegemarket.util.Util;
 
-import java.util.HashMap;
+import java.io.IOException;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-public class RegistersActivity extends Activity {
+public class ForgetPasswordActivity extends AppCompatActivity {
 
     private String APPKEY = "1a8522e867d05";
     private String APPSECURITY = "119df776ef1a4fbf570645a33bf93103";
 
-    RegisterFirstFragment registerFirstFragment = new RegisterFirstFragment();
-    RegisterSecondFragment registerSecondFragment = new RegisterSecondFragment();
-    RegisterThirdFragment registerThirdFragment = new RegisterThirdFragment();
-
+    ForgetPasswordFirstFragment forgetPasswordFirstFragment = new ForgetPasswordFirstFragment();
+    ForgetPasswordSecondFragment forgetPasswordSecondFragment = new ForgetPasswordSecondFragment();
+    ForgetPasswordThirdFragment forgetPasswordThirdFragment = new ForgetPasswordThirdFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registers);
+        setContentView(R.layout.activity_forget_password);
 
-        SMSSDK.initSDK(RegistersActivity.this,APPKEY,APPSECURITY);
+        SMSSDK.initSDK(ForgetPasswordActivity.this,APPKEY,APPSECURITY);
         EventHandler eh=new EventHandler(){
             @Override
             public void afterEvent(int event, int result, Object data) {
@@ -56,7 +74,7 @@ public class RegistersActivity extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(RegistersActivity.this,"通过智能验证",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ForgetPasswordActivity.this,"通过智能验证",Toast.LENGTH_SHORT).show();
                                 }
                             });
                             goStep3();
@@ -69,7 +87,7 @@ public class RegistersActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(RegistersActivity.this,"输入不正确",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgetPasswordActivity.this,"输入不正确",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -77,45 +95,45 @@ public class RegistersActivity extends Activity {
         };
         SMSSDK.registerEventHandler(eh); //注册短信回调
 
-        registerFirstFragment.setOnGoNextListener(new RegisterFirstFragment.OnGoNextListener() {
+        forgetPasswordFirstFragment.setOnGoNextListener(new ForgetPasswordFirstFragment.OnGoNextListener() {
             @Override
             public void onGoNext() {
                 goStep2();
             }
         });
-        registerFirstFragment.setOnGoBackListener(new RegisterFirstFragment.OnGoBackListener() {
+        forgetPasswordFirstFragment.setOnGoBackListener(new ForgetPasswordFirstFragment.OnGoBackListener() {
             @Override
             public void onGoBack() {
                 backOut();
             }
         });
-        registerSecondFragment.setOnGoNextListener(new RegisterSecondFragment.OnGoNextListener() {
+        forgetPasswordSecondFragment.setOnGoNextListener(new ForgetPasswordSecondFragment.OnGoNextListener() {
             @Override
             public void onGoNext() {
                 goStep3();
             }
         });
-        registerSecondFragment.setOnGoBackListener(new RegisterSecondFragment.OnGoBackListener() {
+        forgetPasswordSecondFragment.setOnGoBackListener(new ForgetPasswordSecondFragment.OnGoBackListener() {
             @Override
             public void onGoBack() {
                 goBackStep1();
             }
         });
-        registerThirdFragment.setOnGoNextListener(new RegisterThirdFragment.OnGoNextListener(){
+        forgetPasswordThirdFragment.setOnGoNextListener(new ForgetPasswordThirdFragment.OnGoNextListener(){
             @Override
             public void onGoNext() {
                 goStep4();
             }
         });
-        registerThirdFragment.setOnGoBackListener(new RegisterThirdFragment.OnGoBackListener() {
+        forgetPasswordThirdFragment.setOnGoBackListener(new ForgetPasswordThirdFragment.OnGoBackListener() {
             @Override
             public void onGoBack() {
                 goBackStep2();
             }
         });
-        getFragmentManager().beginTransaction().replace(R.id.container, registerFirstFragment).commit();
-    }
+        getFragmentManager().beginTransaction().replace(R.id.container, forgetPasswordFirstFragment).commit();
 
+    }
     void backOut(){
         finish();
         overridePendingTransition(R.anim.none,R.anim.slide_out_bottom);
@@ -130,7 +148,7 @@ public class RegistersActivity extends Activity {
                         R.animator.slide_out_right,
                         R.animator.slide_in_right,
                         R.animator.slide_out_left)
-                .replace(R.id.container, registerFirstFragment)
+                .replace(R.id.container, forgetPasswordFirstFragment)
                 .commit();
     }
     void goStep2(){
@@ -142,7 +160,7 @@ public class RegistersActivity extends Activity {
                         R.animator.slide_out_left,
                         R.animator.slide_in_left,
                         R.animator.slide_out_right)
-                .replace(R.id.container, registerSecondFragment)
+                .replace(R.id.container, forgetPasswordSecondFragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -155,7 +173,7 @@ public class RegistersActivity extends Activity {
                         R.animator.slide_out_right,
                         R.animator.slide_in_right,
                         R.animator.slide_out_left)
-                .replace(R.id.container, registerSecondFragment)
+                .replace(R.id.container, forgetPasswordSecondFragment)
                 .commit();
     }
     void goStep3(){
@@ -167,16 +185,14 @@ public class RegistersActivity extends Activity {
                         R.animator.slide_out_left,
                         R.animator.slide_in_left,
                         R.animator.slide_out_right)
-                .replace(R.id.container, registerThirdFragment)
+                .replace(R.id.container, forgetPasswordThirdFragment)
                 .addToBackStack(null)
                 .commit();
     }
     void goStep4(){
-        Intent itnt = new Intent(RegistersActivity.this,RegisterSuccessActivity.class);
+        Intent itnt = new Intent(ForgetPasswordActivity.this,LoginActivity.class);
         startActivity(itnt);
         finish();
         overridePendingTransition(R.anim.slide_in_left,R.anim.none);
     }
-
-
 }
