@@ -31,11 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView16"
             android:layout_marginStart="11dp"
-
-            android:layout_toEndOf="@+id/textView16"
+            android:layout_toRightOf="@+id/textView16"
             android:text="0"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView16"
