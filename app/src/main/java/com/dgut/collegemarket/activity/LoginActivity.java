@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.util.MD5;
 import com.dgut.collegemarket.view.widgets.DropEditText;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -43,6 +46,8 @@ import java.util.Set;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import im.sdk.debug.utils.JPushUtil;
@@ -68,6 +73,7 @@ public class LoginActivity extends FragmentActivity {
     DropEditText account;
     EditText password;
     EditTextAdapter adapter;
+    ImageView avatar;
 
     List<String> accountList = new ArrayList<String>();
 
@@ -81,7 +87,7 @@ public class LoginActivity extends FragmentActivity {
 
         login = (Button) findViewById(R.id.username_sign_in_button);
         recover = (TextView) findViewById(R.id.password_recover);
-
+        avatar= (ImageView) findViewById(R.id.tv_face);
         register = (TextView) findViewById(R.id.register);
         cbAutoLogin = (CheckBox) findViewById(R.id.cb_auto_login);
         cbRememberPassword = (CheckBox) findViewById(R.id.cb_remember_password);
@@ -139,22 +145,30 @@ public class LoginActivity extends FragmentActivity {
                 password.setText("");
                 cbRememberPassword.setChecked(false);
                 cbAutoLogin.setChecked(false);
+                avatar.setImageResource(R.drawable.unknow_avatar);
                 SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
                 for(String account:accountList){
                     if(account.equals(charSequence.toString())){
                         password.setText(preferences.getString(account+"password",""));
                         cbRememberPassword.setChecked(preferences.getBoolean(account+"remember",false));
                         cbAutoLogin.setChecked(preferences.getBoolean(account+"auto",false));
+                        Picasso.with(LoginActivity.this).load(Server.serverAddress +preferences.getString(account+"avatar","")).placeholder(R.drawable.unknow_avatar).error(R.drawable.unknow_avatar).into(avatar);
                         break;
                     }
                 }
             }
+
 
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
+
+
+
+
+
         initUser();
     }
 
@@ -181,6 +195,7 @@ public class LoginActivity extends FragmentActivity {
             String passwords = preferences.getString(accountList.get(0) + "password", "");
             boolean auto = preferences.getBoolean(accountList.get(0) + "auto", false);
             boolean remember = preferences.getBoolean(accountList.get(0) + "remember", false);
+            Picasso.with(LoginActivity.this).load(Server.serverAddress +preferences.getString(account+"avatar","")).placeholder(R.drawable.unknow_avatar).error(R.drawable.unknow_avatar).into(avatar);
 
             account.setText(accountList.get(0));
             account.setSelection(accountList.get(0).length());
@@ -200,7 +215,7 @@ public class LoginActivity extends FragmentActivity {
      * @param account
      * @param password
      */
-    public void setUser(String account,String password,boolean remember,boolean auto){
+    public void setUser(String account,String password,String avatar,boolean remember,boolean auto){
         SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
@@ -210,7 +225,7 @@ public class LoginActivity extends FragmentActivity {
         }
         accountSet.add(account);
         editor.putStringSet("accountset",accountSet);
-
+        editor.putString(account+"avatar",avatar);
         editor.putString(account+"password",password);
         editor.putBoolean(account+"auto",auto);
         editor.putBoolean(account+"remember",remember);
@@ -279,9 +294,9 @@ public class LoginActivity extends FragmentActivity {
                                         CurrentUserInfo.online = true;
                                         if(cbRememberPassword.isChecked()){
                                             if(cbAutoLogin.isChecked()){
-                                                setUser(account.getText().toString(),password.getText().toString(),true,true);
+                                                setUser(account.getText().toString(),password.getText().toString(),user.getAvatar(),true,true);
                                             }else{
-                                                setUser(account.getText().toString(),password.getText().toString(),true,false);
+                                                setUser(account.getText().toString(),password.getText().toString(),user.getAvatar(),true,false);
                                             }
                                         }
                                         //调用JPush API设置Alias
@@ -320,6 +335,31 @@ public class LoginActivity extends FragmentActivity {
         }
     }
 
+    private  void loadUserAvatar(String account)
+    {
+        JMessageClient.getUserInfo(account, new GetUserInfoCallback() {
+            @Override
+            public void gotResult(int i, String s, UserInfo userInfo) {
+                if(i==0)
+                {
+                    userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                        @Override
+                        public void gotResult(int i, String s, final Bitmap bitmap) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    avatar.setImageBitmap(bitmap);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
+
     /**
      * 判断输入
      * @return
@@ -352,6 +392,7 @@ public class LoginActivity extends FragmentActivity {
         accountSet.remove(accounts);
         SharedPreferences.Editor editor =  preferences.edit();
         editor.remove(accounts+"password");
+        editor.remove(accounts+"avatar");
         editor.remove(accounts+"remember");
         editor.remove(accounts+"auto");
         editor.commit();
@@ -423,7 +464,7 @@ public class LoginActivity extends FragmentActivity {
                     Log.e(TAG, logs);
             }
 
-            JPushUtil.showToast(logs, getApplicationContext());
+//            JPushUtil.showToast(logs, getApplicationContext());
         }
 
     };

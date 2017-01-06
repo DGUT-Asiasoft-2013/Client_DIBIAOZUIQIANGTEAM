@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,11 +32,18 @@ import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.fragment.widgets.InfoListFragment;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -49,16 +57,16 @@ import okhttp3.Response;
  * Created by Administrator on 2016/12/21.
  */
 
-public class UserInfoActivity extends Activity{
+public class UserInfoActivity extends Activity {
 
+    private static final int UPDATEPASSWORD_SUCCESS = 1001;
     User user;
-    TextView tvTitle,tvExit;
-    AvatarView userAvatar ;
-    RelativeLayout rlAvatar,rlUpdatePassword;
+    ImageView userAvatar, backImg;
+    RelativeLayout rlAvatar, rlUpdatePassword;
 
     InfoListFragment fragmentUserName = new InfoListFragment();
     InfoListFragment fragmentUserEmail = new InfoListFragment();
-    InfoListFragment fragmentUserXp= new InfoListFragment();
+    InfoListFragment fragmentUserXp = new InfoListFragment();
     InfoListFragment fragmentUsercoins = new InfoListFragment();
     InfoListFragment fragmentUserCreatedate = new InfoListFragment();
 
@@ -66,20 +74,20 @@ public class UserInfoActivity extends Activity{
 
     final int REQUESTCODE_CAMERA = 1;
     final int REQUESTCODE_ALBUM = 2;
-    final int REQUESTCODE_CUTTING=3;
+    final int REQUESTCODE_CUTTING = 3;
 
     Uri uri;
     String url;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        user = (User) getIntent().getSerializableExtra("user");
         setContentView(R.layout.activity_userinfo);
-
-        tvTitle = (TextView) findViewById(R.id.tv_user_title);
-        tvExit = (TextView) findViewById(R.id.tv_exit);
+        backImg = (ImageView) findViewById(R.id.iv_back);
         rlUpdatePassword = (RelativeLayout) findViewById(R.id.rl_change_password);
-        userAvatar = (AvatarView) findViewById(R.id.av_user_avatar);
+        userAvatar = (ImageView) findViewById(R.id.av_user_avatar);
         rlAvatar = (RelativeLayout) findViewById(R.id.fragment_avatar);
         fragmentUserName = (InfoListFragment) getFragmentManager().findFragmentById(R.id.fragment_user_name);
         fragmentUserEmail = (InfoListFragment) getFragmentManager().findFragmentById(R.id.fragment_user_email);
@@ -88,8 +96,8 @@ public class UserInfoActivity extends Activity{
         fragmentUserCreatedate = (InfoListFragment) getFragmentManager().findFragmentById(R.id.fragment_user_createdate);
         btnLoginOut = (Button) findViewById(R.id.btn_login_out);
 
-        tvTitle.setText("个人信息");
-        tvExit.setOnClickListener(new View.OnClickListener() {
+
+        backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -106,7 +114,7 @@ public class UserInfoActivity extends Activity{
             public void onclick() {
                 Intent itnt = new Intent(UserInfoActivity.this, UpdateUserNameActivity.class);
                 startActivity(itnt);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.none);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.none);
             }
         };
         fragmentUserName.setInfoOnClickListener(infoOnClickListener);
@@ -114,8 +122,9 @@ public class UserInfoActivity extends Activity{
         rlUpdatePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent itnt = new Intent(UserInfoActivity.this,UpdatePasswordActivity.class);
-                startActivity(itnt);
+                Intent itnt = new Intent(UserInfoActivity.this, UpdatePasswordActivity.class);
+                itnt.putExtra("user",user);
+                startActivityForResult(itnt,UPDATEPASSWORD_SUCCESS);
             }
         });
         btnLoginOut.setOnClickListener(new View.OnClickListener() {
@@ -123,9 +132,12 @@ public class UserInfoActivity extends Activity{
             public void onClick(View view) {
                 SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(user.getAccount()+"auto",false);
+                editor.putBoolean(user.getAccount() + "auto", false);
                 editor.commit();
                 CurrentUserInfo.online = false;
+
+                JMessageClient.logout();
+                JPushInterface.setAlias(UserInfoActivity.this,"",null);
                 Intent intent = new Intent(UserInfoActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -138,20 +150,20 @@ public class UserInfoActivity extends Activity{
     protected void onResume() {
         super.onResume();
         try {
-            user = (User) getIntent().getSerializableExtra("user");
-            userAvatar.load(user);
+
+            Picasso.with(this).load(Server.serverAddress + user.getAvatar()).error(R.drawable.unknow_avatar).into(userAvatar);
             fragmentUserName.setTvUserAttribute("昵称");
-            fragmentUserName.setTvUserContent(user.getName());
+            fragmentUserName.setTvUserContent(JMessageClient.getMyInfo().getNickname());
             fragmentUserEmail.setTvUserAttribute("邮箱");
             fragmentUserEmail.setTvUserContent(user.getEmail());
             fragmentUserXp.setTvUserAttribute("总经验");
-            fragmentUserXp.setTvUserContent(user.getXp()+"");
+            fragmentUserXp.setTvUserContent(user.getXp() + "");
             fragmentUsercoins.setTvUserAttribute("金币");
-            fragmentUsercoins.setTvUserContent(user.getCoin()+"");
+            fragmentUsercoins.setTvUserContent(user.getCoin() + "");
             fragmentUserCreatedate.setTvUserAttribute("创建时间");
-            fragmentUserCreatedate.setTvUserContent(DateFormat.format("yyyy-MM-dd hh:ss",user.getCreateDate()).toString());
-        }catch (Exception e){
-            Toast.makeText(UserInfoActivity.this,"获取用户信息失败，请检查网络设置",Toast.LENGTH_SHORT).show();
+            fragmentUserCreatedate.setTvUserContent(DateFormat.format("yyyy-MM-dd hh:ss", user.getCreateDate()).toString());
+        } catch (Exception e) {
+            Toast.makeText(UserInfoActivity.this, "获取用户信息失败，请检查网络设置", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -211,19 +223,26 @@ public class UserInfoActivity extends Activity{
         } else if (requestCode == REQUESTCODE_ALBUM) {
             uri = Uri.fromFile(getNewFile());
             uri = data.getData();
-            url = selectImage(UserInfoActivity.this,uri);
+            url = selectImage(UserInfoActivity.this, uri);
             startPhotoZoom(uri);
-        }else if(requestCode == REQUESTCODE_CUTTING){
+        } else if (requestCode == REQUESTCODE_CUTTING) {
             try {
-                bitmap =  BitmapFactory.decodeFile(url);
+                bitmap = BitmapFactory.decodeFile(url);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             updateAvatar();
+        }else  if(requestCode==UPDATEPASSWORD_SUCCESS)
+        {
+            Intent intent = new Intent(UserInfoActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
+
     /**
      * 裁剪图片方法实现
+     *
      * @param uris
      */
     public void startPhotoZoom(Uri uris) {
@@ -243,16 +262,16 @@ public class UserInfoActivity extends Activity{
         startActivityForResult(intent, REQUESTCODE_CUTTING);
     }
 
-    public  String selectImage(Context context,Uri selectedImage){
-        if(selectedImage!=null){
-            String uriStr=selectedImage.toString();
-            String path=uriStr.substring(10,uriStr.length());
-            if(path.startsWith("com.sec.android.gallery3d")){
+    public String selectImage(Context context, Uri selectedImage) {
+        if (selectedImage != null) {
+            String uriStr = selectedImage.toString();
+            String path = uriStr.substring(10, uriStr.length());
+            if (path.startsWith("com.sec.android.gallery3d")) {
                 return null;
             }
         }
-        String[] filePathColumn = { MediaStore.Images.Media.DATA };
-        Cursor cursor = context.getContentResolver().query(selectedImage,filePathColumn, null, null, null);
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         String picturePath = cursor.getString(columnIndex);
@@ -262,11 +281,12 @@ public class UserInfoActivity extends Activity{
 
     /**
      * 获取图片数据流
+     *
      * @return
      */
     public byte[] getPngData() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if (bitmap!=null)
+        if (bitmap != null)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         else {
             return null;
@@ -278,20 +298,21 @@ public class UserInfoActivity extends Activity{
 
     /**
      * 创建新文件
+     *
      * @return
      */
-    public File getNewFile()  {
-        if(!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+    public File getNewFile() {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return null;
         }
-        String sdcardPath=Environment.getExternalStorageDirectory().getPath();
-        File imgPath=new File(sdcardPath+"/img/");
-        if(!imgPath.exists()){
+        String sdcardPath = Environment.getExternalStorageDirectory().getPath();
+        File imgPath = new File(sdcardPath + "/img/");
+        if (!imgPath.exists()) {
             imgPath.mkdirs();
         }
-        url = imgPath.getPath()+"/"+user.getId()+".png";
-        File userImgFile=new File(imgPath.getPath()+"/"+user.getId()+".png");
-        if(!userImgFile.exists()){
+        url = imgPath.getPath() + "/" + user.getId() + ".png";
+        File userImgFile = new File(imgPath.getPath() + "/" + user.getId() + ".png");
+        if (!userImgFile.exists()) {
             try {
                 userImgFile.createNewFile();
             } catch (IOException e) {
@@ -300,14 +321,15 @@ public class UserInfoActivity extends Activity{
         }
         return userImgFile;
     }
+
     /**
      * 上传头像
      */
-    public void updateAvatar(){
+    public void updateAvatar() {
         OkHttpClient client = Server.getSharedClient();
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
-        if(getPngData()!=null){
+        if (getPngData() != null) {
             multipartBuilder.addFormDataPart("avatar", "avatarName"
                     , RequestBody
                             .create(
@@ -343,16 +365,34 @@ public class UserInfoActivity extends Activity{
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-                progressDialog.dismiss();
-                if (response.isSuccessful()) {
-                    final String result = response.body().string();
-                    runOnUiThread(new Runnable() {
+
+                final String result = response.body().string();
+                final File avatar = new File(url);
+                if (avatar.exists()) {
+                    JMessageClient.updateUserAvatar(avatar, new BasicCallback() {
                         @Override
-                        public void run() {
-                            Toast.makeText(UserInfoActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
-                            userAvatar.load(user);
+                        public void gotResult(final int i, String s) {
+                            System.out.println(i + "  " + s);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressDialog.dismiss();
+                                    if (i == 0) {
+                                        Toast.makeText(UserInfoActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                                        Picasso.with(UserInfoActivity.this).load(Server.serverAddress + user.getAvatar())
+                                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                                .networkPolicy(NetworkPolicy.NO_CACHE)
+                                                .error(R.drawable.unknow_avatar).into(userAvatar);
+                                    }
+
+                                }
+                            });
+
                         }
                     });
+                } else {
+                    progressDialog.dismiss();
                 }
             }
         });

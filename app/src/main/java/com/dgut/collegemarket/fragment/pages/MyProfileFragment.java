@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -34,6 +35,7 @@ import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.JudgeLevel;
 import com.dgut.collegemarket.view.widgets.SlidingSwitcherActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -47,7 +49,7 @@ import okhttp3.Response;
 public class MyProfileFragment extends Fragment {
     View view;
     Activity activity;
-    AvatarView av;
+    ImageView av;
     TextView tvName, tvEmail, tvLevel, tvXp;
     TextView tvMoney;
     ProgressBar pbXp;
@@ -63,7 +65,7 @@ public class MyProfileFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_page_my_profile, null);
             activity = getActivity();
-            av = (AvatarView) view.findViewById(R.id.av_user);
+            av = (ImageView) view.findViewById(R.id.av_user);
             tvName = (TextView) view.findViewById(R.id.tv_user_name);
             tvEmail = (TextView) view.findViewById(R.id.tv_level);
             tvLevel = (TextView) view.findViewById(R.id.tv_level);
@@ -191,7 +193,7 @@ public class MyProfileFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        av.load(user);
+                        Picasso.with(activity).load(Server.serverAddress + user.getAvatar()).error(R.drawable.unknow_avatar).into(av);
                         tvName.setText(user.getName());
                         tvLevel.setText("Lv:" + JudgeLevel.judege(user.getXp()));
                         tvXp.setText(user.getXp() + "/" + JudgeLevel.juderMax(user.getXp()));

@@ -98,6 +98,11 @@ public class MainActivity extends Activity {
         if (currentId < 0) {
             tabbarFragment.setSelectTab(0);
         }
+        if (JMessageClient.getMyInfo()==null)
+        {
+            finish();
+        }
+
     }
 
     private void changeContentPageFragment(int index) {
@@ -271,15 +276,29 @@ public class MainActivity extends Activity {
 
 
     public void onEvent(LoginStateChangeEvent event) {
-        LoginStateChangeEvent.Reason reason = event.getReason();
-        UserInfo myInfo = event.getMyInfo();
-        Intent intent = new Intent(getApplicationContext(), ShowLogoutReasonActivity.class);
-        intent.putExtra(LOGOUT_REASON, "reason = " + reason + "\n" + "logout user name = " + myInfo.getUserName());
-        startActivity(intent);
+        LoginStateChangeEvent.Reason reason = event.getReason();//获取变更的原因
+        UserInfo myInfo = event.getMyInfo();//获取当前被登出账号的信息
+        switch (reason) {
+            case user_password_change:
+                //用户密码在服务器端被修改
+                finish();
+                break;
+            case user_logout:
+                finish();
+                //用户换设备登录
+                break;
+            case user_deleted:
+                finish();
+                //用户被删除
+                break;
+            default:
+                finish();
+        }
     }
 
     @Override
     protected void onDestroy() {
+        System.out.println("Main is onDestroy");
         super.onDestroy();
         JMessageClient.unRegisterEventReceiver(this);
     }

@@ -28,14 +28,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/input"
-
     android:orientation="vertical">
         <com.dgut.collegemarket.view.widgets.DropEditText
             android:id="@+id/drop_edit_text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="请输入账号"
-            android:paddingLeft="20dp"/>
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"/>
 
         <EditText
             android:id="@+id/et_pasword"
@@ -68,7 +68,6 @@
         </LinearLayout>
         <Button
             android:id="@+id/username_sign_in_button"
-            style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

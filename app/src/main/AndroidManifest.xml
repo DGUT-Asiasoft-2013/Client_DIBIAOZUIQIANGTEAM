@@ -60,7 +60,7 @@
         </activity>
         //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" android:launchMode="singleTask"/>
         //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.goods.GoodsAddActivity" />
         <activity android:name=".activity.goods.GoodsContentActivity" />
