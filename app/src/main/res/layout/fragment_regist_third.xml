@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_regist"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/rl_regist_title"
@@ -22,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="填写手机号码"
+            android:text="设置密码"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -34,6 +31,7 @@
             android:src="@drawable/back_out_white" />
 
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/ll_mobile"
         android:layout_width="match_parent"
@@ -47,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="中国+86"
+            android:text="密码"
             android:gravity="center"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"/>
@@ -61,8 +59,41 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:hint="请输入你的手机号码"
+            android:hint="请输入你的密码"
             android:background="@null"
+            android:elevation="1dp"
+            android:padding="5dp"
+            android:inputType="phone"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_repated_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/rl_regist_title"
+        android:layout_marginTop="2dp"
+        android:background="#ffffff"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="重复密码"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#eae9e9"
+            />
+        <EditText
+            android:id="@+id/et_repated_password"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@null"
+            android:hint="请重复你的密码"
             android:elevation="1dp"
             android:padding="5dp"
             android:inputType="phone"/>
@@ -70,12 +101,10 @@
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="下一步"
-        android:textColor="#c4c3c3"
-        android:background="#e4e2e2"
-        android:layout_below="@+id/ll_mobile"
+        android:background="@drawable/btn_login"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"/>
-</RelativeLayout>
+        android:layout_marginRight="10dp"/>
+</LinearLayout>

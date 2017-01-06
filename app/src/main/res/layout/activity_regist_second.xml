@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_regist"
+    android:id="@+id/activity_regist_second"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
     <RelativeLayout
         android:id="@+id/rl_regist_title"
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="填写手机号码"
+            android:text="填写验证码"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -34,48 +35,61 @@
             android:src="@drawable/back_out_white" />
 
     </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_teap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/smssdk_teap"
+        android:gravity="start"
+        android:padding="10dp"
+
+        android:layout_below="@+id/rl_regist_title"
+        android:layout_alignParentStart="true" />
     <LinearLayout
-        android:id="@+id/ll_mobile"
+        android:id="@+id/ll_2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/rl_regist_title"
-        android:layout_marginTop="30dp"
-        android:background="#ffffff"
-        android:elevation="1dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="中国+86"
-            android:gravity="center"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"/>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#eae9e9"
-            />
+        android:background="@android:color/white"
+        android:layout_below="@+id/tv_teap"
+        android:orientation="horizontal">
         <EditText
-            android:id="@+id/et_mobile"
+            android:id="@+id/et_code"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:hint="请输入你的手机号码"
             android:background="@null"
-            android:elevation="1dp"
-            android:padding="5dp"
-            android:inputType="phone"/>
+            android:hint="@string/smssdk_hint"
+            android:padding="10dp"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e9e4e4"/>
+        <TextView
+            android:id="@+id/tv_recover_send"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/smssdk_recover_send"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/colorAccent"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:padding="5dp"/>
     </LinearLayout>
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="下一步"
-        android:textColor="#c4c3c3"
-        android:background="#e4e2e2"
-        android:layout_below="@+id/ll_mobile"
+        android:layout_height="50dp"
+        android:text="@string/smssdk_next"
+        android:layout_below="@+id/ll_2"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"/>
+        />
 </RelativeLayout>

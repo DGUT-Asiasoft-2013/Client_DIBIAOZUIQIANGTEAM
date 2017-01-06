@@ -14,7 +14,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -27,10 +26,8 @@ import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.myprofile.userInfo.ForgetPasswordStep1Activity;
 import com.dgut.collegemarket.adapter.EditTextAdapter;
 import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.api.entity.MiniUser;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.app.CurrentUserInfo;
-import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
 import com.dgut.collegemarket.view.widgets.DropEditText;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,7 +45,6 @@ import cn.jpush.android.api.TagAliasCallback;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
-import im.sdk.debug.activity.TypeActivity;
 import im.sdk.debug.utils.JPushUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -104,7 +100,7 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), RegisterActivity.class);
+                intent.setClass(getApplicationContext(), RegistersActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
             }
@@ -397,7 +393,6 @@ public class LoginActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         JPushInterface.onPause(this);
-        finish();
         super.onPause();
     }
 

@@ -33,4 +33,18 @@
     <string name="getUserID">getUserID: %1$s</string>
     <string name="getSignature">getSignature: %1$s</string>
 
+    //短信验证>
+    <string name="smssdk_bind_mobile_show">注册或绑定手机演示</string>
+    <string name="smssdk_contact">通讯录好友</string>
+    <string name="smssdk_appkey_dialog_title">请输入您的应用信息</string>
+    <string name="smssdk_appkey">AppKey</string>
+    <string name="smssdk_appkey_hint">请输入您的AppKey</string>
+    <string name="smssdk_appsecret">AppSecret</string>
+    <string name="smssdk_appsecrethint">请输入您的AppSecret</string>
+    <string name="smssdk_next">下一步</string>
+    <string name="smssdk_recover_send">重新发送</string>
+    <string name="smssdk_hint">请输入短信验证码</string>
+    <string name="smssdk_teap">我们已经给你的手机号码+86-13728190542发送了一条验证短信。</string>
+    <string name="smssdk_finish">恭喜你，注册成功!</string>
+    <string name="smssdk_gologin">快去登录吧</string>
 </resources>
