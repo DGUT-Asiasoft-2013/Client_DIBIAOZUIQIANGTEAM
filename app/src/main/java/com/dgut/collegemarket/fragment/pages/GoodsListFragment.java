@@ -155,8 +155,6 @@ public class GoodsListFragment extends Fragment {
             }
         });
         viewPager.setCurrentItem(Integer.MAX_VALUE/2);//默认在中间，使用户看不到边界
-//        //开始轮播效果
-//        handler.sendEmptyMessageDelayed(ImageHandler.MSG_UPDATE_IMAGE, ImageHandler.MSG_DELAY);
 
 
         adpter = new GoodsListAdapter(activity, mGoods);
