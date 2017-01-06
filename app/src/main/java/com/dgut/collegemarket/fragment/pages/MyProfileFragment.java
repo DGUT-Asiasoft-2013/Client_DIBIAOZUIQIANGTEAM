@@ -32,6 +32,7 @@ import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.activity.myprofile.AboutCollegeMarketActivity;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.JudgeLevel;
+import com.dgut.collegemarket.view.widgets.SlidingSwitcherActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -134,6 +135,14 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_expect_1);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), SlidingSwitcherActivity.class));
+                }
+            });
+
             rlMe = (RelativeLayout) view.findViewById(R.id.linear_me);
             rlMe.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -189,17 +198,13 @@ public class MyProfileFragment extends Fragment {
                         pbXp.setMax(JudgeLevel.juderMax(user.getXp()));
                         pbXp.setProgress(user.getXp());
                         if (user.getCoin() <= 1000000000000.0) {
-                            if (user.getCoin() <= 1000000.0) {
+                            tvMoney.setText(user.getCoin() + "");
+                            if (user.getCoin() <= 0) {
                                 tvMoney.setText(user.getCoin() + "");
-                                if(user.getCoin() <= 0) {
-                                    tvMoney.setText("余额不足");
-                                }
-                            } else {
-                                tvMoney.setTextSize(12);
-                                tvMoney.setText(user.getCoin() + "");
+                                tvMoney.setText("余额不足");
                             }
                         } else {
-                            tvMoney.setText(user.getCoin() + "");
+                            tvMoney.setText("余额异常");
                         }
                     }
                 });

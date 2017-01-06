@@ -2,99 +2,237 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
-    android:layout_weight="1.2"
-    android:background="@drawable/bg_goods_item_head_corners"
-    android:elevation="5dip"
-    android:minHeight="100dp"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
-
-    <FrameLayout
-        android:id="@+id/navbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@android:color/white">
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary"
+        android:elevation="3dp">
+
 
         <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="昵称"
+            android:textColor="@color/colorAccent"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/imageView_turnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/back" />
+
+    </RelativeLayout>
+
+    <!--<ScrollView-->
+        <!--android:id="@+id/scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="260dp">-->
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
             android:layout_gravity="center"
-            android:text="粉丝详情"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:src="@drawable/hello_2017_memory" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="@android:color/darker_gray" />
-    </FrameLayout>
+    <!--</ScrollView>-->
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:id="@+id/money"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="$Money"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_gravity="right"
-            android:text="Create Date"
-            android:textColor="#aaa"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/cause"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="what happened?"
-            android:textColor="@android:color/black" />
-    </FrameLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:background="@android:color/darker_gray" />
-
-    <com.dgut.collegemarket.fragment.widgets.AvatarView
-        android:id="@+id/fans_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:padding="5dp" />
-
-    <Button
-        android:id="@+id/send_messages"
+    <RelativeLayout
+        android:id="@+id/head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/bg_goods_item_corners"
-        android:elevation="10dip"
-        android:text="私信" />
+        android:elevation="100dip"
+        android:padding="5dp">
+
+
+        <ScrollView
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/text_title"
+            android:layout_marginBottom="5dp"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/text_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="32dp"
+                android:text="    黎明，1966年12月11日出生于北京。其父是印尼华侨，50年代归国求学，就读于北京大学，在校期间结识了军官家庭（黎明的外公为国民党空军官员）长大的黎母，并组建了家庭。黎明出生后不久，黎父便前往香港工作，并于四年后携全家移居香港。虽语言不通，但在父母的教导下，黎明逐渐融入了香港的生活并取得了较好的学习成绩。14岁时，黎明的父母离异，为了减轻对黎明的影响，父亲将其送往英国继续学业，就读于普林斯顿大学设在英国的中学部。" />
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/level"
+            android:layout_alignBottom="@+id/level"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/level"
+            android:text="昵称"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <com.dgut.collegemarket.fragment.widgets.AvatarView
+            android:id="@+id/image_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/sale"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/unknow_avatar" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/subscribe_button"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="6dp"
+            android:text="时间" />
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/image_avatar"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="7dp"
+            android:text="等级" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/name"
+            android:layout_below="@+id/level"
+            android:layout_marginTop="10dp"
+            android:text="深水埗黎明" />
+
+        <Button
+            android:id="@+id/subscribe_button"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/level"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_search_item_corners"
+            android:text="+关注"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/messages_button"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/subscribe_button"
+            android:layout_gravity="right"
+            android:layout_marginEnd="9dp"
+            android:layout_toStartOf="@+id/subscribe_button"
+            android:background="@drawable/bg_search_item_corners"
+            android:text="私信"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!--<Button-->
+        <!--android:id="@+id/messages_button"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_gravity="center|right"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:background="@drawable/bg_goods_item_corners"-->
+        <!--android:text="私信"-->
+        <!--android:textColor="@color/colorAccent" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/subscribe_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center|left"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:background="@drawable/bg_goods_item_corners"-->
+        <!--android:padding="5dp"-->
+        <!--android:text="关注"-->
+        <!--android:textSize="15dp" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/messages_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center|right"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:background="@drawable/bg_goods_item_corners"-->
+        <!--android:padding="5dp"-->
+        <!--android:text="私信"-->
+        <!--android:textSize="15dp" />-->
+
+    </LinearLayout>
 
 </LinearLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:layout_alignParentStart="true"--><!--android:layout_alignParentTop="true"--><!--android:layout_marginBottom="5dp"--><!--android:layout_marginLeft="5dp"--><!--android:layout_marginRight="5dp"--><!--android:layout_marginTop="5dp"--><!--android:layout_weight="1.2"--><!--android:background="@drawable/bg_goods_item_head_corners"--><!--android:elevation="5dip"--><!--android:minHeight="100dp"--><!--android:orientation="vertical"--><!--android:padding="8dp">-->
+
+
+    <!--<FrameLayout--><!--android:id="@+id/navbar"--><!--android:layout_width="match_parent"--><!--android:layout_height="44dp"--><!--android:background="@android:color/white">-->
+
+    <!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:text="粉丝详情"--><!--android:textColor="@android:color/black"--><!--android:textSize="18sp" />-->
+
+    <!--<View--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:layout_gravity="bottom"--><!--android:background="@android:color/darker_gray" />--><!--</FrameLayout>-->
+
+    <!--<FrameLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="50dp"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginRight="10dp"--><!--android:layout_marginTop="10dp">-->
+
+    <!--<TextView--><!--android:id="@+id/money"--><!--android:layout_width="wrap_content"--><!--android:layout_height="20dp"--><!--android:text="$Money"--><!--android:textColor="@android:color/black"--><!--android:textStyle="bold" />-->
+
+    <!--<TextView--><!--android:id="@+id/date"--><!--android:layout_width="wrap_content"--><!--android:layout_height="20dp"--><!--android:layout_gravity="right"--><!--android:text="Create Date"--><!--android:textColor="#aaa"--><!--android:textSize="12sp" />-->
+
+    <!--<TextView--><!--android:id="@+id/cause"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="20dp"--><!--android:text="what happened?"--><!--android:textColor="@android:color/black" />--><!--</FrameLayout>-->
+
+    <!--<View--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:layout_gravity="bottom"--><!--android:background="@android:color/darker_gray" />-->
+
+    <!--<com.dgut.collegemarket.fragment.widgets.AvatarView--><!--android:id="@+id/fans_image"--><!--android:layout_width="200dp"--><!--android:layout_height="200dp"--><!--android:layout_gravity="center"--><!--android:layout_marginTop="5dp"--><!--android:padding="5dp" />-->
+
+    <!--<Button--><!--android:id="@+id/send_messages"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentStart="true"--><!--android:layout_alignParentTop="true"--><!--android:layout_gravity="right"--><!--android:layout_marginRight="10dp"--><!--android:layout_marginTop="10dp"--><!--android:background="@drawable/bg_goods_item_corners"--><!--android:elevation="10dip"--><!--android:text="私信" />-->
+
+    <!--</LinearLayout>-->

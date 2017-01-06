@@ -157,6 +157,7 @@ public class FansRecordsFragment extends Fragment {
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
             textDate.setText(dateStr);
+
             return view;
         }
     };
