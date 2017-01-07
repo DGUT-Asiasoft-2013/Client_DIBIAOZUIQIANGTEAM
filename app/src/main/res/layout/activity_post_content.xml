@@ -27,76 +27,90 @@
             android:textStyle="bold"/>
     </RelativeLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@android:color/white">
-
-        <TextView
-            android:id="@+id/tv_article_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="TEXT"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"/>
-
-        <ImageView
-            android:id="@+id/iv_post_content_img"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_below="@+id/tv_article_title" />
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+            <RelativeLayout
+                android:id="@+id/rl_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_article_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="TEXT"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/tv_article_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/iv_post_content_img"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:text="TextView" />
+                <ImageView
+                    android:id="@+id/iv_post_content_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/tv_article_title" />
 
-        <TextView
-            android:id="@+id/tv_lookcomments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="22dp"
-            android:layout_marginRight="26dp"
-            android:text="查看评论"
-            android:textColor="@android:color/holo_red_light" />
+                <TextView
+                    android:id="@+id/tv_article_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/iv_post_content_img"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容" />
 
-        <TextView
-            android:id="@+id/tv_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_lookcomments"
-            android:layout_alignBottom="@+id/tv_lookcomments"
-            android:layout_marginRight="3dp"
-            android:layout_toLeftOf="@+id/tv_likes_count"
-            android:text="点赞"
-            android:textColor="@android:color/holo_green_dark" />
-        <TextView
-            android:id="@+id/tv_likes_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_lookcomments"
-            android:layout_alignBottom="@+id/tv_lookcomments"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@+id/tv_lookcomments"
-            android:text="0"
-            android:textColor="@android:color/holo_green_dark" />
-    </RelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_lookcomments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="26dp"
+                android:text="查看评论"
+                android:layout_below="@+id/rl_contents"
+                android:layout_marginTop="30dp"
+                android:textColor="@android:color/holo_red_light" />
+
+            <TextView
+                android:id="@+id/tv_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_lookcomments"
+                android:layout_alignBottom="@+id/tv_lookcomments"
+                android:layout_marginRight="3dp"
+                android:layout_toLeftOf="@+id/tv_likes_count"
+                android:text="点赞"
+                android:textColor="@android:color/holo_green_dark" />
+            <TextView
+                android:id="@+id/tv_likes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_lookcomments"
+                android:layout_alignBottom="@+id/tv_lookcomments"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/tv_lookcomments"
+                android:text="0"
+                android:textColor="@android:color/holo_green_dark" />
+        </RelativeLayout>
+    </ScrollView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:elevation="2dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,12 +123,12 @@
         <EditText
             android:id="@+id/et_content"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:background="#00000000" />
+
+            />
 
         <Button
             android:id="@+id/btn_comment_publish"
