@@ -3,9 +3,12 @@ package com.dgut.collegemarket.fragment.pages;
 
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.LoginActivity;
 import com.dgut.collegemarket.activity.MainActivity;
 import com.dgut.collegemarket.activity.goods.GoodsContentActivity;
+import com.dgut.collegemarket.adapter.AdvertisementPagerAdapter;
 import com.dgut.collegemarket.adapter.GoodsListAdapter;
+import com.dgut.collegemarket.api.entity.Advertisement;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
@@ -14,6 +17,7 @@ import com.dgut.collegemarket.view.layout.VRefreshLayout;
 import com.dgut.collegemarket.view.widgets.JDHeaderView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -34,6 +38,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -42,6 +47,7 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -53,8 +59,12 @@ public class GoodsListFragment extends Fragment {
     ViewPager viewPager;
     private List<ImageView> mViews;
     private List<Goods> mGoods = new ArrayList<Goods>();
+    private List<Advertisement> advertisementList = new ArrayList<>();
+
     Page<Goods> goodsPage;
     private ListView mListView;
+
+    AdvertisementPagerAdapter advertisementPagerAdapter;
     private View mJDHeaderView;
     GoodsListAdapter adpter;
     int page = 0;
@@ -82,51 +92,14 @@ public class GoodsListFragment extends Fragment {
         viewPager = new ViewPager(activity);
         viewPager.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, dp2px(200)));
         mViews = new ArrayList<>();
-        int[] advertisement = {R.drawable.advertisement1,R.drawable.advertisement2,R.drawable.advertisement3,R.drawable.advertisement4};
-        for (int i =0; i < 4; i++) {
+        for(int i=0;i<3;i++){
             ImageView imageView = new ImageView(activity);
-            imageView.setImageResource(advertisement[i]);
+            imageView.setBackgroundResource(R.drawable.android1);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             mViews.add(imageView);
         }
-        viewPager.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-//                return mViews.size();
-                //设置成最大，使用户看不到边界
-                return Integer.MAX_VALUE;
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-
-                //对ViewPager页号求模取出View列表中要显示的项
-                position %= mViews.size();
-                if (position<0){
-                    position = mViews.size()+position;
-                }
-                ImageView view = mViews.get(position);
-                //如果View已经在之前添加到了一个父组件，则必须先remove，否则会抛出IllegalStateException。
-                ViewParent vp =view.getParent();
-                if (vp!=null){
-                    ViewGroup parent = (ViewGroup)vp;
-                    parent.removeView(view);
-                }
-                container.addView(view);
-                //add listeners here if necessary
-                return view;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-//                container.removeView(mViews.get(position));
-            }
-        });
+        advertisementPagerAdapter = new AdvertisementPagerAdapter(activity,mViews,advertisementList);
+        viewPager.setAdapter(advertisementPagerAdapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             //配合Adapter的currentItem字段进行设置。
@@ -155,7 +128,8 @@ public class GoodsListFragment extends Fragment {
             }
         });
         viewPager.setCurrentItem(Integer.MAX_VALUE/2);//默认在中间，使用户看不到边界
-
+        viewPager.setVisibility(View.GONE);
+        getAdvertisements();
 
         adpter = new GoodsListAdapter(activity, mGoods);
         mListView = (ListView) view.findViewById(R.id.listView);
@@ -306,6 +280,44 @@ public class GoodsListFragment extends Fragment {
             }
         });
 
+    }
+
+    private void getAdvertisements(){
+        OkHttpClient client = Server.getSharedClient();
+        Request request = Server.requestBuilderWithApi("goods/all/advertisement/0")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(activity,"联网失败，请重新检查网络!",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Page<Advertisement> page = new ObjectMapper().readValue(result, new TypeReference<Page<Advertisement>>() {});
+                advertisementList.addAll(page.getContent());
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mViews.clear();
+                        for (int i =0; i < advertisementList.size(); i++) {
+                            ImageView imageView = new ImageView(activity);
+                            Picasso.with(activity).load(Server.serverAddress +advertisementList.get(i).getImgurl()).placeholder(R.drawable.unknow_avatar).error(R.drawable.unknow_avatar).into(imageView);
+                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            mViews.add(imageView);
+                        }
+                        advertisementPagerAdapter.notifyDataSetChanged();
+                        viewPager.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
     }
 
     protected int dp2px(float dp) {
