@@ -60,7 +60,7 @@
         </activity>
         //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" android:launchMode="singleTask"/>
         //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.goods.GoodsAddActivity" />
         <activity android:name=".activity.goods.GoodsContentActivity" />
@@ -74,7 +74,9 @@
         <activity android:name=".activity.orders.OrdersCommentActivity" />
         <activity android:name=".activity.orders.OrderCommentListActivity" />
         //请地表最强战队成员规范化排序，谢谢！.activity.common.目前：3个
-        <activity android:name=".activity.common.SendMessageActivity"   android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.common.SendMessageActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.common.ContactListActivity" />
         <activity android:name=".activity.common.ContactAddActivity" />
         //请地表最强战队成员规范化排序，谢谢！.activity.myprofile.userInfo.目前：7个
@@ -88,7 +90,9 @@
         //请地表最强战队成员规范化排序，谢谢！.activity.myprofile.目前：12个
         <activity android:name=".activity.myprofile.AboutCollegeMarketActivity" />
         <activity android:name=".activity.myprofile.AboutVersionActivity" />
-        <activity android:windowSoftInputMode="stateVisible|adjustResize" android:name=".activity.myprofile.RechargeActivity" />
+        <activity
+            android:name=".activity.myprofile.RechargeActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".activity.myprofile.SearchActivity" />
         <activity android:name=".activity.myprofile.ContentSearchActivity" />
         <activity android:name=".activity.myprofile.ContentConsumptionActivity" />
@@ -102,7 +106,7 @@
         <activity android:name=".activity.orders.NoteEditActivity" />
         <activity
             android:name=".activity.orders.OrdersContentActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
 
         <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
@@ -242,7 +246,6 @@
         <activity android:name="im.sdk.debug.activity.setting.ShowLogoutReasonActivity" />
         <activity android:name="im.sdk.debug.activity.createmessage.CreateSendFileActivity" />
         <activity android:name="im.sdk.debug.activity.createmessage.CreateLocationMessageActivity" />
-        <activity android:name=".activity.posts.RegistActivity"></activity>
         <activity android:name=".activity.myprofile.ContentRechargeActivity"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -251,6 +254,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.RegistersActivity" />
         <activity android:name=".activity.RegisterSuccessActivity"></activity>
+        <activity android:name=".view.widgets.SlidingSwitcherActivity"></activity>
     </application>
 
 </manifest>

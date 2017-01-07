@@ -90,13 +90,13 @@ public class DropEditText extends AppCompatEditText implements AdapterView.OnIte
 
     private void showDropDrawable() {
         mDrawable = getResources().getDrawable(mDropDrawableResId);
-        mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth()-5, mDrawable.getIntrinsicHeight());
+        mDrawable.setBounds(0, 0, mDrawable.getIntrinsicHeight(), mDrawable.getIntrinsicHeight());
         setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1], mDrawable, getCompoundDrawables()[3]);
     }
 
     private void showRiseDrawable() {
         mDrawable = getResources().getDrawable(mRiseDrawableResID);
-        mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth()-5, mDrawable.getIntrinsicHeight());
+        mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
         setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1], mDrawable, getCompoundDrawables()[3]);
     }
 

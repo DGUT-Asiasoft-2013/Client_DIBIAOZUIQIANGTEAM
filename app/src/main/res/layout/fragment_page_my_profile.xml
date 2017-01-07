@@ -12,11 +12,12 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
-        <com.dgut.collegemarket.fragment.widgets.AvatarView
+        <ImageView
             android:id="@+id/av_user"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
+            android:src="@drawable/unknow_avatar"
             android:layout_marginLeft="20dp" />
 
         <TextView

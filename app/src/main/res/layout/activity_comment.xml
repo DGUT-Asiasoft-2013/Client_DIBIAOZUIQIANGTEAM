@@ -24,7 +24,7 @@
             android:text="评论区"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+           />
     </RelativeLayout>
 
     <com.dgut.collegemarket.view.layout.VRefreshLayout

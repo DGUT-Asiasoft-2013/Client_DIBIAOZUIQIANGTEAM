@@ -47,6 +47,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/bg_goods_item_corners"
         android:elevation="100dip"
         android:padding="5dp">
