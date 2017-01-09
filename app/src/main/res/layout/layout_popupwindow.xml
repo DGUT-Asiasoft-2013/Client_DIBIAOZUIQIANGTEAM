@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#dfdfdf"
-    android:layout_height="200dp">
+    android:background="#bb000000"
+    android:layout_height="275dp">
 
 
     <TextView
@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="29dp"
+        android:textColor="#fff"
         android:text="价格" />
 
     <RelativeLayout
@@ -51,10 +52,12 @@
             android:id="@+id/btn_orders_create"
             android:background="@drawable/btn_login"
             android:layout_width="wrap_content"
+            android:layout_margin="5dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:textColor="#fff"
+            android:padding="5dp"
             android:text="结算（0元）" />
     </RelativeLayout>
 
@@ -65,6 +68,7 @@
         android:layout_alignStart="@+id/textView15"
         android:layout_below="@+id/textView15"
         android:layout_marginTop="20dp"
+        android:textColor="#fff"
         android:text="数量" />
 
     <TextView
@@ -102,10 +106,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true">
 
-        <TextView
+        <Button
             android:id="@+id/bt_delete"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/bg_circle_white"
             android:gravity="center"
             android:text="-" />
@@ -117,13 +121,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="0"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:textSize="20dp" />
 
-        <TextView
+        <Button
             android:id="@+id/bt_add"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/bg_circle"
             android:gravity="center"
             android:text="+"

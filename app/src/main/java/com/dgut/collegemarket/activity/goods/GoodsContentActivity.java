@@ -5,8 +5,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import com.dgut.collegemarket.activity.orders.OrdresCreateActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.api.entity.User;
+import com.dgut.collegemarket.util.PxtDipTransform;
 import com.squareup.picasso.Picasso;
 
 public class GoodsContentActivity extends AppCompatActivity {
@@ -28,7 +31,7 @@ public class GoodsContentActivity extends AppCompatActivity {
     public static Goods goods;
     Toolbar toolbar;
     public static User publisher;
-
+       int width ,height;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,15 +50,26 @@ public class GoodsContentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                mPopupWindow.showAsDropDown(view);
+                mPopupWindow.showAtLocation(findViewById(R.id.goods_content),Gravity.BOTTOM,0,0);
 
             }
         });
+            ViewTreeObserver viewTreeObserver = albumsImg.getViewTreeObserver();
+            viewTreeObserver
+                    .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @SuppressWarnings("deprecation")
+                        @Override
+                        public void onGlobalLayout() {
+                            albumsImg.getViewTreeObserver()
+                                    .removeGlobalOnLayoutListener(this);
+                            width = PxtDipTransform.px2dip(GoodsContentActivity.this, albumsImg.getWidth());
+                            height = PxtDipTransform.px2dip(GoodsContentActivity.this, albumsImg.getHeight());
+                            Picasso.with(GoodsContentActivity.this).load(Server.serverAddress + goods.getAlbums()).resize(width, height).centerInside().into(albumsImg);
+                        }
+                    });
 
-        Picasso.with(this).load(Server.serverAddress + goods.getAlbums()).resize(500, 300).centerInside().into(albumsImg);
         Picasso.with(this).load(Server.serverAddress + goods.getPublishers().getAvatar()).resize(50, 50).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
 
-        System.out.println(Server.serverAddress + goods.getAlbums());
         initView();
 
 
@@ -82,13 +96,13 @@ public class GoodsContentActivity extends AppCompatActivity {
     TextView buyQuantityText;
     PopupWindow mPopupWindow;
     Button settlementBt;
-    TextView addBt;
-    TextView deleteBt;
+    Button addBt;
+    Button deleteBt;
 
     private void setPopupView() {
         View popupView = getLayoutInflater().inflate(R.layout.layout_popupwindow, null);
 
-        mPopupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.MATCH_PARENT, PxtDipTransform.dip2px(GoodsContentActivity.this,275), true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setAnimationStyle(R.style.mystyle);
@@ -113,8 +127,8 @@ public class GoodsContentActivity extends AppCompatActivity {
         preQuantityText = (TextView) popupView.findViewById(R.id.text_quantity_buy_pre);
         buyQuantityText = (TextView) popupView.findViewById(R.id.text_quantity_buy);
         settlementBt = (Button) popupView.findViewById(R.id.btn_orders_create);
-        addBt = (TextView) popupView.findViewById(R.id.bt_add);
-        deleteBt = (TextView) popupView.findViewById(R.id.bt_delete);
+        addBt = (Button) popupView.findViewById(R.id.bt_add);
+        deleteBt = (Button) popupView.findViewById(R.id.bt_delete);
 
         quantityText.setText(goods.getQuantity() + "");
         priceText.setText(goods.getPrice() + "");

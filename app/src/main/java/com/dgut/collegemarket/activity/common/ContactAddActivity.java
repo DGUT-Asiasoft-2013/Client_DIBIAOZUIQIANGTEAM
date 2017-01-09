@@ -33,7 +33,7 @@ public class ContactAddActivity extends Activity {
 
     EditText nameEt, phoneEt, schoolEt, susheEt;
     ImageView submitBtn;
-
+   ImageView backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +43,18 @@ public class ContactAddActivity extends Activity {
         schoolEt = (EditText) findViewById(R.id.et_school);
         susheEt = (EditText) findViewById(R.id.et_sushe);
         submitBtn = (ImageView) findViewById(R.id.btn_checkmark);
-
+        backBtn= (ImageView) findViewById(R.id.iv_add_contact_back);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submit();
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.none, R.anim.slide_out_left);
             }
         });
     }
@@ -103,7 +110,6 @@ public class ContactAddActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ContactAddActivity.this, "登录成功"+contact.getName(), Toast.LENGTH_SHORT).show();
                             finish();
                             overridePendingTransition(R.anim.none, R.anim.slide_out_left);
                         }

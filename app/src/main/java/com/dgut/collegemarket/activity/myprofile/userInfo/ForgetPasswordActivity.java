@@ -1,40 +1,18 @@
 package com.dgut.collegemarket.activity.myprofile.userInfo;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.LoginActivity;
-import com.dgut.collegemarket.activity.RegisterSuccessActivity;
-import com.dgut.collegemarket.activity.RegistersActivity;
-import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.fragment.pages.forgetpassword.ForgetPasswordFirstFragment;
 import com.dgut.collegemarket.fragment.pages.forgetpassword.ForgetPasswordSecondFragment;
 import com.dgut.collegemarket.fragment.pages.forgetpassword.ForgetPasswordThirdFragment;
-import com.dgut.collegemarket.fragment.pages.regist.RegisterFirstFragment;
-import com.dgut.collegemarket.fragment.pages.regist.RegisterSecondFragment;
-import com.dgut.collegemarket.fragment.pages.regist.RegisterThirdFragment;
-import com.dgut.collegemarket.util.MD5;
-import com.dgut.collegemarket.util.Util;
-
-import java.io.IOException;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 

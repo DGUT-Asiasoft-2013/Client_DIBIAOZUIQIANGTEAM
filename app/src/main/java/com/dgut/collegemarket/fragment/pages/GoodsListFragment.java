@@ -92,12 +92,12 @@ public class GoodsListFragment extends Fragment {
         viewPager = new ViewPager(activity);
         viewPager.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, dp2px(200)));
         mViews = new ArrayList<>();
-        for(int i=0;i<3;i++){
-            ImageView imageView = new ImageView(activity);
-            imageView.setBackgroundResource(R.drawable.android1);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            mViews.add(imageView);
-        }
+//        for(int i=0;i<3;i++){
+//            ImageView imageView = new ImageView(activity);
+//            imageView.setBackgroundResource(R.drawable.android1);
+//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            mViews.add(imageView);
+//        }
         advertisementPagerAdapter = new AdvertisementPagerAdapter(activity,mViews,advertisementList);
         viewPager.setAdapter(advertisementPagerAdapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -177,6 +177,7 @@ public class GoodsListFragment extends Fragment {
                 @Override
                 public void onRefresh() {
                     page=0;
+                    mGoods.clear();
                     refreshGoodsList();
                 }
             });
@@ -189,7 +190,7 @@ public class GoodsListFragment extends Fragment {
     }
 
     private void refreshGoodsList() {
-        textLoadMore.setEnabled(false);
+        btnLoadMore.setEnabled(false);
         textLoadMore.setText("加载中");
 
         final Request request = Server.requestBuilderWithApi("goods/all/" +  page++)
@@ -220,7 +221,7 @@ public class GoodsListFragment extends Fragment {
 
                         mRefreshLayout.refreshComplete();
 
-                        textLoadMore.setEnabled(true);
+                        btnLoadMore.setEnabled(true);
                         textLoadMore.setText("数据解析中");
                         try {
 
@@ -228,27 +229,21 @@ public class GoodsListFragment extends Fragment {
                             goodsPage = mapper.readValue(result,
                                     new TypeReference<Page<Goods>>() {
                                     });
-                            List<Goods> datas = goodsPage.getContent();
 
 
-                            if (datas.size()<=pageSize&&page==1)
-                            {   textLoadMore.setText("加载更多");
-                                datas = goodsPage.getContent();
-                                mGoods.clear();
-                                mGoods.addAll(datas);
-                                adpter.notifyDataSetInvalidated();
-                            }
-                            else if(goodsPage.getTotalPages()!=page){
+                            if(goodsPage.getTotalPages()!=page){
                                 textLoadMore.setText("加载更多");
                                 mGoods.addAll(goodsPage.getContent());
                                 adpter.notifyDataSetChanged();
                             }
-                            else {
+                            else
+                            {
                                 page=NOT_MORE_PAGE;
                                 textLoadMore.setText("没有新内容");
                                 mGoods.addAll(goodsPage.getContent());
                                 adpter.notifyDataSetChanged();
                             }
+
 
                         } catch (IOException e) {
                             textLoadMore.setText("数据解析失败"+e.getLocalizedMessage());

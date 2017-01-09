@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/goods_content"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -80,7 +81,7 @@
                 android:id="@+id/rl_contact_add"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:elevation="3dp"
+                android:elevation="1dp"
                 android:outlineProvider="bounds"
                 android:layout_margin="10dp">
 
@@ -92,6 +93,7 @@
                     android:elevation="3dp"
                     android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
                     android:textColor="#000"
+                    android:minLines="5"
                     android:textSize="15dp" />
             </RelativeLayout>
 

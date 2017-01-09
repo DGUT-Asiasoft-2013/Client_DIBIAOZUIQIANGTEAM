@@ -17,7 +17,7 @@ import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.fragment.InputCell.PictrueInputCellFragment;
 import com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment;
 import com.dgut.collegemarket.util.MD5;
-import com.dgut.collegemarket.util.Util;
+import com.dgut.collegemarket.util.EmailUtil;
 
 
 import java.io.IOException;
@@ -230,7 +230,7 @@ public class RegisterActivity extends Activity {
         if (email.getText().equals("")) {
             email.setLayoutError("邮箱地址不能为空");
             return false;
-        }else if(!Util.isEmail(email.getText())){
+        }else if(!EmailUtil.isEmail(email.getText())){
             email.setLayoutError("邮箱格式不正确");
             return false;
         }

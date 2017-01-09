@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,9 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.common.ContactAddActivity;
 import com.dgut.collegemarket.activity.common.ContactListActivity;
-import com.dgut.collegemarket.activity.goods.GoodsContentActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Contact;
 import com.dgut.collegemarket.api.entity.Goods;
@@ -75,8 +71,8 @@ public class OrdresCreateActivity extends Activity {
     }
 
     private void initView() {
-        imageView = (ImageView)findViewById(R.id.imageView7);
-        nameText = (TextView) findViewById(R.id.tv_name);
+        imageView = (ImageView)findViewById(R.id.iv_add_contact_back);
+        nameText = (TextView) findViewById(R.id.tv_publishers_name);
         avatarImg = (ImageView) findViewById(R.id.img_avatar);
         quantityText = (TextView) findViewById(R.id.tv_quantity);
         priceText = (TextView) findViewById(R.id.tv_price);
@@ -89,6 +85,7 @@ public class OrdresCreateActivity extends Activity {
 
         titleText.setText(goods.getTitle());
         nameText.setText(goods.getPublishers().getName());
+        System.out.println(nameText.getText().toString()+" :"+goods.getPublishers().getName());
         quantityText.setText("X" + num);
         priceText.setText(goods.getPrice() + "");
         sumText1.setText(num * goods.getPrice() + "元");

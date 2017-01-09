@@ -1,6 +1,8 @@
 package com.dgut.collegemarket.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +11,16 @@ import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.util.DateToString;
 import com.dgut.collegemarket.util.JudgeLevel;
+import com.dgut.collegemarket.util.PxtDipTransform;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -69,7 +74,7 @@ public class GoodsListAdapter extends BaseAdapter {
         TextView quantityText = (TextView) view.findViewById(R.id.quantity);
         TextView priceText = (TextView) view.findViewById(R.id.price);
         TextView timeText = (TextView) view.findViewById(R.id.createtime);
-        ImageView avatarImg = (ImageView) view.findViewById(R.id.image_avatar);
+        final ImageView avatarImg = (ImageView) view.findViewById(R.id.image_avatar);
         albumsImg = (ImageView) view.findViewById(R.id.image_albums);
         titleText.setText(goods.getTitle());
         nameText.setText(goods.getPublishers().getName());
@@ -85,6 +90,7 @@ public class GoodsListAdapter extends BaseAdapter {
 
         Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar).into(avatarImg);
 
+
         if (width == 0 || height == 0) {
             ViewTreeObserver viewTreeObserver = albumsImg.getViewTreeObserver();
             viewTreeObserver
@@ -94,8 +100,10 @@ public class GoodsListAdapter extends BaseAdapter {
                         public void onGlobalLayout() {
                             albumsImg.getViewTreeObserver()
                                     .removeGlobalOnLayoutListener(this);
-                            width = px2dip(context, albumsImg.getWidth());
-                            height = px2dip(context, albumsImg.getHeight());
+                            width = PxtDipTransform.px2dip(context, albumsImg.getWidth());
+                            height = PxtDipTransform.px2dip(context, albumsImg.getHeight());
+                            System.out.println("width:"+width+"   height:"+height);
+                            Picasso.with(context).load(albumsUrl).resize(width, height).centerCrop().into(albumsImg);
                         }
                     });
         } else {
@@ -104,15 +112,5 @@ public class GoodsListAdapter extends BaseAdapter {
         return view;
     }
 
-    //dp->px
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
 
-    //px->dp
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
 }

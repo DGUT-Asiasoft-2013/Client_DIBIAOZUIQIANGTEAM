@@ -20,7 +20,7 @@
         android:weightSum="1">
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/iv_add_contact_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/back"
@@ -36,7 +36,7 @@
             android:textColor="#000"
             android:textSize="18dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imageView7"
+            android:layout_toEndOf="@+id/iv_add_contact_back"
          />
 
         <ImageView
@@ -46,7 +46,7 @@
             android:layout_marginRight="0dp"
             android:src="@drawable/checkmark"
             android:layout_marginEnd="15dp"
-            android:layout_alignTop="@+id/imageView7"
+            android:layout_alignTop="@+id/iv_add_contact_back"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 

@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Created by Administrator on 2016/12/26.
  */
 
-public class Util {
+public class EmailUtil {
     /**
      * 判断邮箱格式
      * @param email

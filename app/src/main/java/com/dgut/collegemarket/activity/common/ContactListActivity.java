@@ -39,12 +39,13 @@ public class ContactListActivity extends Activity {
     Page<Contact> contactPage;
     List selectItem = new ArrayList<>();
     ContactListAdapter adapter = new ContactListAdapter(this, mContacts, selectItem);
-
+ImageView backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
         listView = (ListView) findViewById(R.id.listView);
+        backBtn= (ImageView) findViewById(R.id.iv_add_contact_back);
         AddContactRL = (RelativeLayout) findViewById(R.id.rl_contact_add);
 
         AddContactRL.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +57,13 @@ public class ContactListActivity extends Activity {
             }
         });
 
-
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.none, R.anim.slide_out_left);
+            }
+        });
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
