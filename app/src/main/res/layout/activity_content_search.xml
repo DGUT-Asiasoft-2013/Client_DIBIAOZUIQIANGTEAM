@@ -108,7 +108,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="32dp"
-                android:text="此人太颓，什么也没有留下！你走吧"/>
+                android:text="黎明[1]（Leon Lai Ming），香港演员、歌手，1966年生于北京，1973年移居香港，曾赴英国留学。1985年，黎明在香港被星探发现，并邀请其参演电影，之后黎明获得碧泉新星大赛冠军和第五届新秀歌唱大赛季军开始了演艺事业。"/>
         </ScrollView>
 
         <TextView
@@ -157,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text=""
+            android:text="黎明"
             android:layout_below="@+id/level" />
 
         <Button
