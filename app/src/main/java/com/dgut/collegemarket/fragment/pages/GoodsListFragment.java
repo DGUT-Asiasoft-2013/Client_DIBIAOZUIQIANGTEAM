@@ -128,7 +128,7 @@ public class GoodsListFragment extends Fragment {
             }
         });
         viewPager.setCurrentItem(Integer.MAX_VALUE/2);//默认在中间，使用户看不到边界
-        viewPager.setVisibility(View.GONE);
+
         getAdvertisements();
 
         adpter = new GoodsListAdapter(activity, mGoods);
@@ -306,14 +306,19 @@ public class GoodsListFragment extends Fragment {
                     @Override
                     public void run() {
                         mViews.clear();
-                        for (int i =0; i < advertisementList.size(); i++) {
+                        if(advertisementList.size()>0)
+                        { for (int i =0; i < advertisementList.size(); i++) {
                             ImageView imageView = new ImageView(activity);
                             Picasso.with(activity).load(Server.serverAddress +advertisementList.get(i).getImgurl()).placeholder(R.drawable.unknow_avatar).error(R.drawable.unknow_avatar).into(imageView);
                             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             mViews.add(imageView);
                         }
                         advertisementPagerAdapter.notifyDataSetChanged();
-                        viewPager.setVisibility(View.VISIBLE);
+                            mListView.addHeaderView(viewPager);
+                        }
+                        else{
+                            mListView.removeHeaderView(viewPager);}
+
                     }
                 });
             }

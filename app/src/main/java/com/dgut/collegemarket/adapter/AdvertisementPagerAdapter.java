@@ -59,7 +59,7 @@ public class AdvertisementPagerAdapter extends PagerAdapter {
     public int getCount() {
 //                return mViews.size();
         //设置成最大，使用户看不到边界
-        return Integer.MAX_VALUE;
+        return mViews.size()==0?0:Integer.MAX_VALUE;
     }
 
     @Override
