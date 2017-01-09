@@ -14,7 +14,7 @@ import com.dgut.collegemarket.fragment.Records.ConsumptionRecordsFragment;
 public class CheckConsumptionRecordsActivity extends Activity {
 
 
-    ImageView imageView_turnBack;
+    ImageView imageview_turnback;
 
 
     @Override
@@ -22,8 +22,8 @@ public class CheckConsumptionRecordsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_consumption_records);
 
-        imageView_turnBack = (ImageView)findViewById(R.id.imageView_turnBack);
-        imageView_turnBack.setOnClickListener(new View.OnClickListener() {
+        imageview_turnback = (ImageView)findViewById(R.id.imageview_turnback);
+        imageview_turnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

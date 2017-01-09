@@ -109,7 +109,7 @@ public class IdolsRecordsFragment extends Fragment {
         }
 
         mRefreshLayout.setHeaderView(mRefreshLayout.getDefaultHeaderView());
-        mRefreshLayout.setBackgroundColor(Color.parseColor("#ffc130"));
+        mRefreshLayout.setBackgroundColor(Color.WHITE);
     }
 
     BaseAdapter listAdapter = new BaseAdapter() {
@@ -243,7 +243,7 @@ public class IdolsRecordsFragment extends Fragment {
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
                                 LoadMore.setEnabled(true);
-                                textLoadMore.setText("加载完成");
+                                textLoadMore.setText("加载更多");
                                 mRefreshLayout.refreshComplete();
                                 listAdapter.notifyDataSetChanged();
                             }

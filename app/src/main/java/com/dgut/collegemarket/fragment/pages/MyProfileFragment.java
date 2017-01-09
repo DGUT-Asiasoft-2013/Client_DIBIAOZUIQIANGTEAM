@@ -33,7 +33,7 @@ import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.activity.myprofile.AboutCollegeMarketActivity;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.JudgeLevel;
-import com.dgut.collegemarket.view.widgets.SlidingSwitcherActivity;
+import com.dgut.collegemarket.activity.myprofile.SlidingSwitcherActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.picasso.Picasso;
 
@@ -113,13 +113,13 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
-            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_messages);
-            linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), CheckDirectMessagesActivity.class));
-                }
-            });
+//            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_messages);
+//            linearLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    startActivity(new Intent(getActivity(), CheckDirectMessagesActivity.class));
+//                }
+//            });
 
             linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_about);
             linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -137,13 +137,13 @@ public class MyProfileFragment extends Fragment {
                 }
             });
 
-            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_expect_1);
-            linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), SlidingSwitcherActivity.class));
-                }
-            });
+//            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout_expect_1);
+//            linearLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    startActivity(new Intent(getActivity(), SlidingSwitcherActivity.class));
+//                }
+//            });
 
             rlMe = (RelativeLayout) view.findViewById(R.id.linear_me);
             rlMe.setOnClickListener(new View.OnClickListener() {

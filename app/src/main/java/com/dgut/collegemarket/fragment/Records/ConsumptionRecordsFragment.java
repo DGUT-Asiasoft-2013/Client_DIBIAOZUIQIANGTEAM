@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.common.SendMessageActivity;
 import com.dgut.collegemarket.activity.myprofile.ContentConsumptionActivity;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Records;
@@ -105,7 +106,7 @@ public class ConsumptionRecordsFragment extends Fragment {
         }
 
         mRefreshLayout.setHeaderView(mRefreshLayout.getDefaultHeaderView());
-        mRefreshLayout.setBackgroundColor(Color.parseColor("#ffc130"));
+        mRefreshLayout.setBackgroundColor(Color.WHITE);
     }
 
     BaseAdapter listAdapter = new BaseAdapter() {
@@ -239,7 +240,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
                                 LoadMore.setEnabled(true);
-                                textLoadMore.setText("加载完成");
+                                textLoadMore.setText("加载更多");
                                 listAdapter.notifyDataSetChanged();
                             }
                         });
@@ -266,7 +267,7 @@ public class ConsumptionRecordsFragment extends Fragment {
 
         Records records = data.get(position);
 
-        Intent itnt = new Intent(activity, ContentConsumptionActivity.class);
+        Intent itnt = new Intent(activity, SendMessageActivity.class);
         itnt.putExtra("data", records);
         startActivity(itnt);
     }

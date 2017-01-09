@@ -1,6 +1,7 @@
 package com.dgut.collegemarket.activity.myprofile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.common.SendMessageActivity;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.api.entity.Post;
 import com.dgut.collegemarket.api.entity.Subscriber;
 import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.util.CommonUtils;
 import com.dgut.collegemarket.util.JudgeLevel;
+import com.dgut.collegemarket.view.viewswitcher.SlidingSwitcherView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -31,11 +34,12 @@ import okhttp3.Response;
 //查找人界面点击事件—实现他人主页—实现点击私信—订阅功能
 public class ContentSearchActivity extends Activity {
 
-    TextView text;
+    TextView text, title, content;
     Subscriber subscriber;
     User user;
-    ImageView imageView_turnBack;
+    ImageView imageview_turnback;
     Button subscribeButton;
+    SlidingSwitcherView slidingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,11 @@ public class ContentSearchActivity extends Activity {
         setContentView(R.layout.activity_content_search);
         user = (User) getIntent().getSerializableExtra("user");
 
+        slidingLayout = (SlidingSwitcherView)findViewById(R.id.slidingLayout);
+        slidingLayout.startAutoPlay();
         text = (TextView) findViewById(R.id.text);
+        title = (TextView) findViewById(R.id.text_title);
+        content = (TextView) findViewById(R.id.text_content);
         TextView contentName = (TextView) findViewById(R.id.name);
         TextView contentLv = (TextView) findViewById(R.id.level);
         TextView textDate = (TextView) findViewById(R.id.date);
@@ -70,8 +78,8 @@ public class ContentSearchActivity extends Activity {
             }
         });
 
-        imageView_turnBack = (ImageView) findViewById(R.id.imageView_turnBack);
-        imageView_turnBack.setOnClickListener(new View.OnClickListener() {
+        imageview_turnback = (ImageView) findViewById(R.id.imageview_turnback);
+        imageview_turnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -140,7 +148,7 @@ public class ContentSearchActivity extends Activity {
     void onCheckSubscribedResult(boolean result) {
 
         isSubscribed = result;
-        subscribeButton.setTextColor(result ? Color.BLUE : Color.WHITE);
+        subscribeButton.setTextColor(result ? Color.BLACK : Color.WHITE);
     }
 
     void reloadSubscribed() {
@@ -194,8 +202,10 @@ public class ContentSearchActivity extends Activity {
 
         if (count > 0) {
             subscribeButton.setText("已关注");
+            subscribeButton.setBackgroundColor(Color.parseColor("#ffb8b8b8"));
         } else {
             subscribeButton.setText("+关注");
+            subscribeButton.setBackgroundColor(Color.parseColor("#3c9aff"));
         }
     }
 
@@ -245,5 +255,57 @@ public class ContentSearchActivity extends Activity {
 
         reloadSubscribed();
         checkSubscribed();
+
+        MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("publishers_id", user.getId()+"");
+
+
+        Request request = Server.requestBuilderWithApi("post/findByUserId")
+                .post(multipartBuilder.build())
+                .build();
+
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call arg0, Response arg1) throws IOException {
+                String result = arg1.body().string();
+                if (!result.equals(""))
+                    try {
+                        final Post post = new ObjectMapper()
+                                .readValue(result, Post.class);
+                        ContentSearchActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                if (post.getContent().equals("")) {
+                                    title.setText("");
+                                    content.setText("此人太颓，什么也没有留下！你走吧");
+                                } else {
+                                    title.setText(post.getTitle());
+                                    content.setText(post.getContent());
+                                }
+
+                            }
+                        });
+                    } catch (final Exception e) {
+                        ContentSearchActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                new AlertDialog.Builder(ContentSearchActivity.this)
+                                        .setMessage(e.getMessage())
+                                        .show();
+                            }
+                        });
+                    }
+            }
+
+            @Override
+            public void onFailure(Call arg0, final IOException e) {
+                ContentSearchActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        new AlertDialog.Builder(ContentSearchActivity.this)
+                                .setMessage("服务器异常")
+                                .show();
+                    }
+                });
+            }
+        });
     }
 }

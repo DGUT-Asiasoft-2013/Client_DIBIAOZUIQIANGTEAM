@@ -48,7 +48,7 @@ public class SearchActivity extends Activity {
     ListView listView;
     List<User> data;
     TextView editText;
-    ImageView imageView, imageView_turnBack;
+    ImageView imageView, imageview_turnback;
     int page = 0;
 
     @Override
@@ -56,7 +56,7 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        imageView_turnBack = (ImageView) findViewById(R.id.imageView_turnBack);
+        imageview_turnback = (ImageView) findViewById(R.id.imageview_turnback);
         editText = (TextView) findViewById(R.id.edit_search);
         imageView = (ImageView) findViewById(R.id.image_button);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class SearchActivity extends Activity {
             }
         });
 
-        imageView_turnBack.setOnClickListener(new View.OnClickListener() {
+        imageview_turnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

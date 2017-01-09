@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
-    tools:context=".view.widgets.SlidingSwitcherActivity" >
+    tools:context=".activity.myprofile.SlidingSwitcherActivity" >
 
     <com.dgut.collegemarket.view.viewswitcher.SlidingSwitcherView
         android:id="@+id/slidingLayout"

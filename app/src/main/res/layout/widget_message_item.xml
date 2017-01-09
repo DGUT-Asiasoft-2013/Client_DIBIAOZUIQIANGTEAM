@@ -6,11 +6,11 @@
     android:padding="8dp" >
 
     <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_marginTop="10dp">
 
         <com.dgut.collegemarket.fragment.widgets.AvatarView
             android:id="@+id/consumption_image"
@@ -22,10 +22,10 @@
 
         <TextView
             android:id="@+id/money"
-            android:layout_marginLeft="45dp"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="$Money"
+            android:layout_marginLeft="45dp"
+            android:text="昵称"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
@@ -33,19 +33,27 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:textSize="12sp"
-            android:text="Create Date"
             android:layout_gravity="right"
-            android:textColor="#aaa" />
+            android:text="Create Date"
+            android:textColor="#aaa"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/cause"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="20dp"
-            android:text="what happened?"
-            android:textColor="@android:color/black" />
+            android:text="向我发起了会话"
+            android:textColor="@android:color/darker_gray" />
+
+        <Button
+            android:background="@color/white"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="4dp" />
     </FrameLayout>
 
 </FrameLayout>

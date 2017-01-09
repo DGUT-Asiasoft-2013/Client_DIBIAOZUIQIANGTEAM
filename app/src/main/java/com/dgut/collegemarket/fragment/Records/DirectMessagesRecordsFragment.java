@@ -22,6 +22,7 @@ import com.dgut.collegemarket.activity.myprofile.ContentDirectMessagesActivity;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.api.entity.Records;
 import com.dgut.collegemarket.api.Server;
+import com.dgut.collegemarket.fragment.widgets.AvatarView;
 import com.dgut.collegemarket.view.layout.VRefreshLayout;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -100,7 +101,7 @@ public class DirectMessagesRecordsFragment extends Fragment {
         }
 
         mRefreshLayout.setHeaderView(mRefreshLayout.getDefaultHeaderView());
-        mRefreshLayout.setBackgroundColor(Color.parseColor("#ffc130"));
+        mRefreshLayout.setBackgroundColor(Color.WHITE);
     }
 
     BaseAdapter listAdapter = new BaseAdapter() {
@@ -128,21 +129,21 @@ public class DirectMessagesRecordsFragment extends Fragment {
 
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                view = inflater.inflate(R.layout.widget_records_item, null);
+                view = inflater.inflate(R.layout.widget_message_item, null);
             } else {
                 view = convertView;
             }
 
+            AvatarView avatarView = (AvatarView)view.findViewById(R.id.consumption_image);
             TextView textCoin = (TextView) view.findViewById(R.id.money);
-            TextView textCause = (TextView) view.findViewById(R.id.cause);
             TextView textDate = (TextView) view.findViewById(R.id.date);
             Records records = data.get(position);
 
-            textCoin.setText(" 我在北京时间： ");
-            textCause.setText( records.getCause() + records.getCoin() + " 元 ");
+            textCoin.setText(records.getUser().getName());
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();
             textDate.setText(dateStr);
+            avatarView.load(records.getUser().getAvatar());
             return view;
         }
     };
@@ -233,7 +234,7 @@ public class DirectMessagesRecordsFragment extends Fragment {
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
                                 LoadMore.setEnabled(true);
-                                textLoadMore.setText("加载完成");
+                                textLoadMore.setText("加载更多");
                                 listAdapter.notifyDataSetChanged();
                             }
                         });
@@ -261,7 +262,7 @@ public class DirectMessagesRecordsFragment extends Fragment {
         Records records = data.get(position);
 
         Intent itnt = new Intent(activity, ContentDirectMessagesActivity.class);
-        itnt.putExtra("data", records);
+        itnt.putExtra("account", records);
         startActivity(itnt);
     }
 }
