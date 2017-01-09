@@ -269,6 +269,7 @@ public class LoginActivity extends FragmentActivity {
             public void onResponse(Call call, final Response response) throws IOException {
 
                 final String result = response.body().string();
+                System.out.println("返回结果："+result.equals(""));
                 if(result.equals("")){
                     runOnUiThread(new Runnable() {
                         @Override

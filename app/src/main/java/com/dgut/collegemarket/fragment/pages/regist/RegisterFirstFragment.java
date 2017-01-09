@@ -65,9 +65,11 @@ public class RegisterFirstFragment extends Fragment{
                 if(charSequence.toString().length()==11){
                     btnNext.setBackground(getResources().getDrawable(R.color.colorPrimary));
                     btnNext.setTextColor(getResources().getColor(R.color.colorAccent));
+                    btnNext.setEnabled(true);
                 }else{
                     btnNext.setBackgroundColor(Color.parseColor("#e4e2e2"));
                     btnNext.setTextColor(Color.parseColor("#c4c3c3"));
+                    btnNext.setEnabled(false);
                 }
             }
             @Override
@@ -87,7 +89,6 @@ public class RegisterFirstFragment extends Fragment{
                     editor.putString("phone",etMobile.getText().toString());
                     editor.putString("country","86");
                     editor.commit();
-                    goNext();
                 }else {
                     Toast.makeText(activity,"电话号码格式错误",Toast.LENGTH_SHORT).show();
                 }
@@ -100,6 +101,7 @@ public class RegisterFirstFragment extends Fragment{
                goBack();
             }
         });
+        btnNext.setEnabled(false);
     }
     /**
      * 判断电话号码格式

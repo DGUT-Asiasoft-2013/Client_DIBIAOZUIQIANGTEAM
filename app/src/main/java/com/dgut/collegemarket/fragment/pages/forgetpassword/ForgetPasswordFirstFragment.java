@@ -18,11 +18,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.api.Server;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.smssdk.SMSSDK;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2017/1/5.
@@ -63,9 +71,11 @@ public class ForgetPasswordFirstFragment extends Fragment{
                 if(charSequence.toString().length()==11){
                     btnNext.setBackground(getResources().getDrawable(R.color.colorPrimary));
                     btnNext.setTextColor(getResources().getColor(R.color.colorAccent));
+                    btnNext.setEnabled(true);
                 }else{
                     btnNext.setBackgroundColor(Color.parseColor("#e4e2e2"));
                     btnNext.setTextColor(Color.parseColor("#c4c3c3"));
+                    btnNext.setEnabled(false);
                 }
             }
             @Override
@@ -78,16 +88,10 @@ public class ForgetPasswordFirstFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 String phoneNum = etMobile.getText().toString();
-                if(isPhone(phoneNum)){
-                    SMSSDK.getVerificationCode("86",etMobile.getText().toString());
-                    SharedPreferences sharedPreferences = activity.getSharedPreferences("regist", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("phone",etMobile.getText().toString());
-                    editor.putString("country","86");
-                    editor.commit();
-                    goNext();
+                if(isPhone(phoneNum)) {
+                  judgeUser(phoneNum);
                 }else {
-                    Toast.makeText(activity,"电话号码格式错误",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "电话号码格式错误", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -98,6 +102,8 @@ public class ForgetPasswordFirstFragment extends Fragment{
                goBack();
             }
         });
+
+        btnNext.setEnabled(false);
     }
     /**
      * 判断电话号码格式
@@ -118,6 +124,49 @@ public class ForgetPasswordFirstFragment extends Fragment{
         return flag;
     };
 
+
+
+    void judgeUser(String account){
+
+        OkHttpClient client = Server.getSharedClient();
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("account",account)
+                .build();
+        Request request = Server.requestBuilderWithApi("user/finduser")
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(activity,"联网失败，请检查网络",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                if(result.equals("")){
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity,"当前用户账号不存在，请先注册",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else{
+                    SMSSDK.getVerificationCode("86", etMobile.getText().toString());
+                    SharedPreferences sharedPreferences = activity.getSharedPreferences("forgetpassword", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("phone", etMobile.getText().toString());
+                    editor.putString("country", "86");
+                    editor.commit();
+
+                }
+            }
+        });
+    }
 
     public static interface OnGoNextListener{
         void onGoNext();

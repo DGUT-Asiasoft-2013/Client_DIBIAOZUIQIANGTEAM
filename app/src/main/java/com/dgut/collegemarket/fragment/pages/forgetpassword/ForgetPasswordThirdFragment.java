@@ -116,7 +116,7 @@ public class ForgetPasswordThirdFragment extends Fragment{
     public void regist(){
         final String password = etPassword.getText().toString();
         if(!password.equals(etRepatedPassword.getText().toString())){
-            Toast.makeText(activity,"密码不一致",Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity,"前后密码不一致",Toast.LENGTH_SHORT).show();
             return;
         }
 

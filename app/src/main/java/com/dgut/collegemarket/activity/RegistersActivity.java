@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
@@ -35,43 +36,44 @@ public class RegistersActivity extends Activity {
         SMSSDK.initSDK(RegistersActivity.this,APPKEY,APPSECURITY);
         EventHandler eh=new EventHandler(){
             @Override
-            public void afterEvent(int event, int result, Object data) {
+            public void afterEvent(int event, final int result, Object data) {
 
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    //回调完成
-                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                        //提交验证码成功
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                goStep3();
-                            }
-                        });
-
-                    }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
-                        //获取验证码成功
-                        boolean smart = (Boolean)data;
-                        if(smart) {
-                            //通过智能验证
+                switch (event) {
+                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
+                        if (result == SMSSDK.RESULT_COMPLETE) {;
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(RegistersActivity.this,"通过智能验证",Toast.LENGTH_SHORT).show();
+                                    goStep3();
                                 }
                             });
-                            goStep3();
                         } else {
-                            //依然走短信验证
-
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(RegistersActivity.this,"验证码错误，请重新发送短信验证",Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
-                    }
-                }else{
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(RegistersActivity.this,"输入不正确",Toast.LENGTH_SHORT).show();
+                        break;
+                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    goStep2();
+                                }
+                            });
+                            //默认的智能验证是开启的,我已经在后台关闭
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(RegistersActivity.this,"获取验证码失败"+result,Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
-                    });
+                        break;
                 }
             }
         };

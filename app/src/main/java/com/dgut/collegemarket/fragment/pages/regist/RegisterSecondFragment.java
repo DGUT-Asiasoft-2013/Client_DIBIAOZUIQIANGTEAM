@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,10 @@ public class RegisterSecondFragment extends Fragment{
     EditText etCode;
     TextView tvSend;
     Button btnNext;
-    TextView tvTime;
     TextView tvTeap;
 
+    String phone;
+    String country;
     private int recLen =60;
     Timer timer;
     final Handler handler = new Handler(){
@@ -47,12 +49,11 @@ public class RegisterSecondFragment extends Fragment{
         public void handleMessage(Message msg){
             switch (msg.what) {
                 case 1:
-                    tvTime.setText(""+recLen);
+                    tvSend.setText("重新发送"+"("+recLen+")");
                     if(recLen < 0){
-                        timer.cancel();
-                        recLen = 60;
-                        tvTime.setVisibility(View.GONE);
                         tvSend.setEnabled(true);
+                        tvSend.setText("重新发送");
+                        tvSend.setTextColor(getResources().getColor(R.color.colorAccent));
                     }
             }
         }
@@ -80,14 +81,13 @@ public class RegisterSecondFragment extends Fragment{
 
     void init(){
         SharedPreferences sharedPreferences = activity.getSharedPreferences("regist", Context.MODE_PRIVATE);
-        final String phone = sharedPreferences.getString("phone","");
-        final String country = sharedPreferences.getString("country","");
+        phone = sharedPreferences.getString("phone","");
+        country = sharedPreferences.getString("country","");
 
         ivBack = (ImageView) view.findViewById(R.id.iv_back);
         etCode = (EditText) view.findViewById(R.id.et_code);
         tvSend = (TextView) view.findViewById(R.id.tv_recover_send);
         btnNext = (Button) view.findViewById(R.id.btn_next);
-        tvTime = (TextView) view.findViewById(R.id.tv_time);
         tvTeap = (TextView) view.findViewById(R.id.tv_teap);
 
         tvTeap.setText("我们已经给你的手机号码"+country+"-"+phone+"发送了一条验证短信。");
@@ -99,11 +99,11 @@ public class RegisterSecondFragment extends Fragment{
         });
         tvSend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                SMSSDK.getVerificationCode(phone,country);
+            public void onClick(View view) {;
+                SMSSDK.getVerificationCode(country,phone);
                 tvSend.setEnabled(false);
-                timer = new Timer();
-                timer.schedule(task, 1000, 1000);
+                tvSend.setTextColor(getResources().getColor(R.color.gray));
+                recLen = 60;
             }
         });
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -116,9 +116,26 @@ public class RegisterSecondFragment extends Fragment{
                 SMSSDK.submitVerificationCode(country,phone,etCode.getText().toString());
             }
         });
+        tvSend.setTextColor(getResources().getColor(R.color.gray));
         tvSend.setEnabled(false);
         timer = new Timer();
         timer.schedule(task, 1000, 1000);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("regist", Context.MODE_PRIVATE);
+        String phones = sharedPreferences.getString("phone","");
+        String countrys = sharedPreferences.getString("country","");
+        if(!(phone.equals(phones)&&country.equals(countrys))){
+            tvTeap.setText("我们已经给你的手机号码"+country+"-"+phone+"发送了一条验证短信。");
+            tvSend.setTextColor(getResources().getColor(R.color.gray));
+            tvSend.setEnabled(false);
+            recLen = 60;
+            phone = phones;
+            country = countrys;
+        }
     }
 
     public static interface OnGoNextListener{
