@@ -149,8 +149,16 @@ public class GoodsListFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 Intent intent=new Intent(activity,GoodsContentActivity.class);
-                intent.putExtra("goods",mGoods.get(i-1));
+                if(mViews.size()==0)
+                {
+                    intent.putExtra("goods",mGoods.get(i));
+
+                }else{
+                    intent.putExtra("goods",mGoods.get(i-1));
+                }
+
                 startActivity(intent);
                 activity.overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
             }
