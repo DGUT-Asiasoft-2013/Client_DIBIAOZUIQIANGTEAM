@@ -111,7 +111,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                 try {
                     final boolean responseString = Boolean.valueOf(arg1.body().string());
 
-                    getActivity().runOnUiThread(new Runnable() {
+                   activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -120,7 +120,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                     });
                 } catch (final Exception e) {
                     e.printStackTrace();
-                    getActivity().runOnUiThread(new Runnable() {
+                  activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             onCheckSubscribedResult(false);
@@ -132,7 +132,7 @@ public class UserInfoInGoodsFragment extends Fragment {
             @Override
             public void onFailure(Call arg0, IOException e) {
                 e.printStackTrace();
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
@@ -162,7 +162,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                     String responseString = arg1.body().string();
                     final Integer count = new ObjectMapper().readValue(responseString, Integer.class);
 
-                    getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -171,7 +171,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
-                    getActivity().runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -184,7 +184,7 @@ public class UserInfoInGoodsFragment extends Fragment {
             @Override
             public void onFailure(Call arg0, IOException e) {
                 e.printStackTrace();
-                getActivity().runOnUiThread(new Runnable() {
+              activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
@@ -220,7 +220,7 @@ public class UserInfoInGoodsFragment extends Fragment {
 
             @Override
             public void onResponse(Call arg0, Response arg1) throws IOException {
-                getActivity().runOnUiThread(new Runnable() {
+               activity.runOnUiThread(new Runnable() {
                     public void run() {
 
                         reload();
@@ -230,7 +230,7 @@ public class UserInfoInGoodsFragment extends Fragment {
 
             @Override
             public void onFailure(Call arg0, IOException arg1) {
-                getActivity().runOnUiThread(new Runnable() {
+               activity.runOnUiThread(new Runnable() {
                     public void run() {
 
                         reload();

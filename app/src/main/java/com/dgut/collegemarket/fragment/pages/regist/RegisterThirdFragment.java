@@ -139,16 +139,7 @@ public class RegisterThirdFragment extends Fragment{
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                        new AlertDialog.Builder(activity)
-                                                .setTitle("注册成功")
-                                                .setCancelable(true)
-                                                .setNegativeButton("马上登陆", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        goNext();
-                                                    }
-                                                })
-                                                .show();
+                                        goNext();
                                         Log.i("RegisterActivity", "JMessageClient.register " + ", responseCode = " + responseCode + " ; registerDesc = " + registerDesc);
 
                                     } else {

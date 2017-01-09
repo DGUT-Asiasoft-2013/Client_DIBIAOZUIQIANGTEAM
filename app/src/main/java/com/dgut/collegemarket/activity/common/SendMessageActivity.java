@@ -313,8 +313,14 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
             chatInfo.fromOrTo = 0;
         }
         infos.add(chatInfo);
-        mLvAdapter.notifyDataSetChanged();
-        mListView.smoothScrollToPosition(mLvAdapter.getCount() - 1);//移动到尾部
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mLvAdapter.notifyDataSetChanged();
+                mListView.smoothScrollToPosition(mLvAdapter.getCount() - 1);//移动到尾部
+            }
+        });
+
     }
 
     /*

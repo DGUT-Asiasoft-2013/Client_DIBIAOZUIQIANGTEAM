@@ -1,9 +1,11 @@
 package com.dgut.collegemarket.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,9 +24,10 @@ import java.util.List;
  */
 
 public class GoodsListAdapter extends BaseAdapter {
-
+    ImageView albumsImg;
     Context context;
     List<Goods> mGoods;
+    int height, width;
 
     public GoodsListAdapter(Context context, List<Goods> mGoods) {
         this.context = context;
@@ -67,7 +70,7 @@ public class GoodsListAdapter extends BaseAdapter {
         TextView priceText = (TextView) view.findViewById(R.id.price);
         TextView timeText = (TextView) view.findViewById(R.id.createtime);
         ImageView avatarImg = (ImageView) view.findViewById(R.id.image_avatar);
-        ImageView albumsImg = (ImageView) view.findViewById(R.id.image_albums);
+        albumsImg = (ImageView) view.findViewById(R.id.image_albums);
         titleText.setText(goods.getTitle());
         nameText.setText(goods.getPublishers().getName());
         levelText.setText("LV " + JudgeLevel.judege(goods.getPublishers().getXp()));
@@ -75,16 +78,41 @@ public class GoodsListAdapter extends BaseAdapter {
         contentText.setText(goods.getContent());
         quantityText.setText("数量 " + goods.getQuantity());
         priceText.setText("价格 " + goods.getPrice());
-        timeText.setText(DateToString.getStringDate(goods.getCreateDate()));
+        timeText.setText(DateToString.getStringDateMMDD(goods.getCreateDate()));
 
         String avatarUrl = Server.serverAddress + goods.getPublishers().getAvatar();
-        String albumsUrl = Server.serverAddress + goods.getAlbums();
+        final String albumsUrl = Server.serverAddress + goods.getAlbums();
 
-        Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar) .into(avatarImg)   ;
-        Picasso.with(context).load(albumsUrl).resize(300,200).centerCrop().into(albumsImg);
+        Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar).into(avatarImg);
 
+        if (width == 0 || height == 0) {
+            ViewTreeObserver viewTreeObserver = albumsImg.getViewTreeObserver();
+            viewTreeObserver
+                    .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @SuppressWarnings("deprecation")
+                        @Override
+                        public void onGlobalLayout() {
+                            albumsImg.getViewTreeObserver()
+                                    .removeGlobalOnLayoutListener(this);
+                            width = px2dip(context, albumsImg.getWidth());
+                            height = px2dip(context, albumsImg.getHeight());
+                        }
+                    });
+        } else {
+            Picasso.with(context).load(albumsUrl).resize(width, height).centerCrop().into(albumsImg);
+        }
         return view;
     }
 
+    //dp->px
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 
+    //px->dp
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
 }

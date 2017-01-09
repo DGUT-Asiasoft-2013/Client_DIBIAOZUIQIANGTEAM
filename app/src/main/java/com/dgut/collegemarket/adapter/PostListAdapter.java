@@ -76,7 +76,7 @@ public class PostListAdapter extends BaseAdapter {
         tvName.setText(post.getPublishers().getName());
         textTitle.setText(post.getTitle());
         textContent.setText(post.getContent());
-        tvCreateTime.setText(DateToString.getStringDate(post.getCreateDate()));
+        tvCreateTime.setText(DateToString.getStringDateMMDD(post.getCreateDate()));
         tvPrice.setText("悬赏："+post.getReward()+"");
         String avatarUrl = Server.serverAddress + post.getPublishers().getAvatar();
         String albumsUrl = Server.serverAddress + post.getAlbums();

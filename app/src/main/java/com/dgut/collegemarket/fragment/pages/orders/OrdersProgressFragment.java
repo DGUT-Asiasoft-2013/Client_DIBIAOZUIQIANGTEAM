@@ -201,7 +201,7 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
     private void addProgressItem(int i) {
         View v = LayoutInflater.from(activity).inflate(R.layout.fragment_orders_progress_item, mUnderLineLinearLayout, false);
         ((TextView) v.findViewById(R.id.tx_action)).setText(mProgress.get(i).getContent());
-        ((TextView) v.findViewById(R.id.tx_action_time)).setText(DateToString.getStringDate(mProgress.get(i).getCreateDate()));
+        ((TextView) v.findViewById(R.id.tx_action_time)).setText(DateToString.getStringDateMMDD(mProgress.get(i).getCreateDate()));
         ((TextView) v.findViewById(R.id.tx_action_status)).setText(mProgress.get(i).getTitle());
         mUnderLineLinearLayout.addView(v);
     }
@@ -209,7 +209,7 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
     private void addProgressItem(OrdersProgress progress) {
         View v = LayoutInflater.from(activity).inflate(R.layout.fragment_orders_progress_item, mUnderLineLinearLayout, false);
         ((TextView) v.findViewById(R.id.tx_action)).setText(progress.getContent());
-        ((TextView) v.findViewById(R.id.tx_action_time)).setText(DateToString.getStringDate(progress.getCreateDate()));
+        ((TextView) v.findViewById(R.id.tx_action_time)).setText(DateToString.getStringDateMMDD(progress.getCreateDate()));
         ((TextView) v.findViewById(R.id.tx_action_status)).setText(progress.getTitle());
         mUnderLineLinearLayout.addView(v);
 
@@ -276,10 +276,6 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
                 } else if (rightBtn.getText().toString().equals("确认收货")) {
                     rightBtn.setEnabled(false);
                     changeState("交易完成", "如有疑问请联系客服", 4 + "");
-                } else if (rightBtn.getText().toString().equals("查看评价")) {
-                    rightBtn.setEnabled(false);
-                    Toast.makeText(activity, "查看评价", Toast.LENGTH_SHORT).show();
-                } else if (rightBtn.getText().toString().equals("同意退款")) {
                 }
                 else if (rightBtn.getText().toString().equals("查看评价")) {
 
@@ -385,8 +381,6 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
             case "8":
                 return orders.getGoods().getPublishers().getName() + "同意您的退款申请";
         }
-
         return "";
-
     }
 }

@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        JMessageClient.registerEventReceiver(this,3);
+        JMessageClient.registerEventReceiver(this, 3);
 
         tabbarFragment = (MainTabbarFragment) getFragmentManager().findFragmentById(R.id.tabbar);
         tabbarFragment.setOnTabSelectedListener(new MainTabbarFragment.OnTabSelectedListener() {
@@ -98,8 +98,7 @@ public class MainActivity extends Activity {
         if (currentId < 0) {
             tabbarFragment.setSelectTab(0);
         }
-        if (JMessageClient.getMyInfo()==null)
-        {
+        if (JMessageClient.getMyInfo() == null) {
             finish();
         }
 
@@ -160,16 +159,23 @@ public class MainActivity extends Activity {
             case text:
 
                 Map stringExtras = content.getStringExtras();
-                System.out.println("msg_type:"+stringExtras.get("msg_type"));
-                if (stringExtras.get("msg_type").equals(MsgType.MSG_ORDERS)) {
-                    Intent intent = new Intent(getApplicationContext(), OrdersContentActivity.class);
-                    intent.putExtra("orders_id", Integer.valueOf((String) stringExtras.get("orders_id")));
-                    startActivity(intent);
+                if (stringExtras.get("msg_type")!= null) {
+                    System.out.println("msg_type:" + stringExtras.get("msg_type"));
+                    if (stringExtras.get("msg_type").equals(MsgType.MSG_ORDERS)) {
+                        Intent intent = new Intent(getApplicationContext(), OrdersContentActivity.class);
+                        intent.putExtra("orders_id", Integer.valueOf((String) stringExtras.get("orders_id")));
+                        startActivity(intent);
+                    }
                 }
+                else{
+                    notificationIntent.putExtra("account",msg.getFromUser().getUserName());
+                    startActivity(notificationIntent);
+                }
+
                 break;
             case image:
 
-                notificationIntent.putExtra("user_id",msg.getFromUser().getUserName());
+                notificationIntent.putExtra("user_id", msg.getFromUser().getUserName());
                 startActivity(notificationIntent);
 //                ImageContent imageContent = (ImageContent) content;
 //                imageContent.downloadOriginImage(msg, new DownloadCompletionCallback() {
@@ -216,7 +222,6 @@ public class MainActivity extends Activity {
                 textContent.getText();
 
 
-
                 break;
             case custom:
                 final ConversationType targetType = event.getMessage().getTargetType();
@@ -238,36 +243,36 @@ public class MainActivity extends Activity {
 
             case image:
 
-                final Intent intentImage = new Intent(getApplicationContext(), ShowDownloadPathActivity.class);
+                final Intent intentImage = new Intent(getApplicationContext(), SendMessageActivity.class);
                 final ImageContent imageContent = (ImageContent) msg.getContent();
 
-                /**=================     下载图片信息中的缩略图    =================*/
-                imageContent.downloadThumbnailImage(msg, new DownloadCompletionCallback() {
-                    @Override
-                    public void onComplete(int i, String s, File file) {
-                        if (i == 0) {
-                            Toast.makeText(getApplicationContext(), "下载缩略图成功", Toast.LENGTH_SHORT).show();
-                            intentImage.putExtra(DOWNLOAD_THUMBNAIL_IMAGE, file.getPath());
-                        } else {
-                            Toast.makeText(getApplicationContext(), "下载原图失败", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                /**=================     下载图片消息中的原图    =================*/
-                imageContent.downloadOriginImage(msg, new DownloadCompletionCallback() {
-                    @Override
-                    public void onComplete(int i, String s, File file) {
-                        if (i == 0) {
-                            Toast.makeText(getApplicationContext(), "下载原图成功", Toast.LENGTH_SHORT).show();
-                            intentImage.putExtra(IS_UPLOAD, imageContent.isFileUploaded() + "");
-                            intentImage.putExtra(DOWNLOAD_ORIGIN_IMAGE, file.getPath());
-                            startActivity(intentImage);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "下载原图失败", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//                /**=================     下载图片信息中的缩略图    =================*/
+//                imageContent.downloadThumbnailImage(msg, new DownloadCompletionCallback() {
+//                    @Override
+//                    public void onComplete(int i, String s, File file) {
+//                        if (i == 0) {
+//                            Toast.makeText(getApplicationContext(), "下载缩略图成功", Toast.LENGTH_SHORT).show();
+//                            intentImage.putExtra(DOWNLOAD_THUMBNAIL_IMAGE, file.getPath());
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "下载原图失败", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//
+//                /**=================     下载图片消息中的原图    =================*/
+//                imageContent.downloadOriginImage(msg, new DownloadCompletionCallback() {
+//                    @Override
+//                    public void onComplete(int i, String s, File file) {
+//                        if (i == 0) {
+//                            Toast.makeText(getApplicationContext(), "下载原图成功", Toast.LENGTH_SHORT).show();
+//                            intentImage.putExtra(IS_UPLOAD, imageContent.isFileUploaded() + "");
+//                            intentImage.putExtra(DOWNLOAD_ORIGIN_IMAGE, file.getPath());
+//                            startActivity(intentImage);
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "下载原图失败", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
                 break;
             default:
                 break;
