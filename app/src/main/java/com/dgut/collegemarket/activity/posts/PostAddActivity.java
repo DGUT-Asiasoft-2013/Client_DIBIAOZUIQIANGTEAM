@@ -69,14 +69,14 @@ public class PostAddActivity extends Activity {
      * 发布帖子。。
      */
     public void submit(){
-        if(edContent.getText().toString().equals("")||edPrice.getText().toString().equals("")||edTitle.getText().toString().equals("")){
-            Toast.makeText(PostAddActivity.this,"输入不能有空",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(fragmentPictrue.getPngData()==null){
-            Toast.makeText(PostAddActivity.this,"请添加一张图片",Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if(edContent.getText().toString().equals("")||edPrice.getText().toString().equals("")||edTitle.getText().toString().equals("")){
+//            Toast.makeText(PostAddActivity.this,"输入不能有空",Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        if(fragmentPictrue.getPngData()==null){
+//            Toast.makeText(PostAddActivity.this,"请添加一张图片",Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         OkHttpClient client = Server.getSharedClient();
         MultipartBody.Builder requestBody = new MultipartBody.Builder()
                 .addFormDataPart("title",edTitle.getText().toString())

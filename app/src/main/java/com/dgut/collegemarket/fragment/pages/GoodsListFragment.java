@@ -133,7 +133,7 @@ public class GoodsListFragment extends Fragment {
 
         adpter = new GoodsListAdapter(activity, mGoods);
         mListView = (ListView) view.findViewById(R.id.listView);
-        mListView.addHeaderView(viewPager);
+//        mListView.addHeaderView(viewPager);
         btnLoadMore = inflater.inflate(R.layout.list_foot, null);
         textLoadMore = (TextView) btnLoadMore.findViewById(R.id.loadmore);
         mListView.addFooterView(btnLoadMore);
