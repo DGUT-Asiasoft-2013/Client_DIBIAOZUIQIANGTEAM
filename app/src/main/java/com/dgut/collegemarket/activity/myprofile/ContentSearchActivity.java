@@ -74,7 +74,8 @@ public class ContentSearchActivity extends Activity {
                     return;
                 } else {
                     Intent itnt = new Intent(ContentSearchActivity.this, SendMessageActivity.class);
-                    itnt.putExtra("user", user);
+                    String account = user.getAccount().toString();
+                    itnt.putExtra("account", account);
                     startActivity(itnt);
                 }
             }
