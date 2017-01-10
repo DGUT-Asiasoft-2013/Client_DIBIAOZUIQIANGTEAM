@@ -173,7 +173,7 @@ public class AnimationEffec {
         TranslateAnimation transAni = new TranslateAnimation(x0, x1, y0, y1);
         transAni.setDuration(durationMillis);
         //设置动画结束之后是否保持动画的目标状态
-        transAni.setFillAfter(true);
+        transAni.setFillAfter(false);
         view.startAnimation(transAni);
     }
 

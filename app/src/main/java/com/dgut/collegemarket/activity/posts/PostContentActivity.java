@@ -185,7 +185,6 @@ public class PostContentActivity extends Activity {
                         tvLike.setTextColor(getResources().getColor(android.R.color.darker_gray));
                         tvLikeCount.setTextColor(getResources().getColor(android.R.color.darker_gray));
                         isLike = true;
-                        Toast.makeText(PostContentActivity.this, "点赞成功"+res, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -225,7 +224,6 @@ public class PostContentActivity extends Activity {
                         tvLike.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
                         tvLikeCount.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
                         isLike = false;
-                        Toast.makeText(PostContentActivity.this, "取消点赞成功"+res, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -233,7 +231,7 @@ public class PostContentActivity extends Activity {
             public void onFailure(Call arg0, IOException arg1) {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(PostContentActivity.this, "点赞失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostContentActivity.this, "取消点赞失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

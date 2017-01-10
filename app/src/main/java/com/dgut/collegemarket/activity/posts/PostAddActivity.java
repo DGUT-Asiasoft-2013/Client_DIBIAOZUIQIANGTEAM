@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
@@ -27,34 +29,29 @@ import okhttp3.Response;
 
 public class PostAddActivity extends Activity {
 
-    ImageView truckImg,back;
-    SimpleTextInputCellFragment fragmentTitle = new SimpleTextInputCellFragment();
-    SimpleTextInputCellFragment fragmentContent = new SimpleTextInputCellFragment();
+    ImageView back;
+    EditText edTitle,edContent,edPrice;
+    ImageView btnCheckmark;
     PictrueHDInputCellFragment fragmentPictrue = new PictrueHDInputCellFragment();
-    SimpleTextInputCellFragment fragmentPrice = new SimpleTextInputCellFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_add);
-
-        truckImg = (ImageView) findViewById(R.id.truck);
-        fragmentTitle = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_title);
-        fragmentContent = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
-        fragmentPictrue = (PictrueHDInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_post_pictrue);
-        fragmentPrice = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_price);
-        back = (ImageView) findViewById(R.id.iv_back);
-
-        fragmentTitle.setHintText("标题");
-        fragmentContent.setHintText("内容");
-        fragmentContent.setLinesAndLength(5,200);
-
-        fragmentPrice.setHintText("悬赏金额");
+        setContentView(R.layout.activity_post_adds);
 
 
-        truckImg.setOnClickListener(new View.OnClickListener() {
+
+        edTitle = (EditText) findViewById(R.id.et_title);
+        edContent = (EditText) findViewById(R.id.et_content);
+        edPrice = (EditText) findViewById(R.id.et_price);
+        btnCheckmark = (ImageView) findViewById(R.id.btn_checkmark);
+        fragmentPictrue = (PictrueHDInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
+        back = (ImageView) findViewById(R.id.iv_add_goods_back);
+
+
+        btnCheckmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AnimationEffec.setTransAniToRight(truckImg, 0, 700, 0, 0, 1500);
                 submit();
             }
         });
@@ -66,15 +63,25 @@ public class PostAddActivity extends Activity {
         });
     }
 
+
+
     /**
      * 发布帖子。。
      */
     public void submit(){
+        if(edContent.getText().toString().equals("")||edPrice.getText().toString().equals("")||edTitle.getText().toString().equals("")){
+            Toast.makeText(PostAddActivity.this,"输入不能有空",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(fragmentPictrue.getPngData()==null){
+            Toast.makeText(PostAddActivity.this,"请添加一张图片",Toast.LENGTH_SHORT).show();
+            return;
+        }
         OkHttpClient client = Server.getSharedClient();
         MultipartBody.Builder requestBody = new MultipartBody.Builder()
-                .addFormDataPart("title",fragmentTitle.getText())
-                .addFormDataPart("content",fragmentContent.getText())
-                .addFormDataPart("reward",fragmentPrice.getText());
+                .addFormDataPart("title",edTitle.getText().toString())
+                .addFormDataPart("content",edContent.getText().toString())
+                .addFormDataPart("reward",edPrice.getText().toString());
 
         if (fragmentPictrue.getPngData() != null)
             requestBody.addFormDataPart("albums", "albumsName"
