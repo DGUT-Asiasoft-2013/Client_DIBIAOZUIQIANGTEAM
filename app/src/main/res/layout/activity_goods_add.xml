@@ -11,16 +11,17 @@
         android:id="@+id/truck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:src="@drawable/truck"
+        android:visibility="invisible"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/truck" />
+        android:layout_alignParentStart="true" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/truck"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,92 +30,222 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_gravity="top"
-                android:layout_alignParentTop="true"
+                android:layout_height="55dp"
                 android:layout_alignParentStart="true"
-                android:background="@color/colorPrimary">
+                android:layout_alignParentTop="true"
+                android:background="#fff"
+                android:elevation="3dp"
+                android:gravity="center_vertical"
+                android:weightSum="1">
 
+                <ImageView
+                    android:id="@+id/iv_add_goods_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back" />
 
                 <TextView
-                    android:id="@+id/text"
+                    android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="发布商品"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:layout_toEndOf="@+id/iv_add_goods_back"
+                    android:text="上架商品"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
                 <ImageView
-                    android:id="@+id/goods_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/back"
-                    android:layout_margin="10dp"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_gravity="bottom"
-                    android:background="@android:color/background_dark"></View>
-
-
+                    android:id="@+id/btn_checkmark"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/iv_add_goods_back"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginRight="0dp"
+                    android:src="@drawable/checkmark" />
             </RelativeLayout>
 
 
-            <fragment
-                android:id="@+id/fragment_title"
-                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+            <!--<fragment-->
+            <!--android:id="@+id/fragment_title"-->
+            <!--class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--tools:layout="@layout/fragment_inputcell_simpletext"></fragment>-->
+
+            <EditText
+                android:id="@+id/et_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+                android:layout_margin="10dp"
+                android:background="#fff"
+                android:hint="有响当当的标题才有人气~"
+                android:singleLine="true"
+                android:textSize="18dp" />
 
-            <fragment
-                android:id="@+id/fragment_content"
-                class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ddd" />
+            >
+
+            <EditText
+                android:id="@+id/et_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/fragment_title"
-                tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
+                android:layout_margin="10dp"
+                android:background="#fff"
+                android:gravity="start"
+                android:hint="描述写得好，生意才会好~"
+                android:lines="5"
+                android:textSize="18dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ddd" />
+            <!--<fragment-->
+            <!--android:id="@+id/fragment_content"-->
+            <!--class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_below="@+id/fragment_title"-->
+            <!--tools:layout="@layout/fragment_inputcell_simpletext"></fragment>-->
+            <LinearLayout
+                android:id="@+id/ll_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_regist_title"
+                android:background="#ffffff"
+                android:elevation="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="数量"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#eae9e9" />
+
+                <EditText
+                    android:id="@+id/et_num"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:background="@null"
+                    android:elevation="1dp"
+                    android:hint="请输入你的数量"
+                    android:inputType="number"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eae9e9" />
+
+            <LinearLayout
+                android:id="@+id/ll_repated_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_regist_title"
+                android:layout_marginTop="2dp"
+                android:background="#ffffff"
+                android:elevation="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="价格"
+
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#eae9e9" />
+
+                <EditText
+                    android:id="@+id/et_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:background="@null"
+                    android:elevation="1dp"
+                    android:hint="请输入你的定价"
+                    android:inputType="number"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eae9e9" />
+
+            <LinearLayout
+                android:id="@+id/ll_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_regist_title"
+                android:layout_marginTop="2dp"
+                android:background="#ffffff"
+                android:elevation="1dp"
+                android:orientation="horizontal">
+
+                <fragment
+                    android:id="@+id/fragment_pictrue"
+                    class="com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    tools:layout="@layout/fragment_inputcell_pictrue_hd" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#eae9e9" />
+
+                <TextView
+                    android:id="@+id/tv_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="请选择您的商品图片"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eae9e9" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <fragment
-                    android:id="@+id/fragment_price"
-                    class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/fragment_pictrue"
-                    android:layout_below="@+id/fragment_quantity"
-                    android:layout_weight="1"
-                    tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
 
-                <fragment
-                    android:id="@+id/fragment_quantity"
-                    class="com.dgut.collegemarket.fragment.InputCell.SimpleTextInputCellFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/fragment_content"
-                    android:layout_weight="1"
-                    tools:layout="@layout/fragment_inputcell_simpletext"></fragment>
             </LinearLayout>
-
-            <fragment
-                android:id="@+id/fragment_pictrue"
-                class="com.dgut.collegemarket.fragment.InputCell.PictrueHDInputCellFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/fragment_price"
-                tools:layout="@layout/fragment_inputcell_pictrue"></fragment>
 
 
         </LinearLayout>

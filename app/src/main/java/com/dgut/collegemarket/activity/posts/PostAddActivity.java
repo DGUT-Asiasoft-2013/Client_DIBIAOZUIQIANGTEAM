@@ -47,7 +47,7 @@ public class PostAddActivity extends Activity {
         fragmentTitle.setHintText("标题");
         fragmentContent.setHintText("内容");
         fragmentContent.setLinesAndLength(5,200);
-        fragmentPictrue.setHintText("添加照片");
+
         fragmentPrice.setHintText("悬赏金额");
 
 

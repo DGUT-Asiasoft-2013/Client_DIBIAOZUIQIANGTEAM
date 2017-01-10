@@ -2,6 +2,7 @@ package com.dgut.collegemarket.fragment.InputCell;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,21 +26,19 @@ import java.io.File;
  * Created by Administrator on 2016/12/5.
  */
 
-public class PictrueHDInputCellFragment extends BaseInputCelllFragment {
+public class PictrueHDInputCellFragment extends Fragment {
 
     final int REQUESTCODE_CAMERA = 1;
     final int REQUESTCODE_ALBUM = 2;
 
 
-    TextView lable;
+
     ImageView imageView;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inputcell_pictrue_hd, container, false);
-
-        lable = (TextView) view.findViewById(R.id.labletext);
         imageView = (ImageView) view.findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +55,7 @@ public class PictrueHDInputCellFragment extends BaseInputCelllFragment {
                 "拍照",
                 "相册"
         };
-        new AlertDialog.Builder(getActivity()).setTitle(lable.getText())
+        new AlertDialog.Builder(getActivity()).setTitle("添加图片")
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -95,20 +94,7 @@ public class PictrueHDInputCellFragment extends BaseInputCelllFragment {
         startActivityForResult(intent, REQUESTCODE_ALBUM);
     }
 
-    @Override
-    public void setLableText(String labletext) {
-        lable.setText(labletext);
-    }
 
-    @Override
-    public void setHintText(String hinttext) {
-
-    }
-
-    @Override
-    public String getText() {
-        return null;
-    }
 
     Bitmap bitmap;
 

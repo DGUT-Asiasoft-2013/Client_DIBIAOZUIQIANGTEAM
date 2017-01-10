@@ -6,7 +6,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.api.Server;
@@ -28,36 +30,37 @@ import okhttp3.Response;
 
 public class GoodsAddActivity extends Activity {
 
-    ImageView truckImg,back;
-    SimpleTextInputCellFragment titleFrag;
-    SimpleTextInputCellFragment contentFrag;
-    SimpleTextInputCellFragment priceFrag;
-    SimpleTextInputCellFragment quantityFrag;
+    ImageView truckImg,back,check;
+
     PictrueHDInputCellFragment pictrueFrag;
+    EditText titleEt,contentET,priceEt,numEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_add);
         truckImg = (ImageView) findViewById(R.id.truck);
-        titleFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_title);
-        contentFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_content);
-        priceFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_price);
-        quantityFrag = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_quantity);
-        pictrueFrag = (PictrueHDInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
 
-        back = (ImageView) findViewById(R.id.goods_back);
+        pictrueFrag = (PictrueHDInputCellFragment) getFragmentManager().findFragmentById(R.id.fragment_pictrue);
+        titleEt= (EditText) findViewById(R.id.et_title);
+        contentET= (EditText) findViewById(R.id.et_content);
+        numEt= (EditText) findViewById(R.id.et_num);
+        priceEt= (EditText) findViewById(R.id.et_price);
+        check= (ImageView) findViewById(R.id.btn_checkmark);
+
+        back = (ImageView) findViewById(R.id.iv_add_goods_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.none, R.anim.slide_out_bottom);
             }
         });
 
-        truckImg.setOnClickListener(new View.OnClickListener() {
+        check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AnimationEffec.setTransAniToRight(truckImg, 0, 700, 0, 0, 1500);
+//                AnimationEffec.setTransAniToRight(truckImg, 0, 700, 0, 0, 1500);
                 submit();
             }
         });
@@ -66,16 +69,22 @@ public class GoodsAddActivity extends Activity {
     ProgressDialog progressDialog;
 
     private void submit() {
+        if ( titleEt.getText().toString().isEmpty()||contentET.getText().toString().isEmpty()||numEt.getText().toString().isEmpty()||priceEt.getText().toString().isEmpty()||pictrueFrag.getPngData()==null)
+        {
+            Toast.makeText(this,"请认真填写完整！",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("发货中");
         progressDialog.setCancelable(false);
         progressDialog.show();
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("title", titleFrag.getText())
-                .addFormDataPart("content", contentFrag.getText())
-                .addFormDataPart("quantity", quantityFrag.getText())
-                .addFormDataPart("price", priceFrag.getText());
+                .addFormDataPart("title", titleEt.getText().toString())
+                .addFormDataPart("content", contentET.getText().toString())
+                .addFormDataPart("quantity", numEt.getText().toString())
+                .addFormDataPart("price", priceEt.getText().toString());
         if (pictrueFrag.getPngData() != null)
             multipartBuilder.addFormDataPart("albums", "albumsName"
                     , RequestBody
@@ -138,10 +147,6 @@ public class GoodsAddActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        titleFrag.setHintText("标题");
-        contentFrag.setHintText("描述");
-        quantityFrag.setHintText("数量");
-        priceFrag.setHintText("价格");
-        contentFrag.setLinesAndLength(5,200);
+
     }
 }
