@@ -107,6 +107,7 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         account = (String) getIntent().getExtras().get("account");
         setContentView(R.layout.activity_send_message);
         JMessageClient.enterSingleConversation(account, null);
