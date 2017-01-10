@@ -255,6 +255,7 @@
         <activity android:name=".activity.RegistersActivity" />
         <activity android:name=".activity.RegisterSuccessActivity"></activity>
         <activity android:name=".activity.myprofile.SlidingSwitcherActivity"></activity>
+        <activity android:name=".activity.myprofile.userInfo.UpdateEmailActivity"/>
     </application>
 
 </manifest>

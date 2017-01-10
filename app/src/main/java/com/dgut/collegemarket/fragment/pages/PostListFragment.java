@@ -241,7 +241,7 @@ public class PostListFragment extends Fragment {
                 return false;
             }
         });
-
+        popupWindow.setOutsideTouchable(true);
         /** 在这里可以实现自定义视图的功能 */
         TextView tvAll= (TextView) customView.findViewById(R.id.tv_all);
         TextView tvAccepted = (TextView) customView.findViewById(R.id.tv_accepted);

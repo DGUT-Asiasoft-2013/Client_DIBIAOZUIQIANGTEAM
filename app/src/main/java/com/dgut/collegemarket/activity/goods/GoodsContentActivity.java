@@ -1,6 +1,7 @@
 package com.dgut.collegemarket.activity.goods;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -103,11 +104,9 @@ public class GoodsContentActivity extends AppCompatActivity {
         View popupView = getLayoutInflater().inflate(R.layout.layout_popupwindow, null);
 
         mPopupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.MATCH_PARENT, PxtDipTransform.dip2px(GoodsContentActivity.this,275), true);
-        mPopupWindow.setTouchable(true);
-        mPopupWindow.setOutsideTouchable(true);
+
         mPopupWindow.setAnimationStyle(R.style.mystyle);
-        mPopupWindow.getContentView().setFocusableInTouchMode(true);
-        mPopupWindow.getContentView().setFocusable(true);
+        mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.goods_bg));
         mPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

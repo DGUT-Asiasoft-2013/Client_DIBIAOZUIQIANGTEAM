@@ -26,43 +26,36 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
     </RelativeLayout>
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_user_info"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/rl_orders_comment"
         android:layout_alignParentStart="true"
-        android:orientation="horizontal">
-
+        >
         <RelativeLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
 
             <com.dgut.collegemarket.fragment.widgets.AvatarView
                 android:id="@+id/av_user_face"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+                android:layout_centerVertical="true"/>
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="南风外卖"
+                android:layout_toRightOf="@+id/av_user_face"
                 android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
                 android:layout_marginLeft="5dp"
-                 />
+                />
         </RelativeLayout>
-    </LinearLayout>
+
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll_1"
         android:layout_width="wrap_content"

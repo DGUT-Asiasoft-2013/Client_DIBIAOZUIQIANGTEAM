@@ -119,6 +119,16 @@ public class UserInfoActivity extends Activity {
         };
         fragmentUserName.setInfoOnClickListener(infoOnClickListener);
 
+        InfoListFragment.InfoOnClickListener emailOnClickListener = new InfoListFragment.InfoOnClickListener() {
+            @Override
+            public void onclick() {
+                Intent itnt = new Intent(UserInfoActivity.this, UpdateEmailActivity.class);
+                startActivity(itnt);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.none);
+            }
+        };
+        fragmentUserEmail.setInfoOnClickListener(emailOnClickListener);
+
         rlUpdatePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +137,7 @@ public class UserInfoActivity extends Activity {
                 startActivityForResult(itnt,UPDATEPASSWORD_SUCCESS);
             }
         });
+
         btnLoginOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

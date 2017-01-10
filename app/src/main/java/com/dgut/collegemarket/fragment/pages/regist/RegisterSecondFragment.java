@@ -118,8 +118,13 @@ public class RegisterSecondFragment extends Fragment{
         });
         tvSend.setTextColor(getResources().getColor(R.color.gray));
         tvSend.setEnabled(false);
-        timer = new Timer();
-        timer.schedule(task, 1000, 1000);
+        timer = new Timer(true);
+        try {
+            timer.schedule(task, 1000, 1000);
+        }catch (Exception e){
+            timer.cancel();
+        }
+
     }
 
     @Override
@@ -136,6 +141,12 @@ public class RegisterSecondFragment extends Fragment{
             phone = phones;
             country = countrys;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
     }
 
     public static interface OnGoNextListener{

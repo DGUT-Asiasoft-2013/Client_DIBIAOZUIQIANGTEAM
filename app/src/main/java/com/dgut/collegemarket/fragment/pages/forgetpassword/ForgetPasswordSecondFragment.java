@@ -119,6 +119,7 @@ public class ForgetPasswordSecondFragment extends Fragment{
         tvSend.setEnabled(false);
         timer = new Timer();
         timer.schedule(task, 1000, 1000);
+
     }
 
     @Override
@@ -135,6 +136,12 @@ public class ForgetPasswordSecondFragment extends Fragment{
             phone = phones;
             country = countrys;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
     }
 
     public static interface OnGoNextListener{
