@@ -150,6 +150,11 @@ public class OrdresCreateActivity extends Activity {
     ProgressDialog progressDialog;
 
     private void createOrder() {
+        if(contact==null) {
+            Toast.makeText(this,"请选择收货地址",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("提交中");
         progressDialog.setCancelable(false);
@@ -157,12 +162,7 @@ public class OrdresCreateActivity extends Activity {
 
         OkHttpClient client = Server.getSharedClient();
 
-        System.out.println("goods_id:"+ goods.getId()
-                +"contact_id"+contact.getId()
-                +"price"+priceText.getText().toString()
-        +"quantity"+num
-                +"note"+noteText.getText().toString()
-                +"isPayOnline"+String.valueOf(isPayOnline));
+
 
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -219,8 +219,8 @@ public class OrdresCreateActivity extends Activity {
                                     "订单消息","您有一份来自"+orders.getBuyer().getName()+"的新订单",valuesMap);
                             Intent intent=new Intent(OrdresCreateActivity.this,OrdersContentActivity.class);
                             intent.putExtra("orders_id",orders.getId());
-                            startActivity(intent);
                             setResult(RESULT_OK);
+                            startActivity(intent);
                             finish();
                         }
                     });

@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.MainActivity;
 import com.dgut.collegemarket.activity.orders.OrdresCreateActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
@@ -32,7 +33,8 @@ public class GoodsContentActivity extends AppCompatActivity {
     public static Goods goods;
     Toolbar toolbar;
     public static User publisher;
-       int width ,height;
+    int width, height;
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,28 +48,29 @@ public class GoodsContentActivity extends AppCompatActivity {
         albumsImg = (ImageView) findViewById(R.id.image_albums);
         avatarImg = (ImageView) findViewById(R.id.img_avatar);
         setPopupView();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_buy);
+        fab= (FloatingActionButton) findViewById(R.id.fab_buy);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                mPopupWindow.showAtLocation(findViewById(R.id.goods_content),Gravity.BOTTOM,0,0);
+                mPopupWindow.showAtLocation(findViewById(R.id.goods_content), Gravity.BOTTOM, 0, 0);
+                fab.setEnabled(false);
 
             }
         });
-            ViewTreeObserver viewTreeObserver = albumsImg.getViewTreeObserver();
-            viewTreeObserver
-                    .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @SuppressWarnings("deprecation")
-                        @Override
-                        public void onGlobalLayout() {
-                            albumsImg.getViewTreeObserver()
-                                    .removeGlobalOnLayoutListener(this);
-                            width = PxtDipTransform.px2dip(GoodsContentActivity.this, albumsImg.getWidth());
-                            height = PxtDipTransform.px2dip(GoodsContentActivity.this, albumsImg.getHeight());
-                            Picasso.with(GoodsContentActivity.this).load(Server.serverAddress + goods.getAlbums()).resize(width, height).centerInside().into(albumsImg);
-                        }
-                    });
+        ViewTreeObserver viewTreeObserver = albumsImg.getViewTreeObserver();
+        viewTreeObserver
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void onGlobalLayout() {
+                        albumsImg.getViewTreeObserver()
+                                .removeGlobalOnLayoutListener(this);
+                        width = PxtDipTransform.px2dip(GoodsContentActivity.this, albumsImg.getWidth());
+                        height = PxtDipTransform.px2dip(GoodsContentActivity.this, albumsImg.getHeight());
+                        Picasso.with(GoodsContentActivity.this).load(Server.serverAddress + goods.getAlbums()).resize(width, height).centerInside().into(albumsImg);
+                    }
+                });
 
         Picasso.with(this).load(Server.serverAddress + goods.getPublishers().getAvatar()).resize(50, 50).centerInside().error(R.drawable.unknow_avatar).into(avatarImg);
 
@@ -114,13 +117,19 @@ public class GoodsContentActivity extends AppCompatActivity {
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (mPopupWindow != null && mPopupWindow.isShowing()) {
                         mPopupWindow.dismiss();
+
                     }
                     return true;
                 }
                 return false;
             }
         });
-
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                fab.setEnabled(true);
+            }
+        });
         quantityText = (TextView) popupView.findViewById(R.id.text_quantity);
         priceText = (TextView) popupView.findViewById(R.id.text_price);
         preQuantityText = (TextView) popupView.findViewById(R.id.text_quantity_buy_pre);
@@ -162,8 +171,8 @@ public class GoodsContentActivity extends AppCompatActivity {
                 if (num > 0) {
                     Intent intent = new Intent(GoodsContentActivity.this, OrdresCreateActivity.class);
                     intent.putExtra("goods", goods);
-                    intent.putExtra("quantity",num);
-                    startActivityForResult(intent,RESULT_CREATE_ORDERS);
+                    intent.putExtra("quantity", num);
+                    startActivityForResult(intent, RESULT_CREATE_ORDERS);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
                 }
             }
@@ -172,9 +181,11 @@ public class GoodsContentActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            if (requestCode==RESULT_OK)
-                finish();
+        if (resultCode == RESULT_OK) {
+            MainActivity.ordersPage=2;
+            finish();
 
+        }
     }
 
     @Override

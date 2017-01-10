@@ -72,7 +72,7 @@
         //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.orders.OrdresCreateActivity" />
         <activity android:name=".activity.orders.OrdersCommentActivity" />
-        <activity android:name=".activity.orders.OrderCommentListActivity" />
+        <activity android:name=".activity.orders.OrdersCommentListActivity" />
         //请地表最强战队成员规范化排序，谢谢！.activity.common.目前：3个
         <activity
             android:name=".activity.common.SendMessageActivity"

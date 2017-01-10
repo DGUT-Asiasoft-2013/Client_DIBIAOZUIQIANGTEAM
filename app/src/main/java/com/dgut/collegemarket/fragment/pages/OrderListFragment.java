@@ -98,6 +98,7 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onRefresh() {
                     page=0;
+                    mOrders.clear();
                     refreshOrdersList();
                 }
             });
@@ -151,19 +152,13 @@ public class OrderListFragment extends Fragment {
                             List<Orders> datas = ordersPage.getContent();
 
 
-                            if (datas.size()<=pageSize&&page==1)
-                            {   textLoadMore.setText("加载更多");
-                                datas = ordersPage.getContent();
-                                mOrders.clear();
-                                mOrders.addAll(datas);
-                                adpter.notifyDataSetInvalidated();
-                            }
-                            else if(ordersPage.getTotalPages()!=page){
+                            if(ordersPage.getTotalPages()!=page){
                                 textLoadMore.setText("加载更多");
                                 mOrders.addAll(ordersPage.getContent());
                                 adpter.notifyDataSetChanged();
                             }
-                            else {
+                            else
+                            {
                                 page=NOT_MORE_PAGE;
                                 textLoadMore.setText("没有新内容");
                                 mOrders.addAll(ordersPage.getContent());
@@ -182,9 +177,9 @@ public class OrderListFragment extends Fragment {
 
     public static Orders getOrdersLastOne(){
 
-        for (int i=0;mOrders.size()>0;i++)
+        for (int i=0;0<mOrders.size();i++)
         {
-            if ( mOrders.get(i).getState()<5)//得到最新的未完成订单 但是不包括申请取消订单的
+            if ( mOrders.get(i).getState()<5|| mOrders.get(i).getState()==6)//得到最新的未完成订单 但是不包括申请取消订单的
                 return mOrders.get(i);
         }
 

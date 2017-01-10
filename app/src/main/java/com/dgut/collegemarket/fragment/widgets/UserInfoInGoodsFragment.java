@@ -4,22 +4,17 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.goods.GoodsContentActivity;
-import com.dgut.collegemarket.activity.myprofile.ContentRechargeActivity;
-import com.dgut.collegemarket.activity.myprofile.RechargeActivity;
-import com.dgut.collegemarket.activity.orders.OrderCommentListActivity;
+import com.dgut.collegemarket.activity.orders.OrdersCommentListActivity;
 import com.dgut.collegemarket.api.Server;
 import com.dgut.collegemarket.api.entity.Goods;
 import com.dgut.collegemarket.api.entity.User;
@@ -76,7 +71,7 @@ public class UserInfoInGoodsFragment extends Fragment {
         commentBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent itnt = new Intent(activity, OrderCommentListActivity.class);
+                Intent itnt = new Intent(activity, OrdersCommentListActivity.class);
                 itnt.putExtra("goodsId", goods.getId());
                 activity.startActivity(itnt);
             }

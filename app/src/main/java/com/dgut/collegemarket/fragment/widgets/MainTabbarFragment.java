@@ -1,5 +1,6 @@
 package com.dgut.collegemarket.fragment.widgets;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
 import com.dgut.collegemarket.activity.goods.GoodsAddActivity;
@@ -26,11 +28,11 @@ public class MainTabbarFragment extends Fragment {
     View btnNew, tabFeeds, tabNotes, tabSearch, tabMe;
     View[] tabs;
     ImageView image;
-
+Activity activity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_tabbar, null);
-
+        activity  =getActivity();
         btnNew = view.findViewById(R.id.btn_new);
         tabFeeds = view.findViewById(R.id.tab_feeds);
         tabNotes = view.findViewById(R.id.tab_notes);
@@ -95,35 +97,39 @@ public class MainTabbarFragment extends Fragment {
             btnNew.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(getActivity(), GoodsAddActivity.class);
+                    Intent intent = new Intent(activity, GoodsAddActivity.class);
                     startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
+                    activity.overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
                 }
             });
 
         } else if (selectedIndex == 1) {
             btnNew.setEnabled(true);
             AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
-            image.setImageResource(R.drawable.post_blue);
+            image.setImageResource(R.drawable.post_pen);
             btnNew.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(getActivity(), PostAddActivity.class);
+                    Intent intent = new Intent(activity, PostAddActivity.class);
                     startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slide_in_bottom,R.anim.none);
+                    activity.overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
                 }
             });
 
-        }else if (selectedIndex == 2) {
+        } else if (selectedIndex == 2) {
             btnNew.setEnabled(true);
             AnimationEffec.setScaleAni(image, 0.8f, 1, 500);
             image.setImageResource(R.drawable.tab_orders_receiver);
             btnNew.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(getActivity(),OrdersContentActivity.class);
-                    intent.putExtra("orders",   OrderListFragment.getOrdersLastOne());
-                    startActivity(intent);
+                    Intent intent = new Intent(activity, OrdersContentActivity.class);
+                    if (OrderListFragment.getOrdersLastOne() != null) {
+                        intent.putExtra("orders_id", OrderListFragment.getOrdersLastOne().getId());
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(activity,"暂时没有未完成订单",Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             });

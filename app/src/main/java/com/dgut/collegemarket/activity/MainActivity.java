@@ -65,6 +65,7 @@ public class MainActivity extends Activity {
     public static final String LOGOUT_REASON = "logout_reason";
 
 
+    public static int ordersPage=-1;
     MainTabbarFragment tabbarFragment;
     GoodsListFragment contentFeedList;
     PostListFragment contentNoteList;
@@ -101,8 +102,14 @@ public class MainActivity extends Activity {
         if (JMessageClient.getMyInfo() == null) {
             finish();
         }
+        if(ordersPage==2)
+        {
+            tabbarFragment.setSelectTab(ordersPage);
+            ordersPage=-1;
+        }
 
     }
+
 
     private void changeContentPageFragment(int index) {
         FragmentTransaction transition = getFragmentManager().beginTransaction();

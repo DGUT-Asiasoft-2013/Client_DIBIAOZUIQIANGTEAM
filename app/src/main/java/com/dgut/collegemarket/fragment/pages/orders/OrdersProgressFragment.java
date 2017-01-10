@@ -10,28 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.LoginActivity;
-import com.dgut.collegemarket.activity.MainActivity;
-import com.dgut.collegemarket.activity.common.ContactListActivity;
 import com.dgut.collegemarket.activity.common.SendMessageActivity;
-import com.dgut.collegemarket.activity.orders.OrderCommentListActivity;
+import com.dgut.collegemarket.activity.orders.OrdersCommentListActivity;
 import com.dgut.collegemarket.activity.orders.OrdersCommentActivity;
 import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.api.entity.Contact;
 import com.dgut.collegemarket.api.entity.Orders;
 import com.dgut.collegemarket.api.entity.OrdersProgress;
 import com.dgut.collegemarket.api.entity.Page;
-import com.dgut.collegemarket.api.entity.User;
 import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.app.MsgType;
 import com.dgut.collegemarket.util.CreateSigMsg;
 import com.dgut.collegemarket.util.DateToString;
-import com.dgut.collegemarket.util.MD5;
 import com.dgut.collegemarket.view.layout.UnderLineLinearLayout;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,7 +38,6 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -254,9 +246,10 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
 
                 } else if (leftBtn.getText().toString().equals("私信")) {
                     Intent intent = new Intent(activity, SendMessageActivity.class);
-                    if (orders.getBuyer().getId() == CurrentUserInfo.user_id) //判断订单是不是当前用户购买的
+                    if ( orders.getGoods().getPublishers().getId()== CurrentUserInfo.user_id) //判断订单是不是当前用户购买的
                     {
                         intent.putExtra("account", orders.getBuyer().getAccount());
+
                     } else {
                         intent.putExtra("account", orders.getGoods().getPublishers().getAccount());
                     }
@@ -279,7 +272,7 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
                 }
                 else if (rightBtn.getText().toString().equals("查看评价")) {
 
-                    Intent itnt = new Intent(activity,OrderCommentListActivity.class);
+                    Intent itnt = new Intent(activity,OrdersCommentListActivity.class);
                     itnt.putExtra("goodsId",orders.getGoods().getId());
                     activity.startActivity(itnt);
                 }
@@ -377,9 +370,9 @@ public class OrdersProgressFragment extends Fragment implements View.OnClickList
             case "6":
                 return orders.getBuyer().getName() + "申请取消订单";
             case "7":
-                return orders.getGoods().getPublishers().getName() + "拒绝您的退款申请";
-            case "8":
                 return orders.getGoods().getPublishers().getName() + "同意您的退款申请";
+            case "8":
+                return orders.getGoods().getPublishers().getName() + "拒绝您的退款申请";
         }
         return "";
     }

@@ -11,10 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgut.collegemarket.R;
-import com.dgut.collegemarket.activity.posts.CommentActivity;
 import com.dgut.collegemarket.adapter.OrdersCommentAdapter;
 import com.dgut.collegemarket.api.Server;
-import com.dgut.collegemarket.api.entity.Orders;
 import com.dgut.collegemarket.api.entity.OrdersComment;
 import com.dgut.collegemarket.api.entity.Page;
 import com.dgut.collegemarket.view.layout.VRefreshLayout;
@@ -32,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class OrderCommentListActivity extends AppCompatActivity {
+public class OrdersCommentListActivity extends AppCompatActivity {
 
     ImageView ivBack;
     ListView lvOrderComment;
@@ -54,13 +52,13 @@ public class OrderCommentListActivity extends AppCompatActivity {
 
         goodsId = getIntent().getIntExtra("goodsId",0);
 
-        footView = LayoutInflater.from(OrderCommentListActivity.this).inflate(R.layout.list_post_comment_foot,null);
+        footView = LayoutInflater.from(OrdersCommentListActivity.this).inflate(R.layout.list_post_comment_foot,null);
         tvLoadMore = (TextView) footView.findViewById(R.id.loadmore);
         ivBack = (ImageView) findViewById(R.id.iv_back);
         lvOrderComment = (ListView) findViewById(R.id.lv_orders_comments_list);
         vRefreshLayout = (VRefreshLayout) findViewById(R.id.refresh_post_comment_layout);
 
-        ordersCommentAdapter = new OrdersCommentAdapter(OrderCommentListActivity.this,ordersCommentList);
+        ordersCommentAdapter = new OrdersCommentAdapter(OrdersCommentListActivity.this,ordersCommentList);
         lvOrderComment.addFooterView(footView);
         lvOrderComment.setAdapter(ordersCommentAdapter);
 
@@ -113,7 +111,7 @@ public class OrderCommentListActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         vRefreshLayout.refreshComplete();
-                        Toast.makeText(OrderCommentListActivity.this,"联网失败，请检查网络",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrdersCommentListActivity.this,"联网失败，请检查网络",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
