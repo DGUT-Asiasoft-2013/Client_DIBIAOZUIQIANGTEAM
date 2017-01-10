@@ -62,7 +62,7 @@ public class ContentSearchActivity extends Activity {
         avatar.load(user);
         contentLv.setText("Lv:" + JudgeLevel.judege(user.getXp()));
         contentName.setText(user.getName().toString());
-        text.setText("关于" + user.getName().toString());
+        text.setText( user.getName().toString());
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", user.getCreateDate()).toString();
         textDate.setText(dateStr);
 
