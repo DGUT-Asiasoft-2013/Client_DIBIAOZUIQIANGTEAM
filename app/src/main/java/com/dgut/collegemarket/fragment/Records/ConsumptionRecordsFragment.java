@@ -99,7 +99,7 @@ public class ConsumptionRecordsFragment extends Fragment {
             mRefreshLayout.addOnRefreshListener(new VRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    page=0;
+                    page = 0;
                     reload();
                 }
             });
@@ -139,14 +139,14 @@ public class ConsumptionRecordsFragment extends Fragment {
                 view = convertView;
             }
 
-            AvatarView avatarView = (AvatarView)view.findViewById(R.id.consumption_image);
+            AvatarView avatarView = (AvatarView) view.findViewById(R.id.consumption_image);
             TextView textCoin = (TextView) view.findViewById(R.id.money);
             TextView textCause = (TextView) view.findViewById(R.id.cause);
             TextView textDate = (TextView) view.findViewById(R.id.date);
             Records records = data.get(position);
 
-            textCoin.setText(" 我在北京时间： ");
-            textCause.setText( records.getCause()  + records.getCoin() + " 元 ");
+            textCoin.setText("我用" + records.getCause());
+            textCause.setText(records.getCoin() + " 元");
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();
             textDate.setText(dateStr);
@@ -246,7 +246,7 @@ public class ConsumptionRecordsFragment extends Fragment {
                         });
                     }
                 } catch (Exception ex) {
-                    textLoadMore.setText("数据解析失败"+ex.getLocalizedMessage());
+                    textLoadMore.setText("数据解析失败" + ex.getLocalizedMessage());
                 }
             }
 
@@ -267,7 +267,7 @@ public class ConsumptionRecordsFragment extends Fragment {
 
         Records records = data.get(position);
 
-        Intent itnt = new Intent(activity, SendMessageActivity.class);
+        Intent itnt = new Intent(activity, ContentConsumptionActivity.class);
         itnt.putExtra("data", records);
         startActivity(itnt);
     }

@@ -66,7 +66,7 @@ public class ContentFansActivity extends Activity {
         avatar.load(subscriber.getId().getSubscribers().getAvatar());
         contentLv.setText("Lv:" + JudgeLevel.judege(subscriber.getId().getSubscribers().getXp()));
         contentName.setText(subscriber.getId().getSubscribers().getName());
-        text.setText(subscriber.getId().getSubscribers().getName());
+        text.setText("关于" + subscriber.getId().getSubscribers().getName());
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getId().getSubscribers().getCreateDate()).toString();
         textDate.setText(dateStr);
 
@@ -155,7 +155,7 @@ public class ContentFansActivity extends Activity {
     void onCheckSubscribedResult(boolean result) {
 
         isSubscribed = result;
-        subscribeButton.setTextColor(result ? Color.BLUE : Color.WHITE);
+        subscribeButton.setTextColor(result ? Color.BLACK : Color.WHITE);
     }
 
     void reloadSubscribed() {

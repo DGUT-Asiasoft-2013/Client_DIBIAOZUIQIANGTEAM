@@ -50,7 +50,7 @@ public class ContentIdolsActivity extends Activity {
 
         subscriber = (Subscriber) getIntent().getSerializableExtra("data");
 
-        slidingLayout = (SlidingSwitcherView)findViewById(R.id.slidingLayout);
+        slidingLayout = (SlidingSwitcherView) findViewById(R.id.slidingLayout);
         slidingLayout.startAutoPlay();
         text = (TextView) findViewById(R.id.text);
         title = (TextView) findViewById(R.id.text_title);
@@ -63,7 +63,7 @@ public class ContentIdolsActivity extends Activity {
         avatar.load(subscriber.getId().getPublishers().getAvatar());
         contentLv.setText("Lv:" + JudgeLevel.judege(subscriber.getId().getPublishers().getXp()));
         contentName.setText(subscriber.getId().getPublishers().getName());
-        text.setText(subscriber.getId().getPublishers().getName());
+        text.setText("关于" + subscriber.getId().getPublishers().getName());
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", subscriber.getCreateDate()).toString();
         textDate.setText(dateStr);
 
@@ -152,7 +152,7 @@ public class ContentIdolsActivity extends Activity {
     void onCheckSubscribedResult(boolean result) {
 
         isSubscribed = result;
-        subscribeButton.setTextColor(result ? Color.BLUE : Color.WHITE);
+        subscribeButton.setTextColor(result ? Color.BLACK : Color.WHITE);
     }
 
     void reloadSubscribed() {

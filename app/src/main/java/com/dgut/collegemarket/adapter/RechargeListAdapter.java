@@ -89,11 +89,9 @@ public class RechargeListAdapter extends BaseAdapter {
         }
 
 
-
         holder.tvName.setText(bean);
 
-        final RadioButton radio=(RadioButton) convertView.findViewById(R.id.radio_btn);
-
+        final RadioButton radio = (RadioButton) convertView.findViewById(R.id.radio_btn);
 
 
         holder.rb_state = radio;
@@ -125,12 +123,10 @@ public class RechargeListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public int getSelectItem(){
+    public int getSelectItem() {
 
-        for (int i=0;i<states.size();i++)
-        {
-            if (states.get(String.valueOf(i)))
-            {
+        for (int i = 0; i < states.size(); i++) {
+            if (states.get(String.valueOf(i))) {
                 return i;
             }
         }

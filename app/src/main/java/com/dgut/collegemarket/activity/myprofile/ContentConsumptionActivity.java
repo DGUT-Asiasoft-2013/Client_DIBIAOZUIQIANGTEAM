@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +34,8 @@ import okhttp3.Response;
 //我的消费界面—显示数据库记录
 public class ContentConsumptionActivity extends Activity {
 
-    TextView money,cause,date;
+    ImageView imageview_turnback;
+    TextView money, cause, date, id;
     AvatarView imageView;
     private Records records;
     User user;
@@ -47,18 +49,27 @@ public class ContentConsumptionActivity extends Activity {
         records = (Records) getIntent().getSerializableExtra("data");
 
 
-
+        imageview_turnback = (ImageView) findViewById(R.id.imageview_turnback);
+        id = (TextView) findViewById(R.id.consumption_id);
         money = (TextView) findViewById(R.id.money);
         cause = (TextView) findViewById(R.id.cause);
         date = (TextView) findViewById(R.id.date);
         imageView = (AvatarView) findViewById(R.id.consumption_image);
 
-        money.setText(records.getCoin()+"");
-        cause.setText(records.getCause() + records.getCoin() + " 元 ");
+        money.setText("￥" + records.getCoin());
+        cause.setText(records.getCause());
+        id.setText(records.getId()+"");
 
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();
         date.setText(dateStr);
         imageView.load(records.getUser().getAvatar());
+
+        imageview_turnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 

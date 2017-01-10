@@ -1,17 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_content_recharge"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dgut.collegemarket.activity.myprofile.ContentRechargeActivity">
+    android:orientation="vertical"
+    android:background="@color/white">
 
-    <ListView
-    android:id="@+id/recharge_list"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"></ListView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:background="@color/white"
+        android:elevation="3dp">
 
-</RelativeLayout>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_turnback"
+            android:layout_marginLeft="2dp"
+            android:text="充值"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/iv_turnback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:src="@drawable/back" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/rl_regist_title"
+        android:layout_marginTop="30dp"
+        android:background="#ffffff"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="金额"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#eae9e9"
+            />
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:hint="请输入您需要充值的金额"
+            android:background="@null"
+            android:elevation="1dp"
+            android:padding="5dp"
+            android:inputType="number"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="充值"
+        android:textColor="@color/white"
+        android:background="@color/colorAccent"
+        android:layout_below="@+id/ll_mobile"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"/>
+
+
+</LinearLayout>

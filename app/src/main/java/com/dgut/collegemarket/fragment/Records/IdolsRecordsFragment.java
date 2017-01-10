@@ -137,7 +137,7 @@ public class IdolsRecordsFragment extends Fragment {
 
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                view = inflater.inflate(R.layout.widget_records_item, null);
+                view = inflater.inflate(R.layout.widget_idols_item, null);
             } else {
                 view = convertView;
             }

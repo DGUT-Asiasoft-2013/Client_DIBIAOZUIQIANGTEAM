@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context=".activity.myprofile.SlidingSwitcherActivity" >
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_gravity="top"
-        android:background="@color/white"
-        android:elevation="3dp">
+        android:elevation="3dp"
+        android:background="@color/white">
 
 
         <TextView
-            android:id="@+id/text"
             android:layout_width="wrap_content"
+            android:id="@+id/text"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="昵称"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/imageview_turnback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/back_out" />
 
     </RelativeLayout>
 
@@ -84,8 +81,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/bg_goods_item_corners"
         android:elevation="100dip"
         android:padding="5dp">
@@ -110,9 +107,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="32dp"
-                android:text="此人太颓，什么也没有留下！你走吧" />
-
+                android:layout_marginTop="10dp"
+                android:text="" />
         </ScrollView>
 
         <TextView
@@ -134,6 +130,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignTop="@+id/sale"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/unknow_avatar" />
 
         <TextView
@@ -155,28 +152,36 @@
             android:layout_marginTop="7dp"
             android:text="等级" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/level"
+            android:layout_marginTop="5dp"
+            android:background="@color/black" />
+
         <TextView
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/level"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:text="" />
 
         <Button
             android:id="@+id/subscribe_button"
             android:layout_width="60dp"
             android:layout_height="30dp"
-            android:layout_alignBottom="@+id/level"
-            android:layout_alignParentEnd="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="12dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/btn_login"
             android:text="+关注"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_marginEnd="7dp"
+            android:layout_alignTop="@+id/image_avatar"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp" />
 
         <Button
             android:id="@+id/messages_button"
@@ -198,11 +203,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <!--<Button-->
@@ -241,28 +246,3 @@
     </LinearLayout>
 
 </LinearLayout>
-
-    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:layout_alignParentStart="true"--><!--android:layout_alignParentTop="true"--><!--android:layout_marginBottom="5dp"--><!--android:layout_marginLeft="5dp"--><!--android:layout_marginRight="5dp"--><!--android:layout_marginTop="5dp"--><!--android:layout_weight="1.2"--><!--android:background="@drawable/bg_goods_item_head_corners"--><!--android:elevation="5dip"--><!--android:minHeight="100dp"--><!--android:orientation="vertical"--><!--android:padding="8dp">-->
-
-
-    <!--<FrameLayout--><!--android:id="@+id/navbar"--><!--android:layout_width="match_parent"--><!--android:layout_height="44dp"--><!--android:background="@android:color/white">-->
-
-    <!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:text="粉丝详情"--><!--android:textColor="@android:color/black"--><!--android:textSize="18sp" />-->
-
-    <!--<View--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:layout_gravity="bottom"--><!--android:background="@android:color/darker_gray" />--><!--</FrameLayout>-->
-
-    <!--<FrameLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="50dp"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginRight="10dp"--><!--android:layout_marginTop="10dp">-->
-
-    <!--<TextView--><!--android:id="@+id/money"--><!--android:layout_width="wrap_content"--><!--android:layout_height="20dp"--><!--android:text="$Money"--><!--android:textColor="@android:color/black"--><!--android:textStyle="bold" />-->
-
-    <!--<TextView--><!--android:id="@+id/date"--><!--android:layout_width="wrap_content"--><!--android:layout_height="20dp"--><!--android:layout_gravity="right"--><!--android:text="Create Date"--><!--android:textColor="#aaa"--><!--android:textSize="12sp" />-->
-
-    <!--<TextView--><!--android:id="@+id/cause"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="20dp"--><!--android:text="what happened?"--><!--android:textColor="@android:color/black" />--><!--</FrameLayout>-->
-
-    <!--<View--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:layout_gravity="bottom"--><!--android:background="@android:color/darker_gray" />-->
-
-    <!--<com.dgut.collegemarket.fragment.widgets.AvatarView--><!--android:id="@+id/fans_image"--><!--android:layout_width="200dp"--><!--android:layout_height="200dp"--><!--android:layout_gravity="center"--><!--android:layout_marginTop="5dp"--><!--android:padding="5dp" />-->
-
-    <!--<Button--><!--android:id="@+id/send_messages"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentStart="true"--><!--android:layout_alignParentTop="true"--><!--android:layout_gravity="right"--><!--android:layout_marginRight="10dp"--><!--android:layout_marginTop="10dp"--><!--android:background="@drawable/bg_goods_item_corners"--><!--android:elevation="10dip"--><!--android:text="私信" />-->
-
-    <!--</LinearLayout>-->

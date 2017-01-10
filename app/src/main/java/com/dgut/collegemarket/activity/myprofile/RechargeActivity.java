@@ -49,24 +49,10 @@ import okhttp3.Response;
 //充值界面—实现充值功能
 public class RechargeActivity extends Activity {
 
-    private List<String> data_list;
-    private ArrayAdapter<String> arr_adapter;
-    EditText editText;
-    TextView textView9;
-    ImageView button, imageView_turnBack, recharge_back;
-    ListView list;
-    ListAdapter listAdapter;
-
-    private ListView listView;
-    private RechargeListAdapter adapter;
-    private String[] beans = new String[]{"支付宝转账", "微    信转账", "黑金卡支付", "白金卡支付", "钻石卡支付",
-            "银联卡支付", "长城卡支付", "农行卡支付", "工商卡支付", "浦发卡支付"};
-
-    private String[] because = new String[]{"用支付宝充值了", "用微信充值了", "用黑金卡充值了", "用白金卡充值了", "用钻石卡充值了",
-            "用银联卡充值了", "用长城卡充值了", "用农行卡充值了", "用工商卡充值了", "用浦发卡充值了"};
-
-    int i;
     String cause;
+    ImageView imageview_turnback;
+    LinearLayout ll_2, ll_3, ll_4, ll_5, ll_6;
+    TextView tv_1, tv_2, tv_3, tv_4, tv_5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,151 +60,164 @@ public class RechargeActivity extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_recharge);
 
-
-        textView9 = (TextView) findViewById(R.id.textView9);
-        textView9.setVisibility(View.GONE);
-
-        editText = (EditText) findViewById(R.id.edit1);
-        editText.setVisibility(View.GONE);
-
-        imageView_turnBack = (ImageView) findViewById(R.id.imageView_turnBack);
-        imageView_turnBack.setOnClickListener(new View.OnClickListener() {
+        imageview_turnback = (ImageView) findViewById(R.id.imageview_turnback);
+        imageview_turnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        list = (ListView) findViewById(R.id.recharge_list);
-        list.setAdapter(listAdapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                onItemClicked(position);
-            }
-        });
-
-        initView();
-
-        button = (ImageView) findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener() {
+        tv_1 = (TextView) findViewById(R.id.tv_1);
+        ll_2 = (LinearLayout) findViewById(R.id.ll_2);
+        ll_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cause = ("支付宝(账号158****7205)充值");
 
-                if (CommonUtils.isFastDoubleClick()) {
-                    Toast.makeText(RechargeActivity.this, "请勿重复点击", Toast.LENGTH_LONG).show();
-                    editText.setText("");
-                    return;
-                } else {
-                    recharge();
-                }
+                Intent itnt = new Intent(RechargeActivity.this, ContentRechargeActivity.class);
+                itnt.putExtra("cause", cause);
+                startActivity(itnt);
+                finish();
             }
         });
+
+        tv_2 = (TextView) findViewById(R.id.tv_2);
+        ll_3 = (LinearLayout) findViewById(R.id.ll_3);
+        ll_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cause = ("微信(账号158****7205)充值");
+
+                Intent itnt = new Intent(RechargeActivity.this, ContentRechargeActivity.class);
+                itnt.putExtra("cause", cause);
+                startActivity(itnt);
+                finish();
+            }
+        });
+
+        tv_3 = (TextView) findViewById(R.id.tv_3);
+        ll_4 = (LinearLayout) findViewById(R.id.ll_4);
+        ll_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cause = ("白金卡(尾号6660)充值");
+
+                Intent itnt = new Intent(RechargeActivity.this, ContentRechargeActivity.class);
+                itnt.putExtra("cause", cause);
+                startActivity(itnt);
+                finish();
+            }
+        });
+
+        tv_4 = (TextView) findViewById(R.id.tv_4);
+        ll_5 = (LinearLayout) findViewById(R.id.ll_5);
+        ll_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cause = ("黑金卡(尾号8880)充值");
+
+                Intent itnt = new Intent(RechargeActivity.this, ContentRechargeActivity.class);
+                itnt.putExtra("cause", cause);
+                startActivity(itnt);
+                finish();
+            }
+        });
+
+        tv_5 = (TextView) findViewById(R.id.tv_5);
+        ll_6 = (LinearLayout) findViewById(R.id.ll_6);
+        ll_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cause = ("钻石卡(尾号9990)充值");
+
+                Intent itnt = new Intent(RechargeActivity.this, ContentRechargeActivity.class);
+                itnt.putExtra("cause", cause);
+                startActivity(itnt);
+                finish();
+            }
+        });
+
+
     }
 
 
-    private void initView() {
-        // TODO Auto-generated method stub
-        Log.i("htp", "beans.size:" + beans.length);
-        listView = (ListView) findViewById(R.id.recharge_list);
-        adapter = new RechargeListAdapter(RechargeActivity.this, beans);
-        listView.setAdapter(adapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-    }
-
-    void onItemClicked(int position) {
-
-    }
-
-
-    void recharge() {
-
-//        String coin = editText.getText().toString();
+//    void recharge() {
 //
-//        Intent itnt = new Intent(this, ContentRechargeActivity.class);
-//        itnt.putExtra("coin", coin);
-//        startActivity(itnt);
-
-
-        textView9.setVisibility(View.VISIBLE);
-        editText.setVisibility(View.VISIBLE);
-
-        cause = because[adapter.getSelectItem()];
-
-        if (!editText.getText().toString().equals("")) {
-            AnimationEffec.setTransAniToRight(button, 0, 700, 0, 0, 1500);
-            String coin = editText.getText().toString();
-
-
-            MultipartBody body = new MultipartBody.Builder()
-                    .addFormDataPart("coin", coin)
-                    .addFormDataPart("cause", cause)
-                    .build();
-
-            Request request = Server.requestBuilderWithApi("rec/records/recharge")
-                    .post(body)
-                    .build();
-
-            Server.getSharedClient().newCall(request).enqueue(new Callback() {
-                @Override
-                public void onResponse(Call arg0, Response arg1) throws IOException {
-
-                    final String responseBody = arg1.body().string();
-
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-
-                            RechargeActivity.this.onSucceed(responseBody);
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(Call arg0, final IOException arg1) {
-
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-
-                            RechargeActivity.this.onFailure(arg1);
-                        }
-                    });
-                }
-            });
-        } else {
-            Toast.makeText(RechargeActivity.this, "请输入金额", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    void onSucceed(String text) {
-
-        new AlertDialog.Builder(this).setMessage(text)
-                .setMessage("充值成功！")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        finish();
-                        overridePendingTransition(R.anim.none, R.anim.slide_out_bottom);
-                    }
-                }).show();
-    }
-
-    void onFailure(Exception e) {
-
-        new AlertDialog.Builder(this)
-                .setMessage("网络异常" + e.getMessage())
-                .show();
-    }
+//        cause = because[adapter.getSelectItem()];
+//
+//        if (!editText.getText().toString().equals("")) {
+//            AnimationEffec.setTransAniToRight(button, 0, 700, 0, 0, 1500);
+//            String coin = editText.getText().toString();
+//
+//
+//            MultipartBody body = new MultipartBody.Builder()
+//                    .addFormDataPart("coin", coin)
+//                    .addFormDataPart("cause", cause)
+//                    .build();
+//
+//            Request request = Server.requestBuilderWithApi("rec/records/recharge")
+//                    .post(body)
+//                    .build();
+//
+//            Server.getSharedClient().newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onResponse(Call arg0, Response arg1) throws IOException {
+//
+//                    final String responseBody = arg1.body().string();
+//
+//                    runOnUiThread(new Runnable() {
+//                        public void run() {
+//
+//                            RechargeActivity.this.onSucceed(responseBody);
+//                        }
+//                    });
+//                }
+//
+//                @Override
+//                public void onFailure(Call arg0, final IOException arg1) {
+//
+//                    runOnUiThread(new Runnable() {
+//                        public void run() {
+//
+//                            RechargeActivity.this.onFailure(arg1);
+//                        }
+//                    });
+//                }
+//            });
+//        } else {
+//            Toast.makeText(RechargeActivity.this, "请输入金额", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    void onSucceed(String text) {
+//
+//        new AlertDialog.Builder(this).setMessage(text)
+//                .setMessage("充值成功！")
+//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                        finish();
+//                        overridePendingTransition(R.anim.none, R.anim.slide_out_bottom);
+//                    }
+//                }).show();
+//    }
+//
+//    void onFailure(Exception e) {
+//
+//        new AlertDialog.Builder(this)
+//                .setMessage("网络异常" + e.getMessage())
+//                .show();
+//    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Toast.makeText(RechargeActivity.this, "请选择支付方式", Toast.LENGTH_SHORT).show();
+        Toast.makeText(RechargeActivity.this, "请选择充值方式", Toast.LENGTH_SHORT).show();
 
     }
 }

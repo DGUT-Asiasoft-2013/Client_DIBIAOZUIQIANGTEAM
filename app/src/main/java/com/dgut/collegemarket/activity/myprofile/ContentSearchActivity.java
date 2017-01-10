@@ -2,6 +2,7 @@ package com.dgut.collegemarket.activity.myprofile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.dgut.collegemarket.util.CommonUtils;
 import com.dgut.collegemarket.util.JudgeLevel;
 import com.dgut.collegemarket.view.viewswitcher.SlidingSwitcherView;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -47,7 +49,7 @@ public class ContentSearchActivity extends Activity {
         setContentView(R.layout.activity_content_search);
         user = (User) getIntent().getSerializableExtra("user");
 
-        slidingLayout = (SlidingSwitcherView)findViewById(R.id.slidingLayout);
+        slidingLayout = (SlidingSwitcherView) findViewById(R.id.slidingLayout);
         slidingLayout.startAutoPlay();
         text = (TextView) findViewById(R.id.text);
         title = (TextView) findViewById(R.id.text_title);
@@ -60,7 +62,7 @@ public class ContentSearchActivity extends Activity {
         avatar.load(user);
         contentLv.setText("Lv:" + JudgeLevel.judege(user.getXp()));
         contentName.setText(user.getName().toString());
-        text.setText(user.getName().toString());
+        text.setText("关于" + user.getName().toString());
         String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", user.getCreateDate()).toString();
         textDate.setText(dateStr);
 
@@ -258,7 +260,7 @@ public class ContentSearchActivity extends Activity {
 
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("publishers_id", user.getId()+"");
+                .addFormDataPart("publishers_id", user.getId() + "");
 
 
         Request request = Server.requestBuilderWithApi("post/findByUserId")
@@ -275,12 +277,13 @@ public class ContentSearchActivity extends Activity {
                                 .readValue(result, Post.class);
                         ContentSearchActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
-                                if (post.getContent().equals("")) {
+                                if (post.equals("")) {
                                     title.setText("");
-                                    content.setText("此人太颓，什么也没有留下！你走吧");
+                                    content.setText("");
                                 } else {
                                     title.setText(post.getTitle());
                                     content.setText(post.getContent());
+
                                 }
 
                             }
