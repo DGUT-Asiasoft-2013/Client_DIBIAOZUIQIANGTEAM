@@ -15,7 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/backout"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            />
         <TextView
             android:id="@+id/tv_post_title"
             android:layout_width="wrap_content"
@@ -24,7 +25,8 @@
             android:text="文章详情"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
     </RelativeLayout>
 
     <ScrollView
@@ -78,6 +80,7 @@
                 android:text="查看评论"
                 android:layout_below="@+id/rl_contents"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
                 android:textColor="@android:color/holo_red_light" />
 
             <TextView
@@ -110,7 +113,9 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="@android:color/white"
-        android:elevation="2dp">
+        android:elevation="2dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -138,7 +143,8 @@
             android:background="@android:color/holo_blue_light"
             android:text="发表"
             android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            />
     </LinearLayout>
 
 </LinearLayout>

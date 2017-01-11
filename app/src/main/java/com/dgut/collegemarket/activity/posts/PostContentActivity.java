@@ -109,6 +109,10 @@ public class PostContentActivity extends Activity {
      * 发表评论
      */
     public void postComment() {
+        if(etContent.getText().toString().equals("")){
+            Toast.makeText(PostContentActivity.this,"评论不能为空",Toast.LENGTH_SHORT).show();
+            return;
+        }
         OkHttpClient client = Server.getSharedClient();
 
         MultipartBody requestBody = new MultipartBody.Builder()

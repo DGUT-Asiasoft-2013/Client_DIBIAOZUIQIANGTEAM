@@ -81,7 +81,6 @@ public class PostListAdapter extends BaseAdapter {
         tvPrice.setText("悬赏："+post.getReward()+"");
         String avatarUrl = Server.serverAddress + post.getPublishers().getAvatar();
         String albumsUrl = Server.serverAddress + post.getAlbums();
-        Log.e("debug","图片地址："+avatarUrl+albumsUrl);
         Picasso.with(context).load(avatarUrl).fit().error(R.drawable.unknow_avatar) .into(imageAvatar)   ;
         Picasso.with(context).load(albumsUrl).resize(300,200).centerCrop().into(ivContentImg);
         if(post.issolve()){
