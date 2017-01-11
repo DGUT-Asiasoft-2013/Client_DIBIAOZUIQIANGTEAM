@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dgut.collegemarket.R;
+import com.dgut.collegemarket.activity.common.SendMessageActivity;
 import com.dgut.collegemarket.activity.goods.GoodsContentActivity;
 import com.dgut.collegemarket.activity.orders.OrdersCommentListActivity;
 import com.dgut.collegemarket.api.Server;
@@ -80,6 +81,10 @@ public class UserInfoInGoodsFragment extends Fragment {
         privateMsgBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String account = goods.getPublishers().getAccount().toString();
+                Intent itnt = new Intent(getActivity(), SendMessageActivity.class);
+                itnt.putExtra("account", account);
+                startActivity(itnt);
             }
         });
         followBt.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +114,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            onReloadSubscribedResult(responseString);
                             onCheckSubscribedResult(responseString);
                         }
                     });
@@ -118,6 +123,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                   activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            onReloadSubscribedResult(false);
                             onCheckSubscribedResult(false);
                         }
                     });
@@ -130,7 +136,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        onReloadSubscribedResult(false);
                         onCheckSubscribedResult(false);
                     }
                 });
@@ -161,7 +167,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                         @Override
                         public void run() {
 
-                            onReloadSubscribedResult(count);
+//                            onReloadSubscribedResult(count);
                         }
                     });
                 } catch (Exception e) {
@@ -170,7 +176,7 @@ public class UserInfoInGoodsFragment extends Fragment {
                         @Override
                         public void run() {
 
-                            onReloadSubscribedResult(0);
+//                            onReloadSubscribedResult(0);
                         }
                     });
                 }
@@ -183,17 +189,17 @@ public class UserInfoInGoodsFragment extends Fragment {
                     @Override
                     public void run() {
 
-                        onReloadSubscribedResult(0);
+//                        onReloadSubscribedResult(0);
                     }
                 });
             }
         });
     }
 
-    void onReloadSubscribedResult(int count) {
+    void onReloadSubscribedResult(boolean count) {
 
-        if (count > 0) {
-            followBt.setText("已关注");
+        if (count) {
+            followBt.setText("取消关注");
             followBt.setBackgroundColor(Color.parseColor("#ffb8b8b8"));
         } else {
             followBt.setText("+关注");
@@ -237,7 +243,7 @@ public class UserInfoInGoodsFragment extends Fragment {
 
     void reload() {
 
-        reloadSubscribed();
+//        reloadSubscribed();
         checkSubscribed();
     }
 

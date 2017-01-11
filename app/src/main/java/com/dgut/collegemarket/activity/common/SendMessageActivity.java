@@ -37,6 +37,7 @@ import com.dgut.collegemarket.adapter.ChatLVAdapter;
 import com.dgut.collegemarket.adapter.FaceGVAdapter;
 import com.dgut.collegemarket.adapter.FaceVPAdapter;
 import com.dgut.collegemarket.api.entity.User;
+import com.dgut.collegemarket.app.CurrentUserInfo;
 import com.dgut.collegemarket.util.CreateSigMsg;
 import com.dgut.collegemarket.util.DateToString;
 import com.dgut.collegemarket.view.message.ChatInfo;
@@ -58,6 +59,7 @@ import java.util.regex.Pattern;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.DownloadCompletionCallback;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.content.CustomContent;
 import cn.jpush.im.android.api.content.ImageContent;
@@ -135,7 +137,7 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        headerText.setText("与 " + userInfo.getNickname() + " 对话中");
+                        headerText.setText("与 " + userInfo.getNickname() + " 会话中");
                     }
                 });
             }
@@ -655,11 +657,16 @@ public class SendMessageActivity extends Activity implements View.OnClickListene
                 chatInfo.type = 1;
             }
 
-            chatInfo.time = DateToString.timeStamp2Date(String.valueOf(msg.getCreateTime()),"MM-dd HH:mm");
+            chatInfo.time = DateToString.timeStamp2Date(String.valueOf(msg.getCreateTime()), "MM-dd HH:mm");
+
+
+
             if (msg.getDirect() == MessageDirect.send) {
+                chatInfo.account =JMessageClient.getMyInfo().getUserName();
                 chatInfo.fromOrTo = 1;
             } else {
                 chatInfo.fromOrTo = 0;
+                chatInfo.account = msg.getFromUser().getUserName();
             }
             infos.add(chatInfo);
         }

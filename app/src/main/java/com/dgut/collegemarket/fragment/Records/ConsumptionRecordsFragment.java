@@ -145,7 +145,7 @@ public class ConsumptionRecordsFragment extends Fragment {
             TextView textDate = (TextView) view.findViewById(R.id.date);
             Records records = data.get(position);
 
-            textCoin.setText("我用" + records.getCause());
+            textCoin.setText(records.getCause());
             textCause.setText(records.getCoin() + " 元");
 
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", records.getCreateDate()).toString();

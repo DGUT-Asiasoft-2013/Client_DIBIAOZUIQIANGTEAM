@@ -40,6 +40,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.model.UserInfo;
 
 @SuppressLint("NewApi")
 public class ChatLVAdapter extends BaseAdapter {
@@ -64,6 +67,7 @@ public class ChatLVAdapter extends BaseAdapter {
     ImageView fromIcon, toIcon, fromPicture, toPicture;
     TextView fromContent, toContent, time;
     ViewGroup fromContainer, toContainer;
+    Bitmap toBitmap, fromBitmap;
 
     public ChatLVAdapter(Context mContext, List<ChatInfo> list) {
         super();
@@ -114,6 +118,32 @@ public class ChatLVAdapter extends BaseAdapter {
         toPicture = (ImageView) view.findViewById(R.id.chatto_img);
 
 
+//        if (position == 0) {
+//            JMessageClient.getMyInfo().getAvatarBitmap(new GetAvatarBitmapCallback() {
+//                @Override
+//                public void gotResult(int i, String s, Bitmap bitmap) {
+//                    fromBitmap = bitmap;
+//                    fromIcon.setImageBitmap(bitmap);
+//                }
+//            });
+//            JMessageClient.getUserInfo(list.get(position).account, new GetUserInfoCallback() {
+//                @Override
+//                public void gotResult(int i, String s, UserInfo userInfo) {
+//                    userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+//                        @Override
+//                        public void gotResult(int i, String s, Bitmap bitmap) {
+//                            toBitmap = bitmap;
+//                            toIcon.setImageBitmap(bitmap);
+//                        }
+//                    });
+//                }
+//            });
+//        }else{
+//            fromIcon.setImageBitmap(fromBitmap);
+//            toIcon.setImageBitmap(toBitmap);
+//        }
+
+
         if (list.get(position).fromOrTo == 0) {
             // 收到消息 from显示
             toContainer.setVisibility(View.GONE);
@@ -147,7 +177,8 @@ public class ChatLVAdapter extends BaseAdapter {
 
             // 对内容做处理
             if (list.get(position).type == 0)//如果是文字
-            {        toContent.setVisibility(View.VISIBLE);
+            {
+                toContent.setVisibility(View.VISIBLE);
                 toPicture.setVisibility(View.GONE);
                 SpannableStringBuilder sb = handler(toContent,
                         list.get(position).content);
