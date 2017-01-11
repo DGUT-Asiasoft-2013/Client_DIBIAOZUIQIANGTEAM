@@ -132,7 +132,6 @@ public class PictrueHDInputCellFragment extends Fragment {
             return null;
         }
         byte[] datas = baos.toByteArray();
-        System.out.println("datas:"+datas.length);
         return datas;
     }
 
