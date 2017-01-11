@@ -141,6 +141,7 @@ public class UserInfoActivity extends Activity {
         btnLoginOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(UserInfoActivity.this,"注销成功",Toast.LENGTH_LONG).show();
                 SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(user.getAccount() + "auto", false);

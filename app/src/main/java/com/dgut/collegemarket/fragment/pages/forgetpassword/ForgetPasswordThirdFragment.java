@@ -57,7 +57,7 @@ public class ForgetPasswordThirdFragment extends Fragment{
         if(view == null){
             view = inflater.inflate(R.layout.fragment_regist_third,null);
             activity = getActivity();
-            SharedPreferences sharedPreferences = activity.getSharedPreferences("regist", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = activity.getSharedPreferences("forgetpassword", Context.MODE_PRIVATE);
             phone = sharedPreferences.getString("phone","");
             init();
         }
@@ -108,7 +108,9 @@ public class ForgetPasswordThirdFragment extends Fragment{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String result = response.body().string();
+                Log.e("debug","返回结果:"+result);
                 currentUser = new ObjectMapper().readValue(result,User.class);
+
             }
         });
     }
@@ -188,8 +190,14 @@ public class ForgetPasswordThirdFragment extends Fragment{
 
 
                     } catch (IOException e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(activity, "修改密码失败", Toast.LENGTH_SHORT).show();
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                Toast.makeText(activity, "修改密码失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                         e.printStackTrace();
                     }
                 }

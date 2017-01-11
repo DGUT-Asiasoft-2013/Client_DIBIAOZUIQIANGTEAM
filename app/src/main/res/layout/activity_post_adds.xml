@@ -55,7 +55,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toEndOf="@+id/iv_add_goods_back"
-                    android:text="上架商品"
+                    android:text="发布帖子"
                     android:textColor="#000"
                     android:textSize="18dp" />
 

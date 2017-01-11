@@ -113,6 +113,7 @@ public class ForgetPasswordSecondFragment extends Fragment{
                     return;
                 }
                 SMSSDK.submitVerificationCode(country,phone,etCode.getText().toString());
+
             }
         });
         tvSend.setTextColor(getResources().getColor(R.color.gray));

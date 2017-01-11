@@ -162,7 +162,6 @@ public class ForgetPasswordFirstFragment extends Fragment{
                     editor.putString("phone", etMobile.getText().toString());
                     editor.putString("country", "86");
                     editor.commit();
-
                 }
             }
         });
