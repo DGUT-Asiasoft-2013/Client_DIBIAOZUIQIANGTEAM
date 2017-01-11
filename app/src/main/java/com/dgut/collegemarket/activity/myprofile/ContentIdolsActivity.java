@@ -120,7 +120,7 @@ public class ContentIdolsActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            onReloadSubscribedResult(responseString);
                             onCheckSubscribedResult(responseString);
                         }
                     });
@@ -129,6 +129,7 @@ public class ContentIdolsActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            onReloadSubscribedResult(false);
                             onCheckSubscribedResult(false);
                         }
                     });
@@ -141,7 +142,7 @@ public class ContentIdolsActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        onReloadSubscribedResult(false);
                         onCheckSubscribedResult(false);
                     }
                 });
@@ -152,7 +153,7 @@ public class ContentIdolsActivity extends Activity {
     void onCheckSubscribedResult(boolean result) {
 
         isSubscribed = result;
-        subscribeButton.setTextColor(result ? Color.BLACK : Color.WHITE);
+//        subscribeButton.setTextColor(result ? Color.BLACK : Color.WHITE);
     }
 
     void reloadSubscribed() {
@@ -173,7 +174,7 @@ public class ContentIdolsActivity extends Activity {
                         @Override
                         public void run() {
 
-                            onReloadSubscribedResult(count);
+//                            onReloadSubscribedResult(count);
                         }
                     });
                 } catch (Exception e) {
@@ -182,7 +183,7 @@ public class ContentIdolsActivity extends Activity {
                         @Override
                         public void run() {
 
-                            onReloadSubscribedResult(0);
+//                            onReloadSubscribedResult(0);
                         }
                     });
                 }
@@ -195,17 +196,17 @@ public class ContentIdolsActivity extends Activity {
                     @Override
                     public void run() {
 
-                        onReloadSubscribedResult(0);
+//                        onReloadSubscribedResult(0);
                     }
                 });
             }
         });
     }
 
-    void onReloadSubscribedResult(int count) {
+    void onReloadSubscribedResult(boolean count) {
 
-        if (count > 0) {
-            subscribeButton.setText("已关注");
+        if (count) {
+            subscribeButton.setText("取消关注");
             subscribeButton.setBackgroundColor(Color.parseColor("#ffb8b8b8"));
         } else {
             subscribeButton.setText("+关注");
@@ -257,7 +258,7 @@ public class ContentIdolsActivity extends Activity {
 
     void reload() {
 
-        reloadSubscribed();
+//        reloadSubscribed();
         checkSubscribed();
 
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()

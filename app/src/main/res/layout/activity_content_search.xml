@@ -51,17 +51,17 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/hello_2017_zaijian" />
+                android:background="@drawable/advertisement3" />
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/adv_bag" />
+                android:background="@drawable/advertisement2" />
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/adv_jestina1" />
+                android:background="@drawable/advertisement1" />
         </LinearLayout>
 
         <LinearLayout
