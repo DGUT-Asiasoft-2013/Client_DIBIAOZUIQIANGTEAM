@@ -36,7 +36,7 @@
     <com.dgut.collegemarket.view.viewswitcher.SlidingSwitcherView
         android:id="@+id/slidingLayout"
         android:layout_width="fill_parent"
-        android:layout_height="220dip">
+        android:layout_height="230dip">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -46,22 +46,22 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/hello_2017_new" />
+                android:background="@drawable/hello_2017_chu" />
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/advertisement3" />
+                android:background="@drawable/advertisement5" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/advertisement6" />
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@drawable/advertisement2" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/advertisement1" />
         </LinearLayout>
 
         <LinearLayout
