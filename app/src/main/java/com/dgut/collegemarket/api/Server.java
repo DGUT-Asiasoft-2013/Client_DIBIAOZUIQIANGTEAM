@@ -32,7 +32,7 @@ public class Server {
 	}
 
 	//少年改个ip吧
-	public static String serverAddress = "http://172.27.15.12:8080/CollegeMarket/";
+	public static String serverAddress = "http://192.168.1.102:8080/CollegeMarket/";
 	public static Request.Builder requestBuilderWithApi(String api){
 		String url=serverAddress+"api/"+api;
 		System.out.println("访问了："+url);

@@ -181,8 +181,8 @@ public class GoodsContentActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            MainActivity.ordersPage=2;
+                if (resultCode == RESULT_OK) {
+                    MainActivity.ordersPage=2;
             finish();
 
         }

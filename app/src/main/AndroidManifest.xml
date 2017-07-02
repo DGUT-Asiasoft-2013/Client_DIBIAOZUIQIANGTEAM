@@ -48,22 +48,18 @@
         android:allowBackup="true"
         android:icon="@mipmap/collegemarket"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/collegemarket"
+
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoginActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name="com.xhs.xhsparallaxwelcome.BootActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.xhs.xhsparallaxwelcome.BootActivity">
+
         </activity>
         //请地表最强战队成员规范化排序，谢谢！
         <activity android:name=".activity.RegisterActivity" />
@@ -221,6 +217,9 @@
             android:name="JPUSH_APPKEY"
             android:value="e0f4658886b76760f365ccf7" />
 
+
+
+
         <activity android:name="im.sdk.debug.activity.setting.SettingMainActivity" />
         <activity android:name="im.sdk.debug.activity.TypeActivity" />
         <activity android:name="im.sdk.debug.activity.setting.InfoActivity" />
@@ -228,7 +227,8 @@
         <activity android:name="im.sdk.debug.activity.setting.UpdatePassword" />
         <activity android:name="im.sdk.debug.activity.setting.UpdateUserInfoActivity" />
         <activity android:name="im.sdk.debug.activity.createmessage.CreateMessageActivity" />
-        <activity android:name="im.sdk.debug.activity.createmessage.CreateSigTextMessageActivity" />
+        <activity android:name="im.sdk.debug.activity.createmessage.CreateSigTextMessageActivity" >
+              </activity>
         <activity android:name="im.sdk.debug.activity.imagecontent.ImageContentActivity" />
         <activity android:name="im.sdk.debug.activity.conversation.ConversationActivity" />
         <activity android:name="im.sdk.debug.activity.createmessage.CreateSigCustomMsgActivity" />

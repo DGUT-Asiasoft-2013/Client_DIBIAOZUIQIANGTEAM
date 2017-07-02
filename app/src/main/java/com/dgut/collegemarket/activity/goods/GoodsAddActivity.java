@@ -100,6 +100,7 @@ public class GoodsAddActivity extends Activity {
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+
                 progressDialog.dismiss();
                 runOnUiThread(new Runnable() {
                     @Override
