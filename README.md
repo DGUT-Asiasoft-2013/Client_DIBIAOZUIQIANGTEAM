@@ -13,7 +13,7 @@
 悬赏功能：可以帮助用户找到解决问题的最佳答案，也可以让帮助者获得应有的酬劳。
 社交功能：可以查找、关注你感兴趣的用户，并且可以进行即时通讯。
 
-#界面截图
+## 界面截图
 
 ![](https://github.com/DGUT-Asiasoft-2013/Client_DIBIAOZUIQIANGTEAM/blob/master/imgs/GIF.gif)
 ![](https://github.com/DGUT-Asiasoft-2013/Client_DIBIAOZUIQIANGTEAM/blob/master/imgs/GIF2.gif)
@@ -21,7 +21,7 @@
 ![](https://github.com/DGUT-Asiasoft-2013/Client_DIBIAOZUIQIANGTEAM/blob/master/imgs/GIF4.gif)
 ![](https://github.com/DGUT-Asiasoft-2013/Client_DIBIAOZUIQIANGTEAM/blob/master/imgs/GIF5.png)
 
-##其他话
+## 其他话
     以上截图都是从项目完结时候录制的演示视频扣出来的
     这个项目由包括我在内三个成员在20+个工作日完成
     同时参加android项目实训共有9个作品，该项目综合排名第一
