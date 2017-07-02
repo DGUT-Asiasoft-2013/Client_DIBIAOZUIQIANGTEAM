@@ -13,7 +13,7 @@
 悬赏功能：可以帮助用户找到解决问题的最佳答案，也可以让帮助者获得应有的酬劳。
 社交功能：可以查找、关注你感兴趣的用户，并且可以进行即时通讯。
 
-## 界面截图
+## 界面截图（图片过大，若加载慢请[点击][2]）
 
 ![](https://github.com/DGUT-Asiasoft-2013/Client_DIBIAOZUIQIANGTEAM/blob/master/imgs/GIF.gif)
 ![](https://github.com/DGUT-Asiasoft-2013/Client_DIBIAOZUIQIANGTEAM/blob/master/imgs/GIF2.gif)
@@ -35,4 +35,4 @@
 2017 年 07月 01日    
 
 [1]: https://github.com/DIBIAOZUIQIANGTEAM
-
+[2]: https://github.com/DGUT-Asiasoft-2013/Client_DIBIAOZUIQIANGTEAM/tree/master/imgs
